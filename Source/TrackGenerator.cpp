@@ -9,6 +9,14 @@
 
 #define MIDI_FILEPATH "/Users/kirankumar/SingTracks/Builds/MacOSX/OnlyLove.mid"
 
+static bool isRelevantMidiEvent(MidiMessage &midiMessage) {
+    if (!midiMessage.isNoteOn()) {
+        return false;
+    }
+    
+    return true;
+}
+
 TrackGenerator::TrackGenerator() {
     mMidiFile = new MidiFile();
 }
@@ -35,6 +43,18 @@ MidiFile* TrackGenerator::getMidiFile() const {
 void TrackGenerator::printSummary() {
     printf("Num tracks: %d\n", mMidiFile->getNumTracks());
     printf("Time format: %d\n", mMidiFile->getTimeFormat());
+    
+    mMidiFile->convertTimestampTicksToSeconds();
+    for (int i = 0; i < mMidiFile->getNumTracks(); ++i) {
+        const MidiMessageSequence *track = mMidiFile->getTrack(i);
+        printf("\t%d: %d events\n", i, track->getNumEvents());
+        for (MidiMessageSequence::MidiEventHolder* const* iterator = track->begin(); iterator != track->end(); ++iterator) {
+            MidiMessage message = (*iterator)->message;
+            if (isRelevantMidiEvent(message)) {
+                printf("\t\t%4.2f: %s\n", message.getTimeStamp(), MidiMessage::getMidiNoteName(message.getNoteNumber(), true, true, 3).toStdString().c_str());
+            }
+        }
+    }
 }
 
 #pragma mark - MIDIReadTest
