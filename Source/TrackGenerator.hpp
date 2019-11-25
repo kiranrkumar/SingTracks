@@ -14,6 +14,38 @@
 
 #define RUN_UNIT_TESTS 0
 
+class MIDITrackSynthesizerSound : public SynthesiserSound {
+public:
+    MIDITrackSynthesizerSound();
+    ~MIDITrackSynthesizerSound() override;
+    bool appliesToNote (int midiNoteNumber) override;
+    bool appliesToChannel (int midiChannel) override;
+private:
+    
+};
+
+class MIDITrackSynthesizerVoice : public SynthesiserVoice {
+public:
+    MIDITrackSynthesizerVoice();
+    ~MIDITrackSynthesizerVoice() override;
+    
+    bool canPlaySound (SynthesiserSound*) override;
+    void startNote (int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition) override;
+    void stopNote (float velocity, bool allowTailOff) override;
+    void pitchWheelMoved (int newPitchWheelValue) override;
+    void controllerMoved (int controllerNumber, int newControllerValue) override;
+    void renderNextBlock (AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
+private:
+    
+};
+
+/*
+    Synthesize the actual audio buffers from MIDI messages
+ */
+class MIDITrackSynthesizer : public Synthesiser {
+    
+};
+
 class TrackGenerator {
 public:
     TrackGenerator();
@@ -40,6 +72,28 @@ public:
     
 private:
     TrackGenerator mTrackGenerator;
+};
+
+class FileWriteTest : public UnitTest
+{
+public:
+    FileWriteTest() : UnitTest ("Write an audio file to disk") {}
+    
+    void runTest() override;
+    
+    void setUp();
+    bool createFileObject(String);
+    bool writeFileToDisk();
+    
+private:
+    File mFileObject;
+    TimeSliceThread mBackgroundThread { "Audio Recorder (Writer) Thread" }; // the thread that will write our audio data to disk
+    std::unique_ptr<AudioFormatWriter::ThreadedWriter> mThreadedWriter; // the FIFO used to buffer the incoming data
+    double mSampleRate = 48000;
+    int64 mNextSampleNum = 0;
+    
+    CriticalSection mWriterLock;
+    std::atomic<AudioFormatWriter::ThreadedWriter*> activeWriter { nullptr };
 };
 
 #endif /* TrackGenerator_hpp */

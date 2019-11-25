@@ -17,6 +17,49 @@ static bool isRelevantMidiEvent(MidiMessage &midiMessage) {
     return true;
 }
 
+#pragma mark - MIDITrackSynthesizerSound
+bool MIDITrackSynthesizerSound::appliesToNote(int midiNoteNumber)
+{
+    return true;
+}
+
+bool MIDITrackSynthesizerSound::appliesToChannel(int midiChannel)
+{
+    // KRK_FIXME - fix once I know which channels to allow
+    return false;
+}
+
+#pragma mark - MIDITrackSynthesizerVoice
+bool MIDITrackSynthesizerVoice::canPlaySound(SynthesiserSound *synthSound)
+{
+    return true;
+}
+
+void MIDITrackSynthesizerVoice::startNote (int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
+{
+    // KRK_FIXME - to do
+}
+
+void MIDITrackSynthesizerVoice::stopNote (float velocity, bool allowTailOff)
+{
+    // KRK_FIXME - to do
+}
+
+void MIDITrackSynthesizerVoice::pitchWheelMoved (int newPitchWheelValue)
+{
+    // KRK_FIXME - to do
+}
+
+void MIDITrackSynthesizerVoice::controllerMoved (int controllerNumber, int newControllerValue)
+{
+    // KRK_FIXME - to do
+}
+void MIDITrackSynthesizerVoice::renderNextBlock (AudioBuffer<float>& outputBuffer, int startSample, int numSamples)
+{
+    // KRK_FIXME - to do
+}
+
+#pragma mark - TrackGenerator
 TrackGenerator::TrackGenerator() {
     mMidiFile = new MidiFile();
 }
@@ -81,4 +124,31 @@ bool MIDIReadTest::readMIDIFile()
 bool MIDIReadTest::getNumTracks()
 {
     return (mTrackGenerator.getMidiFile()->getNumTracks() > 0);
+}
+
+#pragma mark - FileWriteTest
+
+void FileWriteTest::runTest()
+{
+    
+}
+
+void FileWriteTest::setUp()
+{
+    
+}
+
+bool FileWriteTest::createFileObject(String)
+{
+    File dir = File::getSpecialLocation(File::userDocumentsDirectory);
+    mFileObject = dir.getNonexistentChildFile("FileWriteUnitTest", ".wav");
+    
+    return true;
+}
+
+bool FileWriteTest::writeFileToDisk()
+{
+    mBackgroundThread.startThread();
+    
+    return false;
 }
