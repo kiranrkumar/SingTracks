@@ -149,6 +149,13 @@
 			path = "../../JuceLibraryCode/include_juce_gui_basics.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		140AEED7C25DA3046A9EE6BE = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.mid;
+			name = TestMIDI.mid;
+			path = TestMIDI.mid;
+			sourceTree = "SOURCE_ROOT";
+		};
 		19D7659E62D04B85DF4278F6 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -475,6 +482,7 @@
 			isa = PBXGroup;
 			children = (
 				692FE1CB680FF8B7605F55FB,
+				140AEED7C25DA3046A9EE6BE,
 			);
 			name = Resources;
 			sourceTree = "<group>";

@@ -14,10 +14,9 @@
 
 #define RUN_UNIT_TESTS 0
 
+#pragma mark - Synthesizer
 class MIDITrackSynthesizerSound : public SynthesiserSound {
 public:
-    MIDITrackSynthesizerSound();
-    ~MIDITrackSynthesizerSound() override;
     bool appliesToNote (int midiNoteNumber) override;
     bool appliesToChannel (int midiChannel) override;
 private:
@@ -26,9 +25,6 @@ private:
 
 class MIDITrackSynthesizerVoice : public SynthesiserVoice {
 public:
-    MIDITrackSynthesizerVoice();
-    ~MIDITrackSynthesizerVoice() override;
-    
     bool canPlaySound (SynthesiserSound*) override;
     void startNote (int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition) override;
     void stopNote (float velocity, bool allowTailOff) override;
@@ -36,7 +32,7 @@ public:
     void controllerMoved (int controllerNumber, int newControllerValue) override;
     void renderNextBlock (AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
 private:
-    
+    double mFrequency;
 };
 
 /*
@@ -46,6 +42,7 @@ class MIDITrackSynthesizer : public Synthesiser {
     
 };
 
+#pragma mark - TrackGenerator
 class TrackGenerator {
 public:
     TrackGenerator();
@@ -57,6 +54,8 @@ public:
     void printSummary();
 private:
     MidiFile* mMidiFile;
+    double mSampleRate;
+    MIDITrackSynthesizer mSynth;
 };
 
 class MIDIReadTest : public UnitTest

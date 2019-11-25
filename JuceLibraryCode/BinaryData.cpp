@@ -728,6 +728,14 @@ static const unsigned char temp_binary_data_0[] =
 
 const char* OnlyLove_mid = (const char*) temp_binary_data_0;
 
+//================== TestMIDI.mid ==================
+static const unsigned char temp_binary_data_1[] =
+{ 77,84,104,100,0,0,0,6,0,0,0,1,1,224,77,84,114,107,0,0,0,141,0,255,32,1,0,0,255,3,22,67,108,97,115,115,105,99,32,69,108,101,99,116,114,105,99,32,80,105,97,110,111,0,255,4,22,67,108,97,115,115,105,99,32,69,108,101,99,116,114,105,99,32,80,105,97,110,111,
+0,255,88,4,4,2,24,8,0,255,89,2,0,0,0,255,84,5,33,0,0,0,0,0,255,81,3,7,161,32,0,144,48,98,130,82,128,48,64,129,14,144,50,98,130,58,128,50,64,129,38,144,52,98,131,84,128,52,64,131,108,144,54,98,131,126,128,54,64,131,66,144,55,98,132,33,128,55,64,131,31,
+255,47,0,0,0 };
+
+const char* TestMIDI_mid = (const char*) temp_binary_data_1;
+
 
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
 {
@@ -740,6 +748,7 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
     switch (hash)
     {
         case 0x132fffe7:  numBytes = 57031; return OnlyLove_mid;
+        case 0xfd215edc:  numBytes = 163; return TestMIDI_mid;
         default: break;
     }
 
@@ -749,12 +758,14 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
 
 const char* namedResourceList[] =
 {
-    "OnlyLove_mid"
+    "OnlyLove_mid",
+    "TestMIDI_mid"
 };
 
 const char* originalFilenames[] =
 {
-    "OnlyLove.mid"
+    "OnlyLove.mid",
+    "TestMIDI.mid"
 };
 
 const char* getNamedResourceOriginalFilename (const char* resourceNameUTF8)

@@ -5,6 +5,7 @@
     <GROUP id="{CB5280F1-B51D-A713-6DBA-71EAABAD83B6}" name="Resources">
       <FILE id="cmcG0f" name="OnlyLove.mid" compile="0" resource="1" file="Builds/MacOSX/OnlyLove.mid"
             xcodeResource="0"/>
+      <FILE id="MEOMTb" name="TestMIDI.mid" compile="0" resource="1" file="Builds/MacOSX/TestMIDI.mid"/>
     </GROUP>
     <GROUP id="{0359700B-7377-6DB0-8F39-8884B1DC0A6E}" name="Source">
       <FILE id="BXq6ww" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>

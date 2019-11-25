@@ -8,11 +8,15 @@
 #include "TrackGenerator.hpp"
 
 #define MIDI_FILEPATH "/Users/kirankumar/SingTracks/Builds/MacOSX/OnlyLove.mid"
+#define USE_NOTEON_ONLY 0
 
 static bool isRelevantMidiEvent(MidiMessage &midiMessage) {
+    
+#if USE_NOTEON_ONLY
     if (!midiMessage.isNoteOn()) {
         return false;
     }
+#endif
     
     return true;
 }
@@ -32,17 +36,18 @@ bool MIDITrackSynthesizerSound::appliesToChannel(int midiChannel)
 #pragma mark - MIDITrackSynthesizerVoice
 bool MIDITrackSynthesizerVoice::canPlaySound(SynthesiserSound *synthSound)
 {
-    return true;
+    return dynamic_cast<MIDITrackSynthesizerSound*>(synthSound) != nullptr;
 }
 
 void MIDITrackSynthesizerVoice::startNote (int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
 {
-    // KRK_FIXME - to do
+    mFrequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
+    std::cout << "Midi note: " << midiNoteNumber << " | " << mFrequency << " Hz" << std::endl;
 }
 
 void MIDITrackSynthesizerVoice::stopNote (float velocity, bool allowTailOff)
 {
-    // KRK_FIXME - to do
+    clearCurrentNote();
 }
 
 void MIDITrackSynthesizerVoice::pitchWheelMoved (int newPitchWheelValue)
@@ -62,6 +67,17 @@ void MIDITrackSynthesizerVoice::renderNextBlock (AudioBuffer<float>& outputBuffe
 #pragma mark - TrackGenerator
 TrackGenerator::TrackGenerator() {
     mMidiFile = new MidiFile();
+        
+    mSampleRate = 48000;
+    
+    mSynth.clearVoices();
+    for (int i = 0; i < 5; ++i) {
+        mSynth.addVoice(new MIDITrackSynthesizerVoice());
+    }
+    
+    mSynth.clearSounds();
+    mSynth.addSound(new MIDITrackSynthesizerSound());
+    mSynth.setCurrentPlaybackSampleRate(mSampleRate);
 }
 
 TrackGenerator::~TrackGenerator() {
@@ -94,7 +110,8 @@ void TrackGenerator::printSummary() {
         for (MidiMessageSequence::MidiEventHolder* const* iterator = track->begin(); iterator != track->end(); ++iterator) {
             MidiMessage message = (*iterator)->message;
             if (isRelevantMidiEvent(message)) {
-                printf("\t\t%4.2f: %s\n", message.getTimeStamp(), MidiMessage::getMidiNoteName(message.getNoteNumber(), true, true, 3).toStdString().c_str());
+//                printf("\t\t%4.2f: %s\n", message.getTimeStamp(), MidiMessage::getMidiNoteName(message.getNoteNumber(), true, true, 3).toStdString().c_str());
+                printf("\t\t%4.2f sec: %s\n", message.getTimeStamp(), message.getDescription().toStdString().c_str());
             }
         }
     }
