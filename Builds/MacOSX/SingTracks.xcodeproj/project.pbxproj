@@ -53,6 +53,10 @@
 			isa = PBXBuildFile;
 			fileRef = 3C2C883AEEB667A00B8C2A81;
 		};
+		85A150A35E07C425D1DBE1C5 = {
+			isa = PBXBuildFile;
+			fileRef = 71A69B701FAB0F9E911DA552;
+		};
 		F699FF824697C673F76D2DCC = {
 			isa = PBXBuildFile;
 			fileRef = 7140546A1B8DD4B8A069961E;
@@ -268,6 +272,13 @@
 			path = ../../Source/MainComponent.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		71A69B701FAB0F9E911DA552 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = MIDITrackSynthesizer.cpp;
+			path = ../../Source/MIDITrackSynthesizer.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		7786703F270A9FAF50B1AD5F = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -351,6 +362,13 @@
 			name = "juce_audio_formats";
 			path = "~/JUCE/modules/juce_audio_formats";
 			sourceTree = "<absolute>";
+		};
+		A9CF7FC843CD91FF1E1910CB = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = MIDITrackSynthesizer.h;
+			path = ../../Source/MIDITrackSynthesizer.h;
+			sourceTree = "SOURCE_ROOT";
 		};
 		AA9636514AF111FBD147E5A4 = {
 			isa = PBXFileReference;
@@ -490,6 +508,8 @@
 		86F680B99B815C4A51E9E634 = {
 			isa = PBXGroup;
 			children = (
+				71A69B701FAB0F9E911DA552,
+				A9CF7FC843CD91FF1E1910CB,
 				C6C7A9C7DEDB219683AABE4B,
 				7140546A1B8DD4B8A069961E,
 				2E290065741D838078CD9CD6,
@@ -813,6 +833,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85A150A35E07C425D1DBE1C5,
 				F699FF824697C673F76D2DCC,
 				8AAA3BAEBA938D3E58608AD9,
 				FFD8C14BF494A6E48EE3414E,

@@ -12,11 +12,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../Source/MainComponent.cpp"
+            timestampString = "596482535.381053"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "81"
             endingLineNumber = "81"
-            landmarkName = "MainComponent::filenameComponentChanged(fileComponent)"
+            landmarkName = "MainComponent::filenameComponentChanged (FilenameComponent *fileComponent)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

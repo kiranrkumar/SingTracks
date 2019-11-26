@@ -8,6 +8,10 @@
       <FILE id="MEOMTb" name="TestMIDI.mid" compile="0" resource="1" file="Builds/MacOSX/TestMIDI.mid"/>
     </GROUP>
     <GROUP id="{0359700B-7377-6DB0-8F39-8884B1DC0A6E}" name="Source">
+      <FILE id="RRIkTG" name="MIDITrackSynthesizer.cpp" compile="1" resource="0"
+            file="Source/MIDITrackSynthesizer.cpp"/>
+      <FILE id="ZvK34E" name="MIDITrackSynthesizer.h" compile="0" resource="0"
+            file="Source/MIDITrackSynthesizer.h"/>
       <FILE id="BXq6ww" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="JhUhvz" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
