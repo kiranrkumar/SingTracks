@@ -32,14 +32,10 @@ public:
     void controllerMoved (int controllerNumber, int newControllerValue) override;
     void renderNextBlock (AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
 private:
+    double getNextSineSample();
     double mFrequency;
-};
-
-/*
-    Synthesize the actual audio buffers from MIDI messages
- */
-class MIDITrackSynthesizer : public Synthesiser {
-    
+    double mGain;
+    bool mIsTailing;
 };
 
 #pragma mark - TrackGenerator
@@ -55,7 +51,7 @@ public:
 private:
     MidiFile* mMidiFile;
     double mSampleRate;
-    MIDITrackSynthesizer mSynth;
+    Synthesiser mSynth;
 };
 
 class MIDIReadTest : public UnitTest
