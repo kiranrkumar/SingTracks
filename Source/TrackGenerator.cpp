@@ -110,7 +110,6 @@ void TrackGenerator::renderMidiToAudio()
             while (message.getTimeStamp() < endTime && midiEventIndex < numMidiEventsInTrack) {
                 DEBUG_LOG("\t\t\tAdding Midi event %s\n", message.getDescription().toRawUTF8());
                 midiBuffer.addEvent(message, midiBufferSampleNum++);
-//                midiBuffer.addEvent(message, startIndex);
                 midiEventIndex++;
                 if (message.isNoteOn()) {
                     DEBUG_LOG("Note On | Start Ix: %d | Buffer Len: %d\n", startIndex, currentBufferLength);

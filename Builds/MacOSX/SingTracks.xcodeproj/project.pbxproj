@@ -181,6 +181,13 @@
 			path = ../../Source/Main.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		2F05B1656987E1E8552155B6 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.mid;
+			name = testmidi2.mid;
+			path = testmidi2.mid;
+			sourceTree = "SOURCE_ROOT";
+		};
 		38F1228EA1C3589278B695DC = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -501,6 +508,7 @@
 			children = (
 				692FE1CB680FF8B7605F55FB,
 				140AEED7C25DA3046A9EE6BE,
+				2F05B1656987E1E8552155B6,
 			);
 			name = Resources;
 			sourceTree = "<group>";

@@ -14,8 +14,11 @@ namespace BinaryData
     extern const char*   TestMIDI_mid;
     const int            TestMIDI_midSize = 163;
 
+    extern const char*   testmidi2_mid;
+    const int            testmidi2_midSize = 160;
+
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 2;
+    const int namedResourceListSize = 3;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

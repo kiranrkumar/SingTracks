@@ -10,7 +10,7 @@
 
 #pragma once
 
-#define ENABLE_DEBUG_LOGGING 0
+#define ENABLE_DEBUG_LOGGING 1
 
 #if ENABLE_DEBUG_LOGGING
 #define DEBUG_LOG(...) printf(__VA_ARGS__)

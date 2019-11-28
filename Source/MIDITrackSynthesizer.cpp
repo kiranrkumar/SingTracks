@@ -48,7 +48,7 @@ void MIDITrackSynthesizerVoice::stopNote (float velocity, bool allowTailOff)
         mGain = 0;
         clearCurrentNote();
     }
-    DEBUG_LOG("start note: %d | %2.f Hz\n", midiNoteNumber, mFrequency);
+    DEBUG_LOG("stop note: %2.f Hz\n", mFrequency);
 }
 
 // Not concerned with pitch wheel and controller functions
