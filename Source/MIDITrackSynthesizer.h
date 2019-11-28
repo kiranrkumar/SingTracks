@@ -40,8 +40,8 @@ private:
     float getNextSineSample();
     float getNextTailValue(float gain);
     
-    float mSineAlpha;
+    float mSineAlpha = 0;
     float mFrequency;
-    float mGain;
-    bool mIsTailing;
+    float mGain = 0;
+    bool mIsTailing = true;
 };

@@ -41,28 +41,26 @@ void MIDITrackSynthesizerVoice::startNote (int midiNoteNumber, float velocity, S
 
 void MIDITrackSynthesizerVoice::stopNote (float velocity, bool allowTailOff)
 {
-    mIsTailing = true;
+    if (allowTailOff) {
+        mIsTailing = true;
+    }
+    else {
+        mGain = 0;
+        clearCurrentNote();
+    }
     DEBUG_LOG("start note: %d | %2.f Hz\n", midiNoteNumber, mFrequency);
-    mGain = 0;
-    clearCurrentNote();
 }
 
-void MIDITrackSynthesizerVoice::pitchWheelMoved (int newPitchWheelValue)
-{
-    // KRK_FIXME - no-op. Not concerned with pitch wheels
-}
-
-void MIDITrackSynthesizerVoice::controllerMoved (int controllerNumber, int newControllerValue)
-{
-    // KRK_FIXME - no-op. Not concerned with controllerMoved
-}
+// Not concerned with pitch wheel and controller functions
+void MIDITrackSynthesizerVoice::pitchWheelMoved (int newPitchWheelValue) {}
+void MIDITrackSynthesizerVoice::controllerMoved (int controllerNumber, int newControllerValue) {}
 
 void MIDITrackSynthesizerVoice::renderNextBlock (AudioBuffer<float>& outputBuffer, int startSample, int numSamples)
 {
     for (int n = startSample; n < startSample + numSamples; ++n) {
         float sample = getNextSineSample();
         for (int c = 0; c < outputBuffer.getNumChannels(); ++c) {
-//            mGain = getNextTailValue(mGain);
+            mGain = getNextTailValue(mGain);
             outputBuffer.addSample(c, n, sample * mGain);
         }
     }
@@ -82,12 +80,13 @@ float MIDITrackSynthesizerVoice::getNextSineSample()
 
 float MIDITrackSynthesizerVoice::getNextTailValue(float gain)
 {
-    if (gain <= 0.005) {
+    if (mIsTailing && gain <= 0.00005) {
         gain = 0;
         mIsTailing = false;
+        clearCurrentNote();
     }
     else if (mIsTailing) {
-        gain *= 0.65;
+        gain *= 0.99;
     }
     
     return gain;
