@@ -23,9 +23,11 @@ public:
     MidiFile* getMidiFile() const;
     
     void printSummary();
+    void renderMidiToAudio();
 private:
+    bool writeAudioToFile(AudioBuffer<float>&);
     MidiFile* mMidiFile;
-    double mSampleRate;
+    float mSampleRate;
     Synthesiser mSynth;
 };
 
@@ -59,7 +61,7 @@ private:
     File mFileObject;
     TimeSliceThread mBackgroundThread { "Audio Recorder (Writer) Thread" }; // the thread that will write our audio data to disk
     std::unique_ptr<AudioFormatWriter::ThreadedWriter> mThreadedWriter; // the FIFO used to buffer the incoming data
-    double mSampleRate = 48000;
+    float mSampleRate = 48000;
     int64 mNextSampleNum = 0;
     
     CriticalSection mWriterLock;

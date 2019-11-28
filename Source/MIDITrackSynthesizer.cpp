@@ -12,7 +12,7 @@
 
 #include <cmath>
 
-#pragma mark - MIDITrackSynthesizerSound
+#pragma mark - Synthesizer Sound
 bool MIDITrackSynthesizerSound::appliesToNote(int midiNoteNumber)
 {
     return true;
@@ -24,7 +24,7 @@ bool MIDITrackSynthesizerSound::appliesToChannel(int midiChannel)
     return true;
 }
 
-#pragma mark - MIDITrackSynthesizerVoice
+#pragma mark - Synthesizer Voice
 bool MIDITrackSynthesizerVoice::canPlaySound(SynthesiserSound *synthSound)
 {
     return dynamic_cast<MIDITrackSynthesizerSound*>(synthSound) != nullptr;
@@ -32,57 +32,63 @@ bool MIDITrackSynthesizerVoice::canPlaySound(SynthesiserSound *synthSound)
 
 void MIDITrackSynthesizerVoice::startNote (int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
 {
+    mSineAlpha = 0;
     mIsTailing = false;
     mFrequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
     mGain = velocity / 127.0;
-    std::cout << "start note: " << midiNoteNumber << " | " << mFrequency << " Hz" << std::endl;
+    DEBUG_LOG("start note: %d | %2.f Hz\n", midiNoteNumber, mFrequency);
 }
 
 void MIDITrackSynthesizerVoice::stopNote (float velocity, bool allowTailOff)
 {
     mIsTailing = true;
-    std::cout << "stop note: " << mFrequency << " Hz" << std::endl;
+    DEBUG_LOG("start note: %d | %2.f Hz\n", midiNoteNumber, mFrequency);
     mGain = 0;
     clearCurrentNote();
 }
 
 void MIDITrackSynthesizerVoice::pitchWheelMoved (int newPitchWheelValue)
 {
-    // KRK_FIXME - to do
+    // KRK_FIXME - no-op. Not concerned with pitch wheels
 }
 
 void MIDITrackSynthesizerVoice::controllerMoved (int controllerNumber, int newControllerValue)
 {
-    // KRK_FIXME - to do
+    // KRK_FIXME - no-op. Not concerned with controllerMoved
 }
+
 void MIDITrackSynthesizerVoice::renderNextBlock (AudioBuffer<float>& outputBuffer, int startSample, int numSamples)
 {
-    for (int n = 0; n < numSamples; ++n) {
-        double sample = getNextSineSample();
+    for (int n = startSample; n < startSample + numSamples; ++n) {
+        float sample = getNextSineSample();
         for (int c = 0; c < outputBuffer.getNumChannels(); ++c) {
-            if (mIsTailing) {
-                mGain *= 0.65;
-            }
-            if (mGain <= 0.005) {
-                mGain = 0;
-                mIsTailing = false;
-            }
+//            mGain = getNextTailValue(mGain);
             outputBuffer.addSample(c, n, sample * mGain);
         }
     }
 }
 
-double MIDITrackSynthesizerVoice::getNextSineSample()
+float MIDITrackSynthesizerVoice::getNextSineSample()
 {
-    static int sampleNum = 0;
-    static double alpha = 0;
-    const double twoPi = 2 * M_PI;
-    alpha += (twoPi * mFrequency / getSampleRate());
-    if (alpha > twoPi) {
-        alpha -= twoPi;
+    const float twoPi = 2 * M_PI;
+    mSineAlpha += (twoPi * mFrequency / getSampleRate());
+    if (mSineAlpha > twoPi) {
+        mSineAlpha -= twoPi;
     }
     
-    double sample = std::sin(alpha);
-//    printf("%d | Alpha: %.2f | Sample: %.2f\n", sampleNum++, alpha, sample);
+    float sample = std::sin(mSineAlpha);
     return sample;
+}
+
+float MIDITrackSynthesizerVoice::getNextTailValue(float gain)
+{
+    if (gain <= 0.005) {
+        gain = 0;
+        mIsTailing = false;
+    }
+    else if (mIsTailing) {
+        gain *= 0.65;
+    }
+    
+    return gain;
 }

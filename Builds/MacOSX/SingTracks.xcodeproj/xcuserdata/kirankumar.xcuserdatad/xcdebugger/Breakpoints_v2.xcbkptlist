@@ -7,17 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3683BDD4-DAAC-47C4-A300-96EB077E8876"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../Source/MainComponent.cpp"
-            timestampString = "596482535.381053"
+            filePath = "../../Source/TrackGenerator.cpp"
+            timestampString = "596660072.927752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "MainComponent::filenameComponentChanged (FilenameComponent *fileComponent)"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "TrackGenerator::writeAudioToFile(AudioBuffer&lt;float&gt;&amp; buffer)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

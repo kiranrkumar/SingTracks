@@ -22,9 +22,22 @@ static bool isRelevantMidiEvent(MidiMessage &midiMessage) {
     return true;
 }
 
+static float getSineSample()
+{
+    static float alpha = 0;
+    const float twoPi = 2 * M_PI;
+    alpha += (twoPi * 340  / 48000);
+    if (alpha > twoPi) {
+        alpha -= twoPi;
+    }
+    
+    float sample = std::sin(alpha);
+    return sample;
+}
+
 TrackGenerator::TrackGenerator() {
     mMidiFile = new MidiFile();
-        
+    
     mSampleRate = 48000;
     
     mSynth.clearVoices();
@@ -57,58 +70,99 @@ MidiFile* TrackGenerator::getMidiFile() const {
 }
 
 void TrackGenerator::printSummary() {
-    printf("Num tracks: %d\n", mMidiFile->getNumTracks());
-    printf("Time format: %d\n", mMidiFile->getTimeFormat());
-    
     mMidiFile->convertTimestampTicksToSeconds();
-    MidiBuffer midiBuffer;
-    int midiSamplePos = 0;
+    DEBUG_LOG("Num tracks: %d\n", mMidiFile->getNumTracks());
+    DEBUG_LOG("Time format: %d\n", mMidiFile->getTimeFormat());
+}
+
+void TrackGenerator::renderMidiToAudio()
+{
+    int numTracks = mMidiFile->getNumTracks();
+    int numSamples = int(ceil(mMidiFile->getLastTimestamp() * mSampleRate));
+    DEBUG_LOG("%d tracks\n", numTracks);
+    
+    AudioBuffer<float> outputBuffer;
+    outputBuffer.setSize(1, numSamples);
+    outputBuffer.clear();
+    
+    const int BLOCKSIZE = 256;
+
     for (int i = 0; i < mMidiFile->getNumTracks(); ++i) {
         const MidiMessageSequence *track = mMidiFile->getTrack(i);
-        printf("\t%d: %d events\n", i, track->getNumEvents());
-        for (MidiMessageSequence::MidiEventHolder* const* iterator = track->begin(); iterator != track->end(); ++iterator) {
-            MidiMessage message = (*iterator)->message;
-            if (isRelevantMidiEvent(message)) {
-//                printf("\t\t%4.2f sec: %s\n", message.getTimeStamp(), message.getDescription().toStdString().c_str());
-                midiBuffer.addEvent(message, midiSamplePos++);
+        int numMidiEventsInTrack = track->getNumEvents();
+        DEBUG_LOG("\t%d: %d events\n", i, numMidiEventsInTrack);
+        
+        int startIndex = 0;
+        int currentBufferLength = std::min(numSamples - startIndex - 1, BLOCKSIZE);
+        
+        int midiEventIndex = 0;
+        MidiBuffer midiBuffer;
+        
+        while (startIndex < numSamples) {
+            midiBuffer.clear();
+            
+            float startTime = (float)startIndex / mSampleRate;
+            float endTime = startTime + (float)currentBufferLength / mSampleRate;
+//            DEBUG_LOG("\t\t%.2f - %.2f\n", startTime, endTime);
+            
+            MidiMessage message = track->getEventPointer(midiEventIndex)->message;
+            int midiBufferSampleNum = 0;
+            while (message.getTimeStamp() < endTime && midiEventIndex < numMidiEventsInTrack) {
+                DEBUG_LOG("\t\t\tAdding Midi event %s\n", message.getDescription().toRawUTF8());
+                midiBuffer.addEvent(message, midiBufferSampleNum++);
+//                midiBuffer.addEvent(message, startIndex);
+                midiEventIndex++;
+                if (message.isNoteOn()) {
+                    DEBUG_LOG("Note On | Start Ix: %d | Buffer Len: %d\n", startIndex, currentBufferLength);
+                    mSynth.noteOn(message.getChannel(), message.getNoteNumber(), message.getVelocity());
+                }
+                else if (message.isNoteOff()) {
+                    DEBUG_LOG("Note Off | Start Ix: %d | Buffer Len: %d\n", startIndex, currentBufferLength);
+                    mSynth.noteOff(message.getChannel(), message.getNoteNumber(), message.getVelocity(), true);
+                }
+                if (midiEventIndex < numMidiEventsInTrack) {
+                    message = track->getEventPointer(midiEventIndex)->message;
+                }
             }
+            
+            mSynth.renderNextBlock(outputBuffer, midiBuffer, startIndex, currentBufferLength);
+            
+            startIndex += BLOCKSIZE;
+            currentBufferLength = std::min(numSamples - startIndex - 1, BLOCKSIZE);
+            
+        }
+        
+        // print buffer just to see
+        for (int i = 0; i < numSamples; i += 100) {
+            DEBUG_LOG("%.2f,", outputBuffer.getSample(0, i));
         }
     }
     
-    const int numChannels = 1;
-    float durationInSec = .2;
-    int numSamples = (int)(mSampleRate * durationInSec);
+    DEBUG_LOG("\n");
     
-    AudioBuffer<float> outputBuffer(numChannels, numSamples);
-    outputBuffer.clear();
-    mSynth.renderNextBlock(outputBuffer, midiBuffer, 0, numSamples);
-    for (int i = 0; i < numSamples; ++i) {
-        for (int c = 0; c < numChannels; ++c) {
-//            if (c == 0) {
-//                std::cout << outputBuffer.getSample(c, i) << "|";
-//            }
-//            else {
-//                std::cout << outputBuffer.getSample(c, i) << std::endl;
-            printf("%d | %.2f\n", i, outputBuffer.getSample(c, i));
-//            }
-        }
+    writeAudioToFile(outputBuffer);
+}
+
+bool TrackGenerator::writeAudioToFile(AudioBuffer<float>& buffer)
+{
+    DEBUG_LOG("Writing audio to file...\n");
+    File outFile("~/audioTestFile.wav");
+    FileOutputStream outStream(outFile);
+    if (outStream.openedOk()) {
+        outStream.setPosition(0);
+        outStream.truncate();
     }
     
-//    // Try iterating through the Midi buffer
-//    MidiBuffer::Iterator midiBufferIterator(midiBuffer);
-//    MidiMessage message;
-//    int sample;
-//
-//    while (midiBufferIterator.getNextEvent(message, sample)) {
-//        printf("\t\t%4.2f sec: %s\n", message.getTimeStamp(), message.getDescription().toStdString().c_str());
-//        if (message.isNoteOn()) {
-//            mSynth.noteOn(message.getChannel(), message.getNoteNumber(), message.getVelocity());
-//        }
-//        else if (message.isNoteOff()) {
-//            mSynth.noteOff(message.getChannel(), message.getNoteNumber(), message.getVelocity(), true);
-//        }
-//    }
+    AudioFormatManager manager;
+    manager.registerBasicFormats();
     
+    WavAudioFormat wavFormat;
+    std::unique_ptr<AudioFormatWriter> writer(wavFormat.createWriterFor(&outStream, mSampleRate, 1, 16, {}, 0));
+    
+    DEBUG_LOG("Writing %d samples\n", buffer.getNumSamples());
+    writer.get()->writeFromAudioSampleBuffer(buffer, 0, buffer.getNumSamples());
+    
+    return true;
 }
 
 #pragma mark - MIDIReadTest

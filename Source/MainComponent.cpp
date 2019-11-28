@@ -68,6 +68,8 @@ void MainComponent::buttonClicked (Button *button) {
         bool didRead = mTrackGenerator.getMidiDataFromFile(*mSelectedFile);
         if (didRead) {
             mTrackGenerator.printSummary();
+//            mTrackGenerator.fillMidiBuffer();
+            mTrackGenerator.renderMidiToAudio();
         }
         else {
             printf("Uh-oh, didn't read MIDI properly...");

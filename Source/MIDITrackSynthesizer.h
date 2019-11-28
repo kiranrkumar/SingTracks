@@ -10,6 +10,14 @@
 
 #pragma once
 
+#define ENABLE_DEBUG_LOGGING 0
+
+#if ENABLE_DEBUG_LOGGING
+#define DEBUG_LOG(...) printf(__VA_ARGS__)
+#else
+#define DEBUG_LOG(...) {}
+#endif
+
 #include "../JuceLibraryCode/JuceHeader.h"
 
 class MIDITrackSynthesizerSound : public SynthesiserSound {
@@ -29,8 +37,11 @@ public:
     void controllerMoved (int controllerNumber, int newControllerValue) override;
     void renderNextBlock (AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
 private:
-    double getNextSineSample();
-    double mFrequency;
-    double mGain;
+    float getNextSineSample();
+    float getNextTailValue(float gain);
+    
+    float mSineAlpha;
+    float mFrequency;
+    float mGain;
     bool mIsTailing;
 };
