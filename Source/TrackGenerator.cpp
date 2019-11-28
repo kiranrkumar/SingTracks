@@ -146,17 +146,17 @@ bool TrackGenerator::writeAudioToFile(AudioBuffer<float>& buffer)
 {
     DEBUG_LOG("Writing audio to file...\n");
     File outFile("~/audioTestFile.wav");
-    FileOutputStream outStream(outFile);
-    if (outStream.openedOk()) {
-        outStream.setPosition(0);
-        outStream.truncate();
+    FileOutputStream *outStream = new FileOutputStream(outFile);
+    if (outStream->openedOk()) {
+        outStream->setPosition(0);
+        outStream->truncate();
     }
     
     AudioFormatManager manager;
     manager.registerBasicFormats();
     
     WavAudioFormat wavFormat;
-    std::unique_ptr<AudioFormatWriter> writer(wavFormat.createWriterFor(&outStream, mSampleRate, 1, 16, {}, 0));
+    std::unique_ptr<AudioFormatWriter> writer(wavFormat.createWriterFor(outStream, mSampleRate, 1, 16, {}, 0));
     
     DEBUG_LOG("Writing %d samples\n", buffer.getNumSamples());
     writer.get()->writeFromAudioSampleBuffer(buffer, 0, buffer.getNumSamples());
