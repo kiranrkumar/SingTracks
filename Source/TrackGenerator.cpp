@@ -96,7 +96,7 @@ void TrackGenerator::renderMidiToAudio()
         int currentBufferLength = std::min(numSamples - startIndex - 1, BLOCKSIZE);
         
         int midiEventIndex = 0;
-        MidiBuffer midiBuffer;
+        MidiBuffer midiBuffer; // placeholder. noteOn() and noteOff() messages will be called manually
         
         while (startIndex < numSamples) {
             midiBuffer.clear();
@@ -106,10 +106,8 @@ void TrackGenerator::renderMidiToAudio()
 //            DEBUG_LOG("\t\t%.2f - %.2f\n", startTime, endTime);
             
             MidiMessage message = track->getEventPointer(midiEventIndex)->message;
-            int midiBufferSampleNum = 0;
             while (message.getTimeStamp() < endTime && midiEventIndex < numMidiEventsInTrack) {
                 DEBUG_LOG("\t\t\tAdding Midi event %s\n", message.getDescription().toRawUTF8());
-                midiBuffer.addEvent(message, midiBufferSampleNum++);
                 midiEventIndex++;
                 if (message.isNoteOn()) {
                     DEBUG_LOG("Note On | Start Ix: %d | Buffer Len: %d\n", startIndex, currentBufferLength);
