@@ -12,6 +12,8 @@
 
 #include <cmath>
 
+#define SILENCE 0.000005
+
 #pragma mark - Synthesizer Sound
 bool MIDITrackSynthesizerSound::appliesToNote(int midiNoteNumber)
 {
@@ -32,7 +34,9 @@ bool MIDITrackSynthesizerVoice::canPlaySound(SynthesiserSound *synthSound)
 
 void MIDITrackSynthesizerVoice::startNote (int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
 {
-    mSineAlpha = 0;
+    if (mGain <= SILENCE) {
+        mSineAlpha = 0;
+    }
     mIsTailing = false;
     mFrequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
     mGain = velocity;
@@ -80,7 +84,7 @@ float MIDITrackSynthesizerVoice::getNextSineSample()
 
 float MIDITrackSynthesizerVoice::getNextTailValue(float gain)
 {
-    if (mIsTailing && gain <= 0.00005) {
+    if (mIsTailing && gain <= SILENCE) {
         gain = 0;
         mIsTailing = false;
         clearCurrentNote();
