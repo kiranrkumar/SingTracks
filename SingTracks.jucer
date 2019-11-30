@@ -3,6 +3,7 @@
 <JUCERPROJECT id="AegoPH" name="SingTracks" projectType="guiapp" jucerVersion="5.4.5">
   <MAINGROUP id="sc2WeB" name="SingTracks">
     <GROUP id="{CB5280F1-B51D-A713-6DBA-71EAABAD83B6}" name="Resources">
+      <FILE id="Pir1eh" name="moremidi.mid" compile="0" resource="1" file="Builds/MacOSX/moremidi.mid"/>
       <FILE id="cmcG0f" name="OnlyLove.mid" compile="0" resource="1" file="Builds/MacOSX/OnlyLove.mid"
             xcodeResource="0"/>
       <FILE id="MEOMTb" name="TestMIDI.mid" compile="0" resource="1" file="Builds/MacOSX/TestMIDI.mid"/>

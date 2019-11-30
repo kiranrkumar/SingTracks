@@ -35,7 +35,7 @@ void MIDITrackSynthesizerVoice::startNote (int midiNoteNumber, float velocity, S
     mSineAlpha = 0;
     mIsTailing = false;
     mFrequency = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
-    mGain = velocity / 127.0;
+    mGain = velocity;
     DEBUG_LOG("start note: %d | %2.f Hz\n", midiNoteNumber, mFrequency);
 }
 

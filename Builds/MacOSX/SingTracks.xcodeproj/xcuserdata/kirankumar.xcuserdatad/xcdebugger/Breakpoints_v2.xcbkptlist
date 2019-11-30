@@ -10,13 +10,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../Source/MIDITrackSynthesizer.cpp"
-            timestampString = "596843883.65368"
+            filePath = "../../../JUCE/modules/juce_audio_basics/synthesisers/juce_Synthesiser.cpp"
+            timestampString = "596846636.09548"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "MIDITrackSynthesizerVoice::stopNote (float velocity, bool allowTailOff)"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
+            landmarkName = "Synthesiser::noteOn (const int midiChannel, const int midiNoteNumber, const float velocity)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::Synthesiser::noteOn(int, int, float)"
+                  moduleName = "SingTracks"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kirankumar/JUCE/modules/juce_audio_basics/synthesisers/juce_Synthesiser.cpp"
+                  timestampString = "596845944.26635"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "291"
+                  endingLineNumber = "291"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::Synthesiser::noteOn(int, int, float)"
+                  moduleName = "SingTracks"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kirankumar/JUCE/modules/juce_audio_basics/synthesisers/juce_Synthesiser.cpp"
+                  timestampString = "596845944.268802"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "291"
+                  endingLineNumber = "291"
+                  offsetFromSymbolStart = "108">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../JUCE/modules/juce_audio_basics/midi/juce_MidiMessage.cpp"
+            timestampString = "596846636.096634"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
+            landmarkName = "MidiMessage::getVelocity()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,13 +74,125 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../Source/MIDITrackSynthesizer.cpp"
-            timestampString = "596843886.158717"
+            filePath = "../../../JUCE/modules/juce_audio_basics/synthesisers/juce_Synthesiser.cpp"
+            timestampString = "596846636.096993"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "MIDITrackSynthesizerVoice::startNote (int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)"
+            startingLineNumber = "348"
+            endingLineNumber = "348"
+            landmarkName = "Synthesiser::noteOff (const int midiChannel, const int midiNoteNumber, const float velocity, const bool allowTailOff)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::Synthesiser::noteOff(int, int, float, bool)"
+                  moduleName = "SingTracks"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kirankumar/JUCE/modules/juce_audio_basics/synthesisers/juce_Synthesiser.cpp"
+                  timestampString = "596845944.301038"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "348"
+                  endingLineNumber = "348"
+                  offsetFromSymbolStart = "63">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "juce::Synthesiser::noteOff(int, int, float, bool)"
+                  moduleName = "SingTracks"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kirankumar/JUCE/modules/juce_audio_basics/synthesisers/juce_Synthesiser.cpp"
+                  timestampString = "596845944.3038599"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "348"
+                  endingLineNumber = "348"
+                  offsetFromSymbolStart = "115">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../JUCE/modules/juce_audio_basics/synthesisers/juce_Synthesiser.cpp"
+            timestampString = "596846636.097631"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
+            landmarkName = "Synthesiser::handleMidiEvent (const MidiMessage&amp; m)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../JUCE/modules/juce_audio_basics/synthesisers/juce_Synthesiser.cpp"
+            timestampString = "596846636.0982651"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
+            landmarkName = "Synthesiser::handleMidiEvent (const MidiMessage&amp; m)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/TrackGenerator.cpp"
+            timestampString = "596846636.09887"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "TrackGenerator::renderMidiToAudio()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/TrackGenerator.cpp"
+            timestampString = "596846636.099678"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "TrackGenerator::renderMidiToAudio()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/TrackGenerator.cpp"
+            timestampString = "596846636.100304"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "TrackGenerator::renderMidiToAudio()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

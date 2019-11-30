@@ -167,6 +167,13 @@
 			path = System/Library/Frameworks/IOKit.framework;
 			sourceTree = SDKROOT;
 		};
+		1EA48633646BD7AAE374C689 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.mid;
+			name = moremidi.mid;
+			path = moremidi.mid;
+			sourceTree = "SOURCE_ROOT";
+		};
 		2DFCD28FFB1B494DE694CEE1 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -506,6 +513,7 @@
 		4C4A6CBF3F2B91B6F66ED4FD = {
 			isa = PBXGroup;
 			children = (
+				1EA48633646BD7AAE374C689,
 				692FE1CB680FF8B7605F55FB,
 				140AEED7C25DA3046A9EE6BE,
 				2F05B1656987E1E8552155B6,
