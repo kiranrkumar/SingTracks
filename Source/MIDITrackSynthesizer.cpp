@@ -12,7 +12,8 @@
 
 #include <cmath>
 
-#define SILENCE 0.000005
+const float SILENCE_THRESHOLD = 0.0099; // just below -60 dB
+const float GAIN_DECAY_FACTOR = 0.99;
 
 #pragma mark - Synthesizer Sound
 bool MIDITrackSynthesizerSound::appliesToNote(int midiNoteNumber)
@@ -34,7 +35,7 @@ bool MIDITrackSynthesizerVoice::canPlaySound(SynthesiserSound *synthSound)
 
 void MIDITrackSynthesizerVoice::startNote (int midiNoteNumber, float velocity, SynthesiserSound* sound, int currentPitchWheelPosition)
 {
-    if (mGain <= SILENCE) {
+    if (mGain <= SILENCE_THRESHOLD) {
         mSineAlpha = 0;
     }
     mIsTailing = false;
@@ -84,13 +85,13 @@ float MIDITrackSynthesizerVoice::getNextSineSample()
 
 float MIDITrackSynthesizerVoice::getNextTailValue(float gain)
 {
-    if (mIsTailing && gain <= SILENCE) {
+    if (mIsTailing && gain <= SILENCE_THRESHOLD) {
         gain = 0;
         mIsTailing = false;
         clearCurrentNote();
     }
     else if (mIsTailing) {
-        gain *= 0.99;
+        gain *= GAIN_DECAY_FACTOR;
     }
     
     return gain;

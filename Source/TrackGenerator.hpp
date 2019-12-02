@@ -25,6 +25,8 @@ public:
     void printSummary();
     void renderMidiToAudio();
 private:
+    double getTrueLastTimestamp(MidiFile*);
+    void normalizeBuffer(AudioBuffer<float>&, float);
     bool writeAudioToFile(AudioBuffer<float>&);
     MidiFile* mMidiFile;
     float mSampleRate;
