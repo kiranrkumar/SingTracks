@@ -10,7 +10,7 @@
 
 #include "MidiFile_TEST.h"
 
-#define MIDI_FILEPATH "/Users/kirankumar/SingTracks/Builds/MacOSX/OnlyLove.mid"
+const char* const MIDI_FILEPATH = "/Users/kirankumar/SingTracks/Builds/MacOSX/OnlyLove.mid";
 
 void MIDIReadTest::setUp()
 {
