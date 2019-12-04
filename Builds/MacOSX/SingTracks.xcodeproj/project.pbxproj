@@ -53,6 +53,10 @@
 			isa = PBXBuildFile;
 			fileRef = 3C2C883AEEB667A00B8C2A81;
 		};
+		C7AFC453976F797CB8DFBBCF = {
+			isa = PBXBuildFile;
+			fileRef = D21919FAC323875271278A2A;
+		};
 		85A150A35E07C425D1DBE1C5 = {
 			isa = PBXBuildFile;
 			fileRef = 71A69B701FAB0F9E911DA552;
@@ -193,6 +197,13 @@
 			lastKnownFileType = file.mid;
 			name = testmidi2.mid;
 			path = testmidi2.mid;
+			sourceTree = "SOURCE_ROOT";
+		};
+		317908F1C4443643B841E29B = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = "MidiFile_TEST.h";
+			path = "../../Source/MidiFile_TEST.h";
 			sourceTree = "SOURCE_ROOT";
 		};
 		38F1228EA1C3589278B695DC = {
@@ -419,6 +430,13 @@
 			path = ../../Source/MainComponent.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		D21919FAC323875271278A2A = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = "MidiFile_TEST.cpp";
+			path = "../../Source/MidiFile_TEST.cpp";
+			sourceTree = "SOURCE_ROOT";
+		};
 		D52E9CE91438C73A9EB10C16 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -521,9 +539,19 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		21258FDBC7D0A5B01FF28339 = {
+			isa = PBXGroup;
+			children = (
+				D21919FAC323875271278A2A,
+				317908F1C4443643B841E29B,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
 		86F680B99B815C4A51E9E634 = {
 			isa = PBXGroup;
 			children = (
+				21258FDBC7D0A5B01FF28339,
 				71A69B701FAB0F9E911DA552,
 				A9CF7FC843CD91FF1E1910CB,
 				C6C7A9C7DEDB219683AABE4B,
@@ -849,6 +877,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7AFC453976F797CB8DFBBCF,
 				85A150A35E07C425D1DBE1C5,
 				F699FF824697C673F76D2DCC,
 				8AAA3BAEBA938D3E58608AD9,

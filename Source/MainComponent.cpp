@@ -9,6 +9,7 @@
 #include "MainComponent.h"
 
 #include "TrackGenerator.hpp"
+#include "MidiFile_TEST.h"
 
 //==============================================================================
 MainComponent::MainComponent()

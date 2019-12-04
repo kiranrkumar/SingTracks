@@ -10,6 +10,11 @@
       <FILE id="jc1cym" name="testmidi2.mid" compile="0" resource="1" file="Builds/MacOSX/testmidi2.mid"/>
     </GROUP>
     <GROUP id="{0359700B-7377-6DB0-8F39-8884B1DC0A6E}" name="Source">
+      <GROUP id="{4FD928CF-7BFE-7D6E-A792-E25D65C35559}" name="Tests">
+        <FILE id="WxOT9q" name="MidiFile_TEST.cpp" compile="1" resource="0"
+              file="Source/MidiFile_TEST.cpp"/>
+        <FILE id="b68nzF" name="MidiFile_TEST.h" compile="0" resource="0" file="Source/MidiFile_TEST.h"/>
+      </GROUP>
       <FILE id="RRIkTG" name="MIDITrackSynthesizer.cpp" compile="1" resource="0"
             file="Source/MIDITrackSynthesizer.cpp"/>
       <FILE id="ZvK34E" name="MIDITrackSynthesizer.h" compile="0" resource="0"
