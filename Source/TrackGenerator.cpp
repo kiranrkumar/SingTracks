@@ -11,8 +11,6 @@
 const int NUM_OUTPUT_CHANNELS = 2;
 
 TrackGenerator::TrackGenerator() {
-    mMidiFile = new MidiFile();
-    
     mSampleRate = 48000;
     
     mSynth.clearVoices();
@@ -26,31 +24,29 @@ TrackGenerator::TrackGenerator() {
 }
 
 TrackGenerator::~TrackGenerator() {
-    delete mMidiFile;
     mSynth.clearVoices();
     mSynth.clearSounds();
 }
 
 bool TrackGenerator::getMidiDataFromFile(File& file) {
     FileInputStream inStream(file);
-    return mMidiFile->readFrom(inStream);
+    return mMidiFile.readFrom(inStream);
 }
 
-void TrackGenerator::setMidiFile(MidiFile* midiFile) {
-    if (mMidiFile != midiFile) {
-        delete mMidiFile;
+void TrackGenerator::setMidiFile(MidiFile& midiFile) {
+    if (&mMidiFile != &midiFile) {
         mMidiFile = midiFile;
     }
 }
 
-MidiFile* TrackGenerator::getMidiFile() const {
+const MidiFile& TrackGenerator::getMidiFile() const {
     return mMidiFile;
 }
 
 void TrackGenerator::printSummary() {
-    mMidiFile->convertTimestampTicksToSeconds();
-    DEBUG_LOG("Num tracks: %d\n", mMidiFile->getNumTracks());
-    DEBUG_LOG("Time format: %d\n", mMidiFile->getTimeFormat());
+    mMidiFile.convertTimestampTicksToSeconds();
+    DEBUG_LOG("Num tracks: %d\n", mMidiFile.getNumTracks());
+    DEBUG_LOG("Time format: %d\n", mMidiFile.getTimeFormat());
 }
 
     // KRK_FIXME there has to be a better way to do this, but for some MIDIs created in Logic
@@ -61,13 +57,13 @@ void TrackGenerator::printSummary() {
     //
     // This (hopefully temporary) fix searches all tracks for the last "note off" event
     //  and grabs the timestamp from that.
-double TrackGenerator::getTrueLastTimestamp(MidiFile* midiFile)
+double TrackGenerator::getTrueLastTimestamp(MidiFile& midiFile)
 {
     double lastTimeStamp = 0;
-    int numTracks = midiFile->getNumTracks();
+    int numTracks = midiFile.getNumTracks();
     
     for (int trackIndex = 0; trackIndex < numTracks; ++trackIndex) {
-        const MidiMessageSequence *track = mMidiFile->getTrack(trackIndex);
+        const MidiMessageSequence *track = mMidiFile.getTrack(trackIndex);
         int numEvents = track->getNumEvents();
         for (int midiEventIndex = numEvents - 1; midiEventIndex >= 0; midiEventIndex--) {
             MidiMessage message = track->getEventPointer(midiEventIndex)->message;
@@ -90,7 +86,7 @@ void TrackGenerator::normalizeBuffer(AudioBuffer<float>& buffer, float maxMagnit
 
 void TrackGenerator::renderMidiToAudio()
 {
-    int numTracks = mMidiFile->getNumTracks();
+    int numTracks = mMidiFile.getNumTracks();
     DEBUG_LOG("%d tracks\n", numTracks);
     double lastTimeStamp = getTrueLastTimestamp(mMidiFile);
     int numSamples = int(ceil(lastTimeStamp * mSampleRate));
@@ -99,8 +95,8 @@ void TrackGenerator::renderMidiToAudio()
     outputBuffer.setSize(NUM_OUTPUT_CHANNELS, numSamples);
     outputBuffer.clear();
 
-    for (int i = 0; i < mMidiFile->getNumTracks(); ++i) {
-        const MidiMessageSequence *track = mMidiFile->getTrack(i);
+    for (int i = 0; i < mMidiFile.getNumTracks(); ++i) {
+        const MidiMessageSequence *track = mMidiFile.getTrack(i);
         int numMidiEventsInTrack = track->getNumEvents();
         DEBUG_LOG("\t%d: %d events\n", i, numMidiEventsInTrack);
         

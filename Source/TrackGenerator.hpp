@@ -17,16 +17,16 @@ public:
     TrackGenerator();
     ~TrackGenerator();
     bool getMidiDataFromFile(File&);
-    void setMidiFile(MidiFile*);
-    MidiFile* getMidiFile() const;
+    void setMidiFile(MidiFile&);
+    const MidiFile& getMidiFile() const;
     
     void printSummary();
     void renderMidiToAudio();
 private:
-    double getTrueLastTimestamp(MidiFile*);
+    double getTrueLastTimestamp(MidiFile&);
     void normalizeBuffer(AudioBuffer<float>&, float);
     bool writeAudioToFile(AudioBuffer<float>&);
-    MidiFile* mMidiFile;
+    MidiFile mMidiFile;
     float mSampleRate;
     Synthesiser mSynth;
 };

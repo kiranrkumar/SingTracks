@@ -34,7 +34,7 @@ bool MIDIReadTest::readMIDIFile()
 
 bool MIDIReadTest::getNumTracks()
 {
-    return (mTrackGenerator.getMidiFile()->getNumTracks() > 0);
+    return (mTrackGenerator.getMidiFile().getNumTracks() > 0);
 }
 
 #pragma mark - FileWriteTest
