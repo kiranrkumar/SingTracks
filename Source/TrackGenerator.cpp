@@ -27,6 +27,8 @@ TrackGenerator::TrackGenerator() {
 
 TrackGenerator::~TrackGenerator() {
     delete mMidiFile;
+    mSynth.clearVoices();
+    mSynth.clearSounds();
 }
 
 bool TrackGenerator::getMidiDataFromFile(File& file) {
@@ -36,6 +38,7 @@ bool TrackGenerator::getMidiDataFromFile(File& file) {
 
 void TrackGenerator::setMidiFile(MidiFile* midiFile) {
     if (mMidiFile != midiFile) {
+        delete mMidiFile;
         mMidiFile = midiFile;
     }
 }
