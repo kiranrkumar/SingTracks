@@ -21,10 +21,11 @@ public:
     const MidiFile& getMidiFile() const;
     
     void printSummary();
-    void renderMidiToAudio();
+    void renderAllMidiTracks();
 private:
     double getTrueLastTimestamp(MidiFile&);
     void normalizeBuffer(AudioBuffer<float>&, float);
+    void renderMidiTrack(const MidiMessageSequence &track, AudioBuffer<float> &outputBuffer);
     bool writeAudioToFile(AudioBuffer<float>&);
     MidiFile mMidiFile;
     float mSampleRate;

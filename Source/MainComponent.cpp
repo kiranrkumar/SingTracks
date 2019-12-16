@@ -70,7 +70,7 @@ void MainComponent::buttonClicked (Button *button) {
         if (didRead) {
             mTrackGenerator.printSummary();
 //            mTrackGenerator.fillMidiBuffer();
-            mTrackGenerator.renderMidiToAudio();
+            mTrackGenerator.renderAllMidiTracks();
         }
         else {
             printf("Uh-oh, didn't read MIDI properly...");

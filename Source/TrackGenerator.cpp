@@ -84,7 +84,7 @@ void TrackGenerator::normalizeBuffer(AudioBuffer<float>& buffer, float maxMagnit
     buffer.applyGain(0, numSamples, trueMaxMag / buffer.getMagnitude(0, numSamples));
 }
 
-void TrackGenerator::renderMidiToAudio()
+void TrackGenerator::renderAllMidiTracks()
 {
     int numTracks = mMidiFile.getNumTracks();
     DEBUG_LOG("%d tracks\n", numTracks);
@@ -100,48 +100,58 @@ void TrackGenerator::renderMidiToAudio()
         int numMidiEventsInTrack = track->getNumEvents();
         DEBUG_LOG("\t%d: %d events\n", i, numMidiEventsInTrack);
         
-        const int BLOCKSIZE = 256;
-        int startIndex = 0;
-        int currentBufferLength = std::min(numSamples - startIndex, BLOCKSIZE);
-        int midiEventIndex = 0;
-        
-        MidiBuffer midiBuffer;
-        
-        while (startIndex < numSamples && midiEventIndex < numMidiEventsInTrack) {
-            midiBuffer.clear();
-            float startTime = (float)startIndex / mSampleRate;
-            float endTime = startTime + (float)currentBufferLength / mSampleRate;
-            
-            MidiMessage message = track->getEventPointer(midiEventIndex)->message;
-
-            while (message.getTimeStamp() < endTime && midiEventIndex < numMidiEventsInTrack) {
-                DEBUG_LOG("\t\t\tAdding Midi event %s\n", message.getDescription().toRawUTF8());
-                midiBuffer.addEvent(message, startIndex);
-                if (message.isNoteOn()) {
-                    DEBUG_LOG("Note On | Start Ix: %d | Buffer Len: %d\n", startIndex, currentBufferLength);
-//                    mSynth.noteOn(message.getChannel(), message.getNoteNumber(), message.getFloatVelocity());
-                }
-                else if (message.isNoteOff()) {
-                    DEBUG_LOG("Note Off | Start Ix: %d | Buffer Len: %d\n", startIndex, currentBufferLength);
-//                    mSynth.noteOff(message.getChannel(), message.getNoteNumber(), message.getFloatVelocity(), true);
-                }
-                
-                if (++midiEventIndex < numMidiEventsInTrack) {
-                    message = track->getEventPointer(midiEventIndex)->message;
-                }
-            }
-            
-            mSynth.renderNextBlock(outputBuffer, midiBuffer, startIndex, currentBufferLength);
-            
-            startIndex += BLOCKSIZE;
-            currentBufferLength = std::min(numSamples - startIndex - 1, BLOCKSIZE);
-        }
+        renderMidiTrack(*track, outputBuffer);
     }
     
     DEBUG_LOG("\n");
     
     normalizeBuffer(outputBuffer, 0.85);
     writeAudioToFile(outputBuffer);
+}
+
+void TrackGenerator::renderMidiTrack(const MidiMessageSequence &track, AudioBuffer<float> &outputBuffer) {
+    const int BLOCKSIZE = 256;
+    int startIndex = 0;
+    int midiEventIndex = 0;
+    
+    int bufferNumSamples = outputBuffer.getNumSamples();
+    int numMidiEventsInTrack = track.getNumEvents();
+    DEBUG_LOG("\t%d events\n", numMidiEventsInTrack);
+    
+    int currentBufferLength = std::min(BLOCKSIZE, bufferNumSamples - startIndex);
+    
+    MidiBuffer midiBuffer;
+    
+    while (startIndex < bufferNumSamples && midiEventIndex < numMidiEventsInTrack) {
+        midiBuffer.clear();
+        float startTime = (float)startIndex / mSampleRate;
+        float endTime = startTime + (float)currentBufferLength / mSampleRate;
+        
+        MidiMessage message = track.getEventPointer(midiEventIndex)->message;
+        
+        while (message.getTimeStamp() < endTime && midiEventIndex < numMidiEventsInTrack) {
+            DEBUG_LOG("\t\t\tAdding Midi event %s\n", message.getDescription().toRawUTF8());
+            midiBuffer.addEvent(message, startIndex); // KRK_FIXME not JUST startIndex, right? Need to interpolate within the buffer time frame
+            if (message.isNoteOn()) {
+                DEBUG_LOG("Note On | Start Index: %d | Buffer Len: %d\n", startIndex, currentBufferLength);
+//                mSynth.noteOn(message.getChannel(), message.getNoteNumber(), message.getFloatVelocity());
+            }
+            else if (message.isNoteOff()) {
+                DEBUG_LOG("Note Off | Start Index: %d | Buffer Len: %d\n", startIndex, currentBufferLength);
+//                mSynth.noteOff(message.getChannel(), message.getNoteNumber(), message.getFloatVelocity(), true);
+            }
+            
+            if (++midiEventIndex < numMidiEventsInTrack) {
+                message = track.getEventPointer(midiEventIndex)->message;
+            }
+            
+        }
+        
+        mSynth.renderNextBlock(outputBuffer, midiBuffer, startIndex, currentBufferLength);
+        
+        startIndex += BLOCKSIZE;
+        currentBufferLength = std::min(bufferNumSamples - startIndex - 1, BLOCKSIZE);
+    }
 }
 
 bool TrackGenerator::writeAudioToFile(AudioBuffer<float>& buffer)
