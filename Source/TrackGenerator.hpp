@@ -24,9 +24,10 @@ public:
     void renderAudio();
 private:
     double getTrueLastTimestamp(MidiFile&);
-    void normalizeBuffer(AudioBuffer<float>&, float);
+    void prepareOutputBuffer(AudioBuffer<float> &outputBuffer);
     void renderAllMidiTracks(AudioBuffer<float> &outputBuffer);
     void renderMidiTrack(const MidiMessageSequence &track, AudioBuffer<float> &outputBuffer);
+    void normalizeBuffer(AudioBuffer<float>&, float);
     bool writeAudioToFile(AudioBuffer<float>&);
     MidiFile mMidiFile;
     float mSampleRate;

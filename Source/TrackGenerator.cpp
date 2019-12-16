@@ -77,28 +77,25 @@ double TrackGenerator::getTrueLastTimestamp(MidiFile& midiFile)
     return lastTimeStamp;
 }
 
-void TrackGenerator::normalizeBuffer(AudioBuffer<float>& buffer, float maxMagnitude)
-{
-    int numSamples = buffer.getNumSamples();
-    float trueMaxMag = std::min(maxMagnitude, 1.f);
-    buffer.applyGain(0, numSamples, trueMaxMag / buffer.getMagnitude(0, numSamples));
-}
-
 void TrackGenerator::renderAudio()
-{
-    int numTracks = mMidiFile.getNumTracks();
-    DEBUG_LOG("%d tracks\n", numTracks);
-    double lastTimeStamp = getTrueLastTimestamp(mMidiFile);
-    int numSamples = int(ceil(lastTimeStamp * mSampleRate));
-    
+{   
     AudioBuffer<float> outputBuffer;
-    outputBuffer.setSize(NUM_OUTPUT_CHANNELS, numSamples);
-    outputBuffer.clear();
+    prepareOutputBuffer(outputBuffer);
 
     renderAllMidiTracks(outputBuffer);
     DEBUG_LOG("\n");
     normalizeBuffer(outputBuffer, 0.85);
     writeAudioToFile(outputBuffer);
+}
+
+void TrackGenerator::prepareOutputBuffer(AudioBuffer<float> &outputBuffer) {
+    int numTracks = mMidiFile.getNumTracks();
+    DEBUG_LOG("%d tracks\n", numTracks);
+    double lastTimeStamp = getTrueLastTimestamp(mMidiFile);
+    int numSamples = int(ceil(lastTimeStamp * mSampleRate));
+    
+    outputBuffer.setSize(NUM_OUTPUT_CHANNELS, numSamples);
+    outputBuffer.clear();
 }
 
 void TrackGenerator::renderAllMidiTracks(AudioBuffer<float> &outputBuffer) {
@@ -152,6 +149,13 @@ void TrackGenerator::renderMidiTrack(const MidiMessageSequence &track, AudioBuff
         startIndex += BLOCKSIZE;
         currentBufferLength = std::min(bufferNumSamples - startIndex - 1, BLOCKSIZE);
     }
+}
+
+void TrackGenerator::normalizeBuffer(AudioBuffer<float>& buffer, float maxMagnitude)
+{
+    int numSamples = buffer.getNumSamples();
+    float trueMaxMag = std::min(maxMagnitude, 1.f);
+    buffer.applyGain(0, numSamples, trueMaxMag / buffer.getMagnitude(0, numSamples));
 }
 
 bool TrackGenerator::writeAudioToFile(AudioBuffer<float>& buffer)
