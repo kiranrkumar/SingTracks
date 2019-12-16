@@ -57,6 +57,10 @@
 			isa = PBXBuildFile;
 			fileRef = D21919FAC323875271278A2A;
 		};
+		76AB35A936DEF67E6040C302 = {
+			isa = PBXBuildFile;
+			fileRef = A113396C262F3F3DB987F152;
+		};
 		85A150A35E07C425D1DBE1C5 = {
 			isa = PBXBuildFile;
 			fileRef = 71A69B701FAB0F9E911DA552;
@@ -318,6 +322,13 @@
 			path = "../../JuceLibraryCode/include_juce_core.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		82570DFED1545DCD1941B429 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = "TrackGenerator_TEST.h";
+			path = "../../Source/TrackGenerator_TEST.h";
+			sourceTree = "SOURCE_ROOT";
+		};
 		82C4C0891F9777DF91632E4C = {
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.xml;
@@ -358,6 +369,13 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_events.mm";
 			path = "../../JuceLibraryCode/include_juce_events.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		A113396C262F3F3DB987F152 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = "TrackGenerator_TEST.cpp";
+			path = "../../Source/TrackGenerator_TEST.cpp";
 			sourceTree = "SOURCE_ROOT";
 		};
 		A5966743591255C80BF6A669 = {
@@ -544,6 +562,8 @@
 			children = (
 				D21919FAC323875271278A2A,
 				317908F1C4443643B841E29B,
+				A113396C262F3F3DB987F152,
+				82570DFED1545DCD1941B429,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -878,6 +898,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7AFC453976F797CB8DFBBCF,
+				76AB35A936DEF67E6040C302,
 				85A150A35E07C425D1DBE1C5,
 				F699FF824697C673F76D2DCC,
 				8AAA3BAEBA938D3E58608AD9,

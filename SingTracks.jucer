@@ -14,6 +14,10 @@
         <FILE id="WxOT9q" name="MidiFile_TEST.cpp" compile="1" resource="0"
               file="Source/MidiFile_TEST.cpp"/>
         <FILE id="b68nzF" name="MidiFile_TEST.h" compile="0" resource="0" file="Source/MidiFile_TEST.h"/>
+        <FILE id="TAls2O" name="TrackGenerator_TEST.cpp" compile="1" resource="0"
+              file="Source/TrackGenerator_TEST.cpp"/>
+        <FILE id="S8547E" name="TrackGenerator_TEST.h" compile="0" resource="0"
+              file="Source/TrackGenerator_TEST.h"/>
       </GROUP>
       <FILE id="RRIkTG" name="MIDITrackSynthesizer.cpp" compile="1" resource="0"
             file="Source/MIDITrackSynthesizer.cpp"/>

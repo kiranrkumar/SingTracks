@@ -69,7 +69,6 @@ void MainComponent::buttonClicked (Button *button) {
         bool didRead = mTrackGenerator.getMidiDataFromFile(*mSelectedFile);
         if (didRead) {
             mTrackGenerator.printSummary();
-//            mTrackGenerator.fillMidiBuffer();
             mTrackGenerator.renderAudio();
         }
         else {
