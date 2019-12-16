@@ -49,34 +49,6 @@ void TrackGenerator::printSummary() {
     DEBUG_LOG("Time format: %d\n", mMidiFile.getTimeFormat());
 }
 
-    // KRK_FIXME there has to be a better way to do this, but for some MIDIs created in Logic
-    //  (particularly ones that are more than one track), there's an extra first track that
-    //  contains all of the initial "global" metadata (time signature, key signature, etc) plus a
-    //  track-end event with a LARGE timestamp that's causing the program to render
-    //  way too many samples.
-    //
-    // This (hopefully temporary) fix searches all tracks for the last "note off" event
-    //  and grabs the timestamp from that.
-double TrackGenerator::getTrueLastTimestamp(MidiFile& midiFile)
-{
-    double lastTimeStamp = 0;
-    int numTracks = midiFile.getNumTracks();
-    
-    for (int trackIndex = 0; trackIndex < numTracks; ++trackIndex) {
-        const MidiMessageSequence *track = mMidiFile.getTrack(trackIndex);
-        int numEvents = track->getNumEvents();
-        for (int midiEventIndex = numEvents - 1; midiEventIndex >= 0; midiEventIndex--) {
-            MidiMessage message = track->getEventPointer(midiEventIndex)->message;
-            if (message.isNoteOff()) {
-                lastTimeStamp = std::max(lastTimeStamp, message.getTimeStamp());
-                continue;
-            }
-        }
-    }
-    
-    return lastTimeStamp;
-}
-
 void TrackGenerator::renderAudio()
 {   
     AudioBuffer<float> outputBuffer;
@@ -120,26 +92,31 @@ void TrackGenerator::renderMidiTrack(const MidiMessageSequence &track, AudioBuff
     
     int currentBufferLength = std::min(BLOCKSIZE, bufferNumSamples - startIndex);
     
+        // Go through all events in the track
     while (startIndex < bufferNumSamples && midiEventIndex < numMidiEventsInTrack) {
-        float startTime = (float)startIndex / mSampleRate;
-        float endTime = startTime + (float)currentBufferLength / mSampleRate;
+        double startTime = (double)startIndex / mSampleRate;
+        double endTime = startTime + (double)currentBufferLength / mSampleRate;
         midiBuffer.clear();
         MidiMessage message = track.getEventPointer(midiEventIndex)->message;
+        double messageTimeStamp = message.getTimeStamp();
         
-        while (message.getTimeStamp() < endTime && midiEventIndex < numMidiEventsInTrack) {
+            // Go through all events within each buffer
+        while (messageTimeStamp < endTime && midiEventIndex < numMidiEventsInTrack) {
+            int messageIndex = roundToIntAccurate(messageTimeStamp * mSampleRate);
             DEBUG_LOG("\t\t\tAdding Midi event %s\n", message.getDescription().toRawUTF8());
-            midiBuffer.addEvent(message, startIndex); // KRK_FIXME not JUST startIndex, right? Need to interpolate within the buffer time frame
+            midiBuffer.addEvent(message, messageIndex); // KRK_FIXME not JUST startIndex, right? Need to interpolate within the buffer time frame
             if (message.isNoteOn()) {
-                DEBUG_LOG("Note On | Start Index: %d | Buffer Len: %d\n", startIndex, currentBufferLength);
+                DEBUG_LOG("Note On | Start Index: %d | Buffer Len: %d\n", messageIndex, currentBufferLength);
 //                mSynth.noteOn(message.getChannel(), message.getNoteNumber(), message.getFloatVelocity());
             }
             else if (message.isNoteOff()) {
-                DEBUG_LOG("Note Off | Start Index: %d | Buffer Len: %d\n", startIndex, currentBufferLength);
+                DEBUG_LOG("Note Off | Start Index: %d | Buffer Len: %d\n", messageIndex, currentBufferLength);
 //                mSynth.noteOff(message.getChannel(), message.getNoteNumber(), message.getFloatVelocity(), true);
             }
             
             if (++midiEventIndex < numMidiEventsInTrack) {
                 message = track.getEventPointer(midiEventIndex)->message;
+                messageTimeStamp = message.getTimeStamp();
             }
             
         }
@@ -179,4 +156,32 @@ bool TrackGenerator::writeAudioToFile(AudioBuffer<float>& buffer)
     writer.get()->writeFromAudioSampleBuffer(buffer, 0, buffer.getNumSamples());
     
     return true;
+}
+
+    // KRK_FIXME there has to be a better way to do this, but for some MIDIs created in Logic
+    //  (particularly ones that are more than one track), there's an extra first track that
+    //  contains all of the initial "global" metadata (time signature, key signature, etc) plus a
+    //  track-end event with a LARGE timestamp that's causing the program to render
+    //  way too many samples.
+    //
+    // This (hopefully) temporary "fix" searches all tracks for the last "note off" event
+    //  and grabs the timestamp from that.
+double TrackGenerator::getTrueLastTimestamp(MidiFile& midiFile)
+{
+    double lastTimeStamp = 0;
+    int numTracks = midiFile.getNumTracks();
+    
+    for (int trackIndex = 0; trackIndex < numTracks; ++trackIndex) {
+        const MidiMessageSequence *track = mMidiFile.getTrack(trackIndex);
+        int numEvents = track->getNumEvents();
+        for (int midiEventIndex = numEvents - 1; midiEventIndex >= 0; midiEventIndex--) {
+            MidiMessage message = track->getEventPointer(midiEventIndex)->message;
+            if (message.isNoteOff()) {
+                lastTimeStamp = std::max(lastTimeStamp, message.getTimeStamp());
+                continue;
+            }
+        }
+    }
+    
+    return lastTimeStamp;
 }
