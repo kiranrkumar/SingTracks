@@ -84,7 +84,7 @@ void TrackGenerator::normalizeBuffer(AudioBuffer<float>& buffer, float maxMagnit
     buffer.applyGain(0, numSamples, trueMaxMag / buffer.getMagnitude(0, numSamples));
 }
 
-void TrackGenerator::renderAllMidiTracks()
+void TrackGenerator::renderAudio()
 {
     int numTracks = mMidiFile.getNumTracks();
     DEBUG_LOG("%d tracks\n", numTracks);
@@ -95,22 +95,25 @@ void TrackGenerator::renderAllMidiTracks()
     outputBuffer.setSize(NUM_OUTPUT_CHANNELS, numSamples);
     outputBuffer.clear();
 
-    for (int i = 0; i < mMidiFile.getNumTracks(); ++i) {
-        const MidiMessageSequence *track = mMidiFile.getTrack(i);
-        int numMidiEventsInTrack = track->getNumEvents();
-        DEBUG_LOG("\t%d: %d events\n", i, numMidiEventsInTrack);
-        
-        renderMidiTrack(*track, outputBuffer);
-    }
-    
+    renderAllMidiTracks(outputBuffer);
     DEBUG_LOG("\n");
-    
     normalizeBuffer(outputBuffer, 0.85);
     writeAudioToFile(outputBuffer);
 }
 
+void TrackGenerator::renderAllMidiTracks(AudioBuffer<float> &outputBuffer) {
+    for (int i = 0; i < mMidiFile.getNumTracks(); ++i) {
+       const MidiMessageSequence *track = mMidiFile.getTrack(i);
+       int numMidiEventsInTrack = track->getNumEvents();
+       DEBUG_LOG("\t%d: %d events\n", i, numMidiEventsInTrack);
+       
+       renderMidiTrack(*track, outputBuffer);
+   }
+}
+
 void TrackGenerator::renderMidiTrack(const MidiMessageSequence &track, AudioBuffer<float> &outputBuffer) {
     const int BLOCKSIZE = 256;
+    MidiBuffer midiBuffer;
     int startIndex = 0;
     int midiEventIndex = 0;
     
@@ -120,13 +123,10 @@ void TrackGenerator::renderMidiTrack(const MidiMessageSequence &track, AudioBuff
     
     int currentBufferLength = std::min(BLOCKSIZE, bufferNumSamples - startIndex);
     
-    MidiBuffer midiBuffer;
-    
     while (startIndex < bufferNumSamples && midiEventIndex < numMidiEventsInTrack) {
-        midiBuffer.clear();
         float startTime = (float)startIndex / mSampleRate;
         float endTime = startTime + (float)currentBufferLength / mSampleRate;
-        
+        midiBuffer.clear();
         MidiMessage message = track.getEventPointer(midiEventIndex)->message;
         
         while (message.getTimeStamp() < endTime && midiEventIndex < numMidiEventsInTrack) {
