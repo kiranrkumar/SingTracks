@@ -39,7 +39,7 @@ void MainComponent::paint (Graphics& g)
     g.setColour (Colours::white);
     g.drawText ("Select a MIDI File", getLocalBounds(), Justification::centredTop, true);
     
-    SingTracksUnitTestRunner runAllUnitTests;
+    SingTracksUnitTests::runUnitTests();
 }
 
 void MainComponent::resized()

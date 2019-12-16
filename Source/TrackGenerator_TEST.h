@@ -17,8 +17,6 @@ class TrackGeneratorTest : public UnitTest
 {
 public:
     TrackGeneratorTest() : UnitTest ("Test rendering midi tracks to audio data") {}
-    ~TrackGeneratorTest();
-    
     void runTest() override;
     
 private:

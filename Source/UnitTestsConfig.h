@@ -15,7 +15,7 @@
 #include "MidiFile_TEST.h"
 #include "TrackGenerator_TEST.h"
 
-class SingTracksUnitTestRunner {
+class SingTracksUnitTests {
 public:
-    SingTracksUnitTestRunner();
+    static void runUnitTests();
 };
