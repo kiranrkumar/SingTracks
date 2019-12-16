@@ -28,7 +28,7 @@ TrackGenerator::~TrackGenerator() {
     mSynth.clearSounds();
 }
 
-bool TrackGenerator::getMidiDataFromFile(File& file) {
+bool TrackGenerator::readMidiDataFromFile(File& file) {
     FileInputStream inStream(file);
     return mMidiFile.readFrom(inStream);
 }

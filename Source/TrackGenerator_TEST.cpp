@@ -18,5 +18,5 @@ void TrackGeneratorTest::runTest() {
 bool TrackGeneratorTest::readMidiFromFile() {
     const String midiFilePath("~/SingTracks/Builds/MacOSX/twoTrackScale.mid"); // KRK_FIXME unstable file path!
     File file(midiFilePath);
-    return mTrackGenerator.getMidiDataFromFile(file);
+    return mTrackGenerator.readMidiDataFromFile(file);
 }

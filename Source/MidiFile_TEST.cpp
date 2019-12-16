@@ -29,7 +29,7 @@ void MIDIReadTest::runTest()
 bool MIDIReadTest::readMIDIFile()
 {
     File file(MIDI_FILEPATH);
-    return mTrackGenerator.getMidiDataFromFile(file);
+    return mTrackGenerator.readMidiDataFromFile(file);
 }
 
 bool MIDIReadTest::getNumTracks()

@@ -62,7 +62,7 @@ void MainComponent::buttonClicked (Button *button) {
     if (mSelectedFile != nullptr) {
     // Create source stream from file
         FileInputStream inStream(*mSelectedFile);
-        bool didRead = mTrackGenerator.getMidiDataFromFile(*mSelectedFile);
+        bool didRead = mTrackGenerator.readMidiDataFromFile(*mSelectedFile);
         if (didRead) {
             mTrackGenerator.printSummary();
             mTrackGenerator.renderAudio();

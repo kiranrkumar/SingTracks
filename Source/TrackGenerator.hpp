@@ -16,7 +16,7 @@ class TrackGenerator {
 public:
     TrackGenerator();
     ~TrackGenerator();
-    bool getMidiDataFromFile(File&);
+    bool readMidiDataFromFile(File&);
     void setMidiFile(MidiFile&);
     const MidiFile& getMidiFile() const;
     
