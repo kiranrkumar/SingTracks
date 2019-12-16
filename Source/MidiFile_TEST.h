@@ -14,8 +14,6 @@
 
 #include "TrackGenerator.hpp"
 
-#define RUN_UNIT_TESTS 0
-
 class MIDIReadTest : public UnitTest
 {
 public:

@@ -18,6 +18,10 @@
               file="Source/TrackGenerator_TEST.cpp"/>
         <FILE id="S8547E" name="TrackGenerator_TEST.h" compile="0" resource="0"
               file="Source/TrackGenerator_TEST.h"/>
+        <FILE id="jUXENz" name="UnitTestsConfig.cpp" compile="1" resource="0"
+              file="Source/UnitTestsConfig.cpp"/>
+        <FILE id="pJStSd" name="UnitTestsConfig.h" compile="0" resource="0"
+              file="Source/UnitTestsConfig.h"/>
       </GROUP>
       <FILE id="RRIkTG" name="MIDITrackSynthesizer.cpp" compile="1" resource="0"
             file="Source/MIDITrackSynthesizer.cpp"/>

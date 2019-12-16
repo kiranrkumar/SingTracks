@@ -61,6 +61,10 @@
 			isa = PBXBuildFile;
 			fileRef = A113396C262F3F3DB987F152;
 		};
+		7FD0BDF6D379251B32335B2A = {
+			isa = PBXBuildFile;
+			fileRef = BB64C86A155D17B8D99BA8B7;
+		};
 		85A150A35E07C425D1DBE1C5 = {
 			isa = PBXBuildFile;
 			fileRef = 71A69B701FAB0F9E911DA552;
@@ -441,11 +445,25 @@
 			path = System/Library/Frameworks/QuartzCore.framework;
 			sourceTree = SDKROOT;
 		};
+		BB64C86A155D17B8D99BA8B7 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = UnitTestsConfig.cpp;
+			path = ../../Source/UnitTestsConfig.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		C6C7A9C7DEDB219683AABE4B = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
 			name = MainComponent.h;
 			path = ../../Source/MainComponent.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		CF13FDF6B8E9909B8A5B8E3B = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = UnitTestsConfig.h;
+			path = ../../Source/UnitTestsConfig.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		D21919FAC323875271278A2A = {
@@ -564,6 +582,8 @@
 				317908F1C4443643B841E29B,
 				A113396C262F3F3DB987F152,
 				82570DFED1545DCD1941B429,
+				BB64C86A155D17B8D99BA8B7,
+				CF13FDF6B8E9909B8A5B8E3B,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -899,6 +919,7 @@
 			files = (
 				C7AFC453976F797CB8DFBBCF,
 				76AB35A936DEF67E6040C302,
+				7FD0BDF6D379251B32335B2A,
 				85A150A35E07C425D1DBE1C5,
 				F699FF824697C673F76D2DCC,
 				8AAA3BAEBA938D3E58608AD9,

@@ -9,3 +9,21 @@
 */
 
 #pragma once
+
+#include "../JuceLibraryCode/JuceHeader.h"
+#include "TrackGenerator.hpp"
+
+class TrackGeneratorTest : public UnitTest
+{
+public:
+    TrackGeneratorTest() : UnitTest ("Test rendering midi tracks to audio data") {}
+    ~TrackGeneratorTest();
+    
+    void runTest() override;
+    
+private:
+    bool readMidiFromFile();
+    
+    TrackGenerator mTrackGenerator;
+    MidiFile mMidiFile;
+};

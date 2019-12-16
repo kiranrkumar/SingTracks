@@ -9,7 +9,7 @@
 #include "MainComponent.h"
 
 #include "TrackGenerator.hpp"
-#include "MidiFile_TEST.h"
+#include "UnitTestsConfig.h"
 
 //==============================================================================
 MainComponent::MainComponent()
@@ -39,11 +39,7 @@ void MainComponent::paint (Graphics& g)
     g.setColour (Colours::white);
     g.drawText ("Select a MIDI File", getLocalBounds(), Justification::centredTop, true);
     
-#if RUN_UNIT_TESTS
-    static MIDIReadTest midiTest;
-    UnitTestRunner runner;
-    runner.runAllTests();
-#endif
+    SingTracksUnitTestRunner runAllUnitTests;
 }
 
 void MainComponent::resized()
