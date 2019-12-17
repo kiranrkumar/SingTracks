@@ -10,6 +10,8 @@
       <FILE id="jc1cym" name="testmidi2.mid" compile="0" resource="1" file="Builds/MacOSX/testmidi2.mid"/>
     </GROUP>
     <GROUP id="{0359700B-7377-6DB0-8F39-8884B1DC0A6E}" name="Source">
+      <FILE id="nIFCB1" name="MainWindow.cpp" compile="1" resource="0" file="Source/MainWindow.cpp"/>
+      <FILE id="UKPozw" name="MainWindow.h" compile="0" resource="0" file="Source/MainWindow.h"/>
       <GROUP id="{4FD928CF-7BFE-7D6E-A792-E25D65C35559}" name="Tests">
         <FILE id="WxOT9q" name="MidiFile_TEST.cpp" compile="1" resource="0"
               file="Source/MidiFile_TEST.cpp"/>
