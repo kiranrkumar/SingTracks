@@ -12,7 +12,7 @@
 
 TrackPreviewComponent::TrackPreviewComponent()
 {
-    setSize(1200, 500);
+    setSize(600, 1000);
 }
 
 TrackPreviewComponent::~TrackPreviewComponent()
