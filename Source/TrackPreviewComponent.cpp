@@ -9,3 +9,20 @@
 */
 
 #include "TrackPreviewComponent.h"
+
+TrackPreviewComponent::TrackPreviewComponent()
+{
+    setSize(1200, 500);
+}
+
+TrackPreviewComponent::~TrackPreviewComponent()
+{
+    
+}
+
+#pragma mark - Button Listener
+
+void TrackPreviewComponent::buttonClicked(Button *button)
+{
+    
+}

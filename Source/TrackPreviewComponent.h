@@ -9,3 +9,15 @@
 */
 
 #pragma once
+
+#include "../JuceLibraryCode/JuceHeader.h"
+
+class TrackPreviewComponent : public Component, private Button::Listener
+{
+public:
+    TrackPreviewComponent();
+    ~TrackPreviewComponent();
+
+private:
+    void buttonClicked(Button *) override;
+};
