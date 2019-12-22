@@ -3,15 +3,37 @@
 <JUCERPROJECT id="AegoPH" name="SingTracks" projectType="guiapp" jucerVersion="5.4.5">
   <MAINGROUP id="sc2WeB" name="SingTracks">
     <GROUP id="{CB5280F1-B51D-A713-6DBA-71EAABAD83B6}" name="Resources">
-      <FILE id="Pir1eh" name="moremidi.mid" compile="0" resource="1" file="Builds/MacOSX/moremidi.mid"/>
-      <FILE id="cmcG0f" name="OnlyLove.mid" compile="0" resource="1" file="Builds/MacOSX/OnlyLove.mid"
-            xcodeResource="0"/>
-      <FILE id="MEOMTb" name="TestMIDI.mid" compile="0" resource="1" file="Builds/MacOSX/TestMIDI.mid"/>
-      <FILE id="jc1cym" name="testmidi2.mid" compile="0" resource="1" file="Builds/MacOSX/testmidi2.mid"/>
+      <GROUP id="{AA52E6B1-F728-158A-FA63-8543664397E9}" name="MIDI">
+        <FILE id="Pir1eh" name="moremidi.mid" compile="0" resource="1" file="Builds/MacOSX/moremidi.mid"/>
+        <FILE id="cmcG0f" name="OnlyLove.mid" compile="0" resource="1" file="Builds/MacOSX/OnlyLove.mid"
+              xcodeResource="0"/>
+        <FILE id="MEOMTb" name="TestMIDI.mid" compile="0" resource="1" file="Builds/MacOSX/TestMIDI.mid"/>
+        <FILE id="jc1cym" name="testmidi2.mid" compile="0" resource="1" file="Builds/MacOSX/testmidi2.mid"/>
+      </GROUP>
     </GROUP>
     <GROUP id="{0359700B-7377-6DB0-8F39-8884B1DC0A6E}" name="Source">
-      <FILE id="nIFCB1" name="MainWindow.cpp" compile="1" resource="0" file="Source/MainWindow.cpp"/>
-      <FILE id="UKPozw" name="MainWindow.h" compile="0" resource="0" file="Source/MainWindow.h"/>
+      <FILE id="sx7T3w" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <GROUP id="{3ECC4F28-B63A-8841-8255-36F3FF6C9FB4}" name="UI">
+        <FILE id="UKPozw" name="MainWindow.h" compile="0" resource="0" file="Source/MainWindow.h"/>
+        <FILE id="nIFCB1" name="MainWindow.cpp" compile="1" resource="0" file="Source/MainWindow.cpp"/>
+        <FILE id="BXq6ww" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+        <FILE id="JhUhvz" name="MainComponent.cpp" compile="1" resource="0"
+              file="Source/MainComponent.cpp"/>
+        <FILE id="fn84sU" name="CustomButtons.hpp" compile="0" resource="0"
+              file="Source/CustomButtons.hpp"/>
+        <FILE id="urQbXR" name="CustomButtons.cpp" compile="1" resource="0"
+              file="Source/CustomButtons.cpp"/>
+      </GROUP>
+      <GROUP id="{D13874DF-2628-5BEC-4FB8-B4736031B4CE}" name="Controller">
+        <FILE id="RRIkTG" name="MIDITrackSynthesizer.cpp" compile="1" resource="0"
+              file="Source/MIDITrackSynthesizer.cpp"/>
+        <FILE id="ZvK34E" name="MIDITrackSynthesizer.h" compile="0" resource="0"
+              file="Source/MIDITrackSynthesizer.h"/>
+        <FILE id="H1MaXm" name="TrackGenerator.cpp" compile="1" resource="0"
+              file="Source/TrackGenerator.cpp"/>
+        <FILE id="mtamVk" name="TrackGenerator.hpp" compile="0" resource="0"
+              file="Source/TrackGenerator.hpp"/>
+      </GROUP>
       <GROUP id="{4FD928CF-7BFE-7D6E-A792-E25D65C35559}" name="Tests">
         <FILE id="WxOT9q" name="MidiFile_TEST.cpp" compile="1" resource="0"
               file="Source/MidiFile_TEST.cpp"/>
@@ -25,22 +47,6 @@
         <FILE id="pJStSd" name="UnitTestsConfig.h" compile="0" resource="0"
               file="Source/UnitTestsConfig.h"/>
       </GROUP>
-      <FILE id="RRIkTG" name="MIDITrackSynthesizer.cpp" compile="1" resource="0"
-            file="Source/MIDITrackSynthesizer.cpp"/>
-      <FILE id="ZvK34E" name="MIDITrackSynthesizer.h" compile="0" resource="0"
-            file="Source/MIDITrackSynthesizer.h"/>
-      <FILE id="BXq6ww" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-      <FILE id="JhUhvz" name="MainComponent.cpp" compile="1" resource="0"
-            file="Source/MainComponent.cpp"/>
-      <FILE id="sx7T3w" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
-      <FILE id="urQbXR" name="CustomButtons.cpp" compile="1" resource="0"
-            file="Source/CustomButtons.cpp"/>
-      <FILE id="fn84sU" name="CustomButtons.hpp" compile="0" resource="0"
-            file="Source/CustomButtons.hpp"/>
-      <FILE id="H1MaXm" name="TrackGenerator.cpp" compile="1" resource="0"
-            file="Source/TrackGenerator.cpp"/>
-      <FILE id="mtamVk" name="TrackGenerator.hpp" compile="0" resource="0"
-            file="Source/TrackGenerator.hpp"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
