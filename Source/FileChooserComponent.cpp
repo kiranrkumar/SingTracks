@@ -6,13 +6,13 @@
   ==============================================================================
 */
 
-#include "MainComponent.h"
+#include "FileChooserComponent.h"
 
 #include "TrackGenerator.hpp"
 #include "UnitTestsConfig.h"
 
 //==============================================================================
-MainComponent::MainComponent()
+FileChooserComponent::FileChooserComponent()
 {
     setSize (600, 400);
     mBoundsConstrainer.setMinimumSize(500, 300);
@@ -25,12 +25,12 @@ MainComponent::MainComponent()
     mSelectedFile = nullptr;
 }
 
-MainComponent::~MainComponent()
+FileChooserComponent::~FileChooserComponent()
 {
 }
 
 //==============================================================================
-void MainComponent::paint (Graphics& g)
+void FileChooserComponent::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
@@ -42,7 +42,7 @@ void MainComponent::paint (Graphics& g)
     SingTracksUnitTests::runUnitTests();
 }
 
-void MainComponent::resized()
+void FileChooserComponent::resized()
 {
     // This is called when the MainComponent is resized.
     // If you add any child components, this is where you should
@@ -56,7 +56,7 @@ void MainComponent::resized()
 }
 
 #pragma mark - Button Listener
-void MainComponent::buttonClicked (Button *button) {
+void FileChooserComponent::buttonClicked (Button *button) {
     printf("Button clicked\n");
     
     if (mSelectedFile != nullptr) {
@@ -74,7 +74,7 @@ void MainComponent::buttonClicked (Button *button) {
 }
 
 #pragma mark - FilenameComponent Listener
-void MainComponent::filenameComponentChanged (FilenameComponent *fileComponent) {
+void FileChooserComponent::filenameComponentChanged (FilenameComponent *fileComponent) {
     if (fileComponent == &mFilenameBrowser) {
         std::cout << "File changed to: " << fileComponent->getCurrentFile().getFileName() << "\n";
         

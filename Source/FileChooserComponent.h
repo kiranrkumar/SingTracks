@@ -17,12 +17,12 @@
     This component lives inside our window, and this is where you should put all
     your controls and content.
 */
-class MainComponent   : public Component, private Button::Listener, private FilenameComponentListener
+class FileChooserComponent   : public Component, private Button::Listener, private FilenameComponentListener
 {
 public:
     //==============================================================================
-    MainComponent();
-    ~MainComponent();
+    FileChooserComponent();
+    ~FileChooserComponent();
 
     //==============================================================================
     void paint (Graphics&) override;
@@ -42,5 +42,5 @@ private:
     File* mSelectedFile;
     MidiFile mMidiFile;
     
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FileChooserComponent)
 };

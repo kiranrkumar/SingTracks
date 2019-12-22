@@ -10,7 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MainWindow.h"
-#include "MainComponent.h"
+#include "FileChooserComponent.h"
 
 //==============================================================================
 class SingTracksApplication  : public JUCEApplication
