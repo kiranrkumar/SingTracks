@@ -57,10 +57,9 @@ void FileChooserComponent::resized()
 
 #pragma mark - Button Listener
 void FileChooserComponent::buttonClicked (Button *button) {
-    printf("Button clicked\n");
-    
-    if (mSelectedFile != nullptr) {
-    // Create source stream from file
+    if (button == &mCreateTracksButton && mSelectedFile != nullptr) {
+        printf("'Create Tracks' button clicked\n");
+        // Create source stream from file
         FileInputStream inStream(*mSelectedFile);
         bool didRead = mTrackGenerator.readMidiDataFromFile(*mSelectedFile);
         if (didRead) {
