@@ -73,6 +73,10 @@
 			isa = PBXBuildFile;
 			fileRef = D1FFE78FBBFEEC8B7F1C3993;
 		};
+		33EC1175FB807BAD0EE7EE92 = {
+			isa = PBXBuildFile;
+			fileRef = 63C3BACD0C5735E2F8472F66;
+		};
 		FFD8C14BF494A6E48EE3414E = {
 			isa = PBXBuildFile;
 			fileRef = 2DFCD28FFB1B494DE694CEE1;
@@ -303,6 +307,13 @@
 			path = "~/JUCE/modules/juce_opengl";
 			sourceTree = "<absolute>";
 		};
+		63C3BACD0C5735E2F8472F66 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = TrackFieldsComponent.cpp;
+			path = ../../Source/TrackFieldsComponent.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		692FE1CB680FF8B7605F55FB = {
 			isa = PBXFileReference;
 			lastKnownFileType = file.mid;
@@ -386,6 +397,13 @@
 			name = "juce_graphics";
 			path = "~/JUCE/modules/juce_graphics";
 			sourceTree = "<absolute>";
+		};
+		8FF37B61389B1A6BABBEC269 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = TrackFieldsComponent.h;
+			path = ../../Source/TrackFieldsComponent.h;
+			sourceTree = "SOURCE_ROOT";
 		};
 		92B8853B086E136BBA6C39B4 = {
 			isa = PBXFileReference;
@@ -655,6 +673,8 @@
 				5512842C30AE50BEE39FEB93,
 				70AC1C2FD80F5BACFB27FC41,
 				D1FFE78FBBFEEC8B7F1C3993,
+				8FF37B61389B1A6BABBEC269,
+				63C3BACD0C5735E2F8472F66,
 				5C45278F3D24F640F7D879D2,
 				2DFCD28FFB1B494DE694CEE1,
 			);
@@ -1022,6 +1042,7 @@
 				F916000768D4616693CF1121,
 				3238AE6A8AF83FF4F43E9E6A,
 				8A0178D170DDC3E27A4AA279,
+				33EC1175FB807BAD0EE7EE92,
 				FFD8C14BF494A6E48EE3414E,
 				85A150A35E07C425D1DBE1C5,
 				110A5E17206771F223E2B865,

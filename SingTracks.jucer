@@ -31,6 +31,10 @@
                 file="Source/TrackPreviewComponent.h"/>
           <FILE id="rrtt1g" name="TrackPreviewComponent.cpp" compile="1" resource="0"
                 file="Source/TrackPreviewComponent.cpp"/>
+          <FILE id="QvkKDx" name="TrackFieldsComponent.h" compile="0" resource="0"
+                file="Source/TrackFieldsComponent.h"/>
+          <FILE id="zeckAV" name="TrackFieldsComponent.cpp" compile="1" resource="0"
+                file="Source/TrackFieldsComponent.cpp"/>
           <FILE id="fn84sU" name="CustomButtons.hpp" compile="0" resource="0"
                 file="Source/CustomButtons.hpp"/>
           <FILE id="urQbXR" name="CustomButtons.cpp" compile="1" resource="0"
