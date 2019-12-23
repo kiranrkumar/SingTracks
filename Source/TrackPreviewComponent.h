@@ -24,6 +24,11 @@ public:
 
 private:
     void buttonClicked(Button *) override;
-    TrackFieldsComponent mTrackField;
-    TrackFieldsComponent mTrackField2;
+    
+    void setUpTrackFields(int numComponents); // KRK_FIXME will expand this to include necessary information (track names, maybe duration, etc)
+    void layoutSubComponents();
+    
+    Component mTrackFieldsContainer;
+    OwnedArray<TrackFieldsComponent> mTrackFields;
+    Viewport mTrackFieldsContainerViewport;
 };

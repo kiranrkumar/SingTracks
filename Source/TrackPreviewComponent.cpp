@@ -10,11 +10,20 @@
 
 #include "TrackPreviewComponent.h"
 
+const int cVerticalSpacePerTrackField = 50;
+const int cTrackFieldContainerTopInset = 20;
+
 TrackPreviewComponent::TrackPreviewComponent()
 {
     setSize(600, 700);
-    addAndMakeVisible(mTrackField);
-    addAndMakeVisible(mTrackField2);
+    
+    addAndMakeVisible(mTrackFieldsContainer);
+    setUpTrackFields(8); // KRK_FIXME placeholder value - will eventually be based on actual number of tracks
+    
+    addAndMakeVisible(mTrackFieldsContainerViewport);
+    mTrackFieldsContainerViewport.setViewedComponent(&mTrackFieldsContainer, false);
+    
+    layoutSubComponents();
 }
 
 TrackPreviewComponent::~TrackPreviewComponent()
@@ -29,8 +38,7 @@ void TrackPreviewComponent::paint(Graphics &g)
 
 void TrackPreviewComponent::resized()
 {
-    mTrackField.setBounds(0, 150, getWidth(), 30);
-    mTrackField2.setBounds(0, 200, getWidth(), 30);
+    layoutSubComponents();
 }
 
 #pragma mark - Button Listener
@@ -38,4 +46,32 @@ void TrackPreviewComponent::resized()
 void TrackPreviewComponent::buttonClicked(Button *button)
 {
     
+}
+
+void TrackPreviewComponent::layoutSubComponents()
+{
+    int numComponents = mTrackFields.size();
+    mTrackFieldsContainer.setBounds(0, 0, getWidth(), cTrackFieldContainerTopInset + numComponents * cVerticalSpacePerTrackField);
+    
+    // Track field components are child components of mTrackFieldsContainer
+    for (int i = 0; i < numComponents; ++i) {
+        TrackFieldsComponent *tfc = mTrackFields[i];
+        tfc->setBounds(0, cTrackFieldContainerTopInset + i * cVerticalSpacePerTrackField, getWidth(), 35);
+    }
+    
+    // Limit track fields view to the top of the overall component
+    mTrackFieldsContainerViewport.setBounds(0, 0, getWidth(), 350);
+}
+
+void TrackPreviewComponent::setUpTrackFields(int numComponents)
+{
+    if (mTrackFields.size() > 0) {
+        return;
+    }
+    
+    for (int i = 0; i < numComponents; ++i) {
+        TrackFieldsComponent *tfc = new TrackFieldsComponent();
+        mTrackFields.add(tfc);
+        mTrackFieldsContainer.addAndMakeVisible(tfc);
+    }
 }
