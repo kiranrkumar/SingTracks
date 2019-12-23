@@ -53,6 +53,10 @@
 			isa = PBXBuildFile;
 			fileRef = 3C2C883AEEB667A00B8C2A81;
 		};
+		0BF253B6BA4F9F2A3039EADE = {
+			isa = PBXBuildFile;
+			fileRef = A7A867D6C6FE6AFC8CDAEF4D;
+		};
 		8AAA3BAEBA938D3E58608AD9 = {
 			isa = PBXBuildFile;
 			fileRef = 2E290065741D838078CD9CD6;
@@ -461,6 +465,13 @@
 			path = "../../JuceLibraryCode/include_juce_opengl.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		A7A867D6C6FE6AFC8CDAEF4D = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.icns;
+			name = Icon.icns;
+			path = Icon.icns;
+			sourceTree = "SOURCE_ROOT";
+		};
 		A81E405C6BF3DF1F9455F8ED = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -522,6 +533,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = FileChooserComponent.h;
 			path = ../../Source/FileChooserComponent.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		C9A9A41B103ABBAA9DE4E52E = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = stIcon.png;
+			path = stIcon.png;
 			sourceTree = "SOURCE_ROOT";
 		};
 		CF13FDF6B8E9909B8A5B8E3B = {
@@ -651,6 +669,7 @@
 			isa = PBXGroup;
 			children = (
 				584331FAEE664C7531634151,
+				C9A9A41B103ABBAA9DE4E52E,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -781,6 +800,7 @@
 			children = (
 				82C4C0891F9777DF91632E4C,
 				3C2C883AEEB667A00B8C2A81,
+				A7A867D6C6FE6AFC8CDAEF4D,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1030,6 +1050,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65C55814B112D21431FE2282,
+				0BF253B6BA4F9F2A3039EADE,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
