@@ -26,6 +26,7 @@ TrackGenerator::TrackGenerator() {
 TrackGenerator::~TrackGenerator() {
     mSynth.clearVoices();
     mSynth.clearSounds();
+    mMidiFile.clear();
 }
 
 bool TrackGenerator::readMidiDataFromFile(File& file) {

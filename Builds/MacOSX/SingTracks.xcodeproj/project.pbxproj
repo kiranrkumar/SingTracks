@@ -85,6 +85,10 @@
 			isa = PBXBuildFile;
 			fileRef = 2DFCD28FFB1B494DE694CEE1;
 		};
+		3302CF5B2026932F0B52B0F9 = {
+			isa = PBXBuildFile;
+			fileRef = 7A42FAAF8ED5F135CEBCC11D;
+		};
 		85A150A35E07C425D1DBE1C5 = {
 			isa = PBXBuildFile;
 			fileRef = 71A69B701FAB0F9E911DA552;
@@ -365,6 +369,20 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = MainWindow.h;
 			path = ../../Source/MainWindow.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		7A42FAAF8ED5F135CEBCC11D = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = AppController.cpp;
+			path = ../../Source/AppController.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
+		7BB9F9C1C7FCAF20C743E4E9 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = AppController.h;
+			path = ../../Source/AppController.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		80897D804FE4361FF781DC77 = {
@@ -712,6 +730,8 @@
 		3F36AD8E3A8146620F5B1311 = {
 			isa = PBXGroup;
 			children = (
+				7A42FAAF8ED5F135CEBCC11D,
+				7BB9F9C1C7FCAF20C743E4E9,
 				71A69B701FAB0F9E911DA552,
 				A9CF7FC843CD91FF1E1910CB,
 				7786703F270A9FAF50B1AD5F,
@@ -1065,6 +1085,7 @@
 				8A0178D170DDC3E27A4AA279,
 				33EC1175FB807BAD0EE7EE92,
 				FFD8C14BF494A6E48EE3414E,
+				3302CF5B2026932F0B52B0F9,
 				85A150A35E07C425D1DBE1C5,
 				110A5E17206771F223E2B865,
 				C7AFC453976F797CB8DFBBCF,

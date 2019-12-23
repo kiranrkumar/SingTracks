@@ -39,7 +39,7 @@ private:
     ComponentBoundsConstrainer mBoundsConstrainer;
     TrackGenerator mTrackGenerator;
     
-    File* mSelectedFile;
+    std::unique_ptr<File> mSelectedFile;
     MidiFile mMidiFile;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FileChooserComponent)

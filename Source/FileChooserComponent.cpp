@@ -8,7 +8,8 @@
 
 #include "FileChooserComponent.h"
 
-#include "TrackGenerator.hpp"
+#include "AppController.h"
+//#include "TrackGenerator.hpp"
 #include "UnitTestsConfig.h"
 
 //==============================================================================
@@ -44,7 +45,7 @@ void FileChooserComponent::paint (Graphics& g)
 
 void FileChooserComponent::resized()
 {
-    // This is called when the MainComponent is resized.
+    // This is called when the FileChooserComponent is resized.
     // If you add any child components, this is where you should
     // update their positions.
     Rectangle<int> localBounds = getLocalBounds();
@@ -59,16 +60,7 @@ void FileChooserComponent::resized()
 void FileChooserComponent::buttonClicked (Button *button) {
     if (button == &mCreateTracksButton && mSelectedFile != nullptr) {
         printf("'Create Tracks' button clicked\n");
-        // Create source stream from file
-        FileInputStream inStream(*mSelectedFile);
-        bool didRead = mTrackGenerator.readMidiDataFromFile(*mSelectedFile);
-        if (didRead) {
-            mTrackGenerator.printSummary();
-            mTrackGenerator.renderAudio();
-        }
-        else {
-            printf("Uh-oh, didn't read MIDI properly...");
-        }
+        AppController::getInstance()->createTracksFromFile(std::move(mSelectedFile));
     }
 }
 
@@ -78,7 +70,6 @@ void FileChooserComponent::filenameComponentChanged (FilenameComponent *fileComp
         std::cout << "File changed to: " << fileComponent->getCurrentFile().getFileName() << "\n";
         
         // KRK_FIXME is there a cleaner way to do this?
-        delete mSelectedFile;
-        mSelectedFile = new File(fileComponent->getCurrentFile());
+        mSelectedFile.reset(new File(fileComponent->getCurrentFile()));
     }
 }

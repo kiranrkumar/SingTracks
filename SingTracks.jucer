@@ -43,6 +43,9 @@
         </GROUP>
       </GROUP>
       <GROUP id="{D13874DF-2628-5BEC-4FB8-B4736031B4CE}" name="Controller">
+        <FILE id="B5lpt5" name="AppController.cpp" compile="1" resource="0"
+              file="Source/AppController.cpp"/>
+        <FILE id="oiv1gY" name="AppController.h" compile="0" resource="0" file="Source/AppController.h"/>
         <FILE id="RRIkTG" name="MIDITrackSynthesizer.cpp" compile="1" resource="0"
               file="Source/MIDITrackSynthesizer.cpp"/>
         <FILE id="ZvK34E" name="MIDITrackSynthesizer.h" compile="0" resource="0"
