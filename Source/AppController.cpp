@@ -31,12 +31,13 @@ void
 AppController::createTracksFromFile(std::unique_ptr<File> file)
 {
     printf("AppController::createTracksFromFile\n");
+    TrackGenerator trackGenerator;
     // Create source stream from file
     FileInputStream inStream(*(file.get()));
-    bool didRead = mTrackGenerator.readMidiDataFromFile(*(file.get()));
+    bool didRead = trackGenerator.readMidiDataFromFile(*(file.get()));
     if (didRead) {
-        mTrackGenerator.printSummary();
-        mTrackGenerator.renderAudio();
+        trackGenerator.printSummary();
+        trackGenerator.renderAudio();
     }
     else {
         printf("Uh-oh, didn't read MIDI properly...");

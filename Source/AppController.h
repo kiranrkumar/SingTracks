@@ -24,6 +24,4 @@ public:
 private:
     AppController();
     static std::unique_ptr<AppController> instance;
-    
-    TrackGenerator mTrackGenerator;
 };
