@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "CustomButtons.hpp"
 #include "TrackFieldsComponent.h"
 
 class TrackPreviewComponent : public Component, private Button::Listener
@@ -31,4 +32,6 @@ private:
     Component mTrackFieldsContainer;
     OwnedArray<TrackFieldsComponent> mTrackFields;
     Viewport mTrackFieldsContainerViewport;
+    
+    CreateTracksButton mCreateTracksButton;
 };

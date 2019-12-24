@@ -23,6 +23,9 @@ TrackPreviewComponent::TrackPreviewComponent()
     addAndMakeVisible(mTrackFieldsContainerViewport);
     mTrackFieldsContainerViewport.setViewedComponent(&mTrackFieldsContainer, false);
     
+    addAndMakeVisible(mCreateTracksButton);
+    mCreateTracksButton.addListener(this);
+    
     layoutSubComponents();
 }
 
@@ -45,7 +48,9 @@ void TrackPreviewComponent::resized()
 
 void TrackPreviewComponent::buttonClicked(Button *button)
 {
-    
+    if (button == &mCreateTracksButton) {
+        printf("Create Tracks button clicked\n");
+    }
 }
 
 void TrackPreviewComponent::layoutSubComponents()
@@ -61,6 +66,8 @@ void TrackPreviewComponent::layoutSubComponents()
     
     // Limit track fields view to the top of the overall component
     mTrackFieldsContainerViewport.setBounds(0, 0, getWidth(), 350);
+    
+    mCreateTracksButton.setBounds(mCreateTracksButton.boundsToDraw(getLocalBounds()));
 }
 
 void TrackPreviewComponent::setUpTrackFields(int numComponents)
