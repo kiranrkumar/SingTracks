@@ -7,13 +7,13 @@
 
 #include "CustomButtons.hpp"
 
-#pragma mark - CreateTracksButton
-CreateTracksButton::CreateTracksButton() : TextButton("Create Tracks", "Generate audio tracks from MIDI file"), mWidth(250), mHeight(40)
+#pragma mark - BottomButton
+BottomButton::BottomButton(const String &name, const String &description) : TextButton(name, description), mWidth(250), mHeight(40)
 {
 }
 
 Rectangle<int>
-CreateTracksButton::boundsToDraw(Rectangle<int> localBounds) {
+BottomButton::boundsToDraw(Rectangle<int> localBounds) {
     const int bottomPad = 10;
     
     int localBoundsWidth = localBounds.getWidth();
@@ -29,24 +29,13 @@ CreateTracksButton::boundsToDraw(Rectangle<int> localBounds) {
 }
 
 #pragma mark - ConfigureTracksButton
-ConfigureTracksButton::ConfigureTracksButton() : TextButton("Configure Tracks", "Configure settings for tracks to be generated from the MIDI file"), mWidth(250), mHeight(40)
+ConfigureTracksButton::ConfigureTracksButton() : BottomButton("Configure Tracks", "Configure settings for tracks to be generated from the MIDI file")
 {
 }
 
-Rectangle<int>
-ConfigureTracksButton::boundsToDraw(Rectangle<int> localBounds) {
-    const int bottomPad = 10;
-    
-    int localBoundsWidth = localBounds.getWidth();
-    int localBoundsHeight = localBounds.getHeight();
-    
-    int width = std::min(mWidth, localBoundsWidth);
-    int height = std::min(mHeight, localBoundsHeight);
-    
-    int xPos = (localBoundsWidth - width) / 2;
-    int yPos = localBoundsHeight - height - bottomPad;
-    
-    return Rectangle<int>(xPos, yPos, width, height);
+#pragma mark - CreateTracksButton
+CreateTracksButton::CreateTracksButton() : BottomButton("Create Tracks", "Generate audio tracks from MIDI file")
+{
 }
 
 #pragma mark - MIDIFilenameComponent

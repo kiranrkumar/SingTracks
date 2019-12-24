@@ -16,22 +16,23 @@ public:
     virtual Rectangle<int> boundsToDraw(Rectangle<int>) = 0;
 };
 
-class CreateTracksButton : public TextButton, public SelfDrawingComponent {
+class BottomButton : public TextButton, SelfDrawingComponent {
 public:
-    CreateTracksButton();
-    Rectangle<int> boundsToDraw(Rectangle<int>) override;
+    BottomButton(const String &name, const String &description);
+    Rectangle<int> boundsToDraw(Rectangle<int>);
 private:
     int mWidth;
     int mHeight;
 };
 
-class ConfigureTracksButton : public TextButton, public SelfDrawingComponent {
+class ConfigureTracksButton : public BottomButton {
 public:
     ConfigureTracksButton();
-    Rectangle<int> boundsToDraw(Rectangle<int>) override;
-private:
-    int mWidth;
-    int mHeight;
+};
+
+class CreateTracksButton : public BottomButton {
+public:
+    CreateTracksButton();
 };
 
 class MIDIFilenameComponent : public FilenameComponent, public SelfDrawingComponent {
