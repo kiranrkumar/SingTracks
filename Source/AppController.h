@@ -20,6 +20,7 @@ public:
     static AppController *getInstance();
     ~AppController();
     
+    File* getCurrentFile();
     void setCurrentFile(File&);
     void createTracks();
 private:

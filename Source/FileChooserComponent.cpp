@@ -19,8 +19,10 @@ FileChooserComponent::FileChooserComponent()
     
     addAndMakeVisible(mFilenameBrowser);
     addAndMakeVisible(mConfigureTracksButton);
-    mConfigureTracksButton.addListener(this);
+    
     mFilenameBrowser.addListener(this);
+    mConfigureTracksButton.addListener(this);
+    updateConfigureTracksButtonEnableState();
 }
 
 FileChooserComponent::~FileChooserComponent()
@@ -51,6 +53,12 @@ void FileChooserComponent::resized()
     mFilenameBrowser.setBounds(mFilenameBrowser.boundsToDraw(localBounds));
     
     mBoundsConstrainer.checkComponentBounds(this);
+    updateConfigureTracksButtonEnableState();
+}
+
+void FileChooserComponent::updateConfigureTracksButtonEnableState()
+{
+    mConfigureTracksButton.setEnabled(AppController::getInstance()->getCurrentFile() != nullptr);
 }
 
 #pragma mark - Button Listener
@@ -65,5 +73,6 @@ void FileChooserComponent::filenameComponentChanged (FilenameComponent *fileComp
     if (fileComponent == &mFilenameBrowser) {
         File currentFile = fileComponent->getCurrentFile();
         AppController::getInstance()->setCurrentFile(currentFile);
+        updateConfigureTracksButtonEnableState();
     }
 }

@@ -53,6 +53,12 @@ AppController::createTracks()
     }
 }
 
+File*
+AppController::getCurrentFile()
+{
+    return mFile.get();
+}
+
 void
 AppController::setCurrentFile(File &file)
 {
