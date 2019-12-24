@@ -35,11 +35,10 @@ private:
     //==============================================================================
     // Your private member variables go here...
     MIDIFilenameComponent mFilenameBrowser;
-    CreateTracksButton mCreateTracksButton;
+    ConfigureTracksButton mConfigureTracksButton;
     ComponentBoundsConstrainer mBoundsConstrainer;
     TrackGenerator mTrackGenerator;
     
-    std::unique_ptr<File> mSelectedFile;
     MidiFile mMidiFile;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FileChooserComponent)

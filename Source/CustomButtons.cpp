@@ -28,6 +28,27 @@ CreateTracksButton::boundsToDraw(Rectangle<int> localBounds) {
     return Rectangle<int>(xPos, yPos, width, height);
 }
 
+#pragma mark - ConfigureTracksButton
+ConfigureTracksButton::ConfigureTracksButton() : TextButton("Configure Tracks", "Configure settings for tracks to be generated from the MIDI file"), mWidth(250), mHeight(40)
+{
+}
+
+Rectangle<int>
+ConfigureTracksButton::boundsToDraw(Rectangle<int> localBounds) {
+    const int bottomPad = 10;
+    
+    int localBoundsWidth = localBounds.getWidth();
+    int localBoundsHeight = localBounds.getHeight();
+    
+    int width = std::min(mWidth, localBoundsWidth);
+    int height = std::min(mHeight, localBoundsHeight);
+    
+    int xPos = (localBoundsWidth - width) / 2;
+    int yPos = localBoundsHeight - height - bottomPad;
+    
+    return Rectangle<int>(xPos, yPos, width, height);
+}
+
 #pragma mark - MIDIFilenameComponent
 MIDIFilenameComponent::MIDIFilenameComponent() : FilenameComponent("MIDI File Selector", File(), false, false, false, "*.mid", "", "(Choose a MIDI file)"), mHeight(40)
 {

@@ -20,8 +20,11 @@ public:
     static AppController *getInstance();
     ~AppController();
     
-    void createTracksFromFile(std::unique_ptr<File> file);
+    void setCurrentFile(File&);
+    void createTracks();
 private:
-    AppController();
     static std::unique_ptr<AppController> instance;
+    
+    AppController();
+    std::unique_ptr<File> mFile;
 };

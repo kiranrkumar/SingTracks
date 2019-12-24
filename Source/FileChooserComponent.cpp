@@ -9,7 +9,6 @@
 #include "FileChooserComponent.h"
 
 #include "AppController.h"
-//#include "TrackGenerator.hpp"
 #include "UnitTestsConfig.h"
 
 //==============================================================================
@@ -19,11 +18,9 @@ FileChooserComponent::FileChooserComponent()
     mBoundsConstrainer.setMinimumSize(500, 300);
     
     addAndMakeVisible(mFilenameBrowser);
-    addAndMakeVisible(mCreateTracksButton);
-    mCreateTracksButton.addListener(this);
+    addAndMakeVisible(mConfigureTracksButton);
+    mConfigureTracksButton.addListener(this);
     mFilenameBrowser.addListener(this);
-    
-    mSelectedFile = nullptr;
 }
 
 FileChooserComponent::~FileChooserComponent()
@@ -50,7 +47,7 @@ void FileChooserComponent::resized()
     // update their positions.
     Rectangle<int> localBounds = getLocalBounds();
     
-    mCreateTracksButton.setBounds(mCreateTracksButton.boundsToDraw(localBounds));
+    mConfigureTracksButton.setBounds(mConfigureTracksButton.boundsToDraw(localBounds));
     mFilenameBrowser.setBounds(mFilenameBrowser.boundsToDraw(localBounds));
     
     mBoundsConstrainer.checkComponentBounds(this);
@@ -58,18 +55,15 @@ void FileChooserComponent::resized()
 
 #pragma mark - Button Listener
 void FileChooserComponent::buttonClicked (Button *button) {
-    if (button == &mCreateTracksButton && mSelectedFile != nullptr) {
-        printf("'Create Tracks' button clicked\n");
-        AppController::getInstance()->createTracksFromFile(std::move(mSelectedFile));
+    if (button == &mConfigureTracksButton) {
+        printf("'Configure Tracks' button clicked\n");
     }
 }
 
 #pragma mark - FilenameComponent Listener
 void FileChooserComponent::filenameComponentChanged (FilenameComponent *fileComponent) {
     if (fileComponent == &mFilenameBrowser) {
-        std::cout << "File changed to: " << fileComponent->getCurrentFile().getFileName() << "\n";
-        
-        // KRK_FIXME is there a cleaner way to do this?
-        mSelectedFile.reset(new File(fileComponent->getCurrentFile()));
+        File currentFile = fileComponent->getCurrentFile();
+        AppController::getInstance()->setCurrentFile(currentFile);
     }
 }

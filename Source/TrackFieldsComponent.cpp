@@ -29,7 +29,6 @@ TrackFieldsComponent::TrackFieldsComponent()
 
 TrackFieldsComponent::~TrackFieldsComponent()
 {
-    
 }
 
 void TrackFieldsComponent::paint(Graphics &g)
@@ -48,5 +47,4 @@ void TrackFieldsComponent::resized()
 #pragma mark - Button Listener
 void TrackFieldsComponent::buttonClicked(Button *button)
 {
-    
 }

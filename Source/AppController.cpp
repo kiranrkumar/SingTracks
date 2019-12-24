@@ -14,8 +14,15 @@
 
 std::unique_ptr<AppController> AppController::instance = std::unique_ptr<AppController>(nullptr);
 
-AppController::AppController() {}
-AppController::~AppController() {}
+AppController::AppController()
+{
+    mFile.reset(nullptr);
+}
+
+AppController::~AppController()
+{
+    mFile.release();
+}
 
 AppController *
 AppController::getInstance()
@@ -28,18 +35,29 @@ AppController::getInstance()
 }
 
 void
-AppController::createTracksFromFile(std::unique_ptr<File> file)
+AppController::createTracks()
 {
-    printf("AppController::createTracksFromFile\n");
-    TrackGenerator trackGenerator;
-    // Create source stream from file
-    FileInputStream inStream(*(file.get()));
-    bool didRead = trackGenerator.readMidiDataFromFile(*(file.get()));
-    if (didRead) {
-        trackGenerator.printSummary();
-        trackGenerator.renderAudio();
+    if (mFile.get() != nullptr) {
+        printf("AppController::createTracksFromFile\n");
+        TrackGenerator trackGenerator;
+        // Create source stream from file
+        FileInputStream inStream(*(mFile.get()));
+        bool didRead = trackGenerator.readMidiDataFromFile(*(mFile.get()));
+        if (didRead) {
+            trackGenerator.printSummary();
+            trackGenerator.renderAudio();
+        }
+        else {
+            printf("Uh-oh, didn't read MIDI properly...");
+        }
     }
-    else {
-        printf("Uh-oh, didn't read MIDI properly...");
+}
+
+void
+AppController::setCurrentFile(File &file)
+{
+    if (mFile.get() != &file) {
+        mFile.reset(new File(file));
+        std::cout << "File changed to: " << mFile.get()->getFileName() << "\n";
     }
 }

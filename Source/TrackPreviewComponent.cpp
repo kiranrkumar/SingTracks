@@ -9,6 +9,7 @@
 */
 
 #include "TrackPreviewComponent.h"
+#include "AppController.h"
 
 const int cVerticalSpacePerTrackField = 50;
 const int cTrackFieldContainerTopInset = 20;
@@ -49,7 +50,7 @@ void TrackPreviewComponent::resized()
 void TrackPreviewComponent::buttonClicked(Button *button)
 {
     if (button == &mCreateTracksButton) {
-        printf("Create Tracks button clicked\n");
+        AppController::getInstance()->createTracks();
     }
 }
 

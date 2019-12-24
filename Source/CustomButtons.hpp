@@ -25,6 +25,15 @@ private:
     int mHeight;
 };
 
+class ConfigureTracksButton : public TextButton, public SelfDrawingComponent {
+public:
+    ConfigureTracksButton();
+    Rectangle<int> boundsToDraw(Rectangle<int>) override;
+private:
+    int mWidth;
+    int mHeight;
+};
+
 class MIDIFilenameComponent : public FilenameComponent, public SelfDrawingComponent {
 public:
     MIDIFilenameComponent();
