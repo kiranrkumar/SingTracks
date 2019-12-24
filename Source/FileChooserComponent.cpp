@@ -14,8 +14,7 @@
 //==============================================================================
 FileChooserComponent::FileChooserComponent()
 {
-    setSize (600, 400);
-    mBoundsConstrainer.setMinimumSize(500, 300);
+    setBounds(0, 0, 400, 600);
     
     addAndMakeVisible(mFilenameBrowser);
     addAndMakeVisible(mConfigureTracksButton);
@@ -52,7 +51,6 @@ void FileChooserComponent::resized()
     mConfigureTracksButton.setBounds(mConfigureTracksButton.boundsToDraw(localBounds));
     mFilenameBrowser.setBounds(mFilenameBrowser.boundsToDraw(localBounds));
     
-    mBoundsConstrainer.checkComponentBounds(this);
     updateConfigureTracksButtonEnableState();
 }
 

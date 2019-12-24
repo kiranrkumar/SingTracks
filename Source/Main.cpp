@@ -11,7 +11,6 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MainWindow.h"
 #include "TempTestWindow.h"
-#include "FileChooserComponent.h"
 #include "TrackPreviewComponent.h"
 
 //==============================================================================

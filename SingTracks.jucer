@@ -24,6 +24,9 @@
                 file="Source/TempTestWindow.cpp"/>
         </GROUP>
         <GROUP id="{7151523B-859B-72E4-A1AE-0A6945108137}" name="Other Components">
+          <FILE id="lSvSLz" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+          <FILE id="yzO60a" name="MainComponent.cpp" compile="1" resource="0"
+                file="Source/MainComponent.cpp"/>
           <FILE id="aZcdGE" name="FileChooserComponent.h" compile="0" resource="0"
                 file="Source/FileChooserComponent.h"/>
           <FILE id="kIfvFq" name="FileChooserComponent.cpp" compile="1" resource="0"

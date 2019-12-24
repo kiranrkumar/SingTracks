@@ -9,12 +9,12 @@
 */
 
 #include "MainWindow.h"
-#include "FileChooserComponent.h"
+#include "MainComponent.h"
 
 MainWindow::MainWindow(String name) : DocumentWindow(name, Desktop::getInstance().getDefaultLookAndFeel().findColour(ResizableWindow::backgroundColourId), DocumentWindow::allButtons)
 {
     setUsingNativeTitleBar(true);
-    setContentOwned(new FileChooserComponent(), true);
+    setContentOwned(new MainComponent(), true);
     
 #if JUCE_IOS || JUCE_ANDROID
     setFullScreen(true);
