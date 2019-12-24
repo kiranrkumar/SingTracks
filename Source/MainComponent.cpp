@@ -10,6 +10,7 @@
 
 #include "MainComponent.h"
 
+#include "AppController.h"
 #include "FileChooserComponent.h"
 #include "TrackPreviewComponent.h"
 
@@ -20,6 +21,8 @@ MainComponent::MainComponent()
     mCurrentComponent.reset(new FileChooserComponent());
     addAndMakeVisible(mCurrentComponent.get());
     mCurrentComponent.get()->setBounds(getLocalBounds());
+    
+    AppController::getInstance()->setMainComponent(this);
 }
 
 MainComponent::~MainComponent()
@@ -45,6 +48,16 @@ void MainComponent::resized()
 void MainComponent::setCurrentComponent(Component *component)
 {
     if (mCurrentComponent.get() != component) {
+        removeAllChildren();
         mCurrentComponent.reset(component);
+        addAndMakeVisible(mCurrentComponent.get());
+    }
+}
+
+void MainComponent::setUpConfigScreen()
+{
+    // We shouldn't be here if we're not on the FileChooserComponent screen
+    if (dynamic_cast<FileChooserComponent *>(mCurrentComponent.get()) != nullptr) {
+        setCurrentComponent(new TrackPreviewComponent());
     }
 }

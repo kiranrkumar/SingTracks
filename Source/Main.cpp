@@ -10,7 +10,6 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MainWindow.h"
-#include "TempTestWindow.h"
 #include "TrackPreviewComponent.h"
 
 //==============================================================================
@@ -30,7 +29,6 @@ public:
         // This method is where you should put your application's initialisation code..
 
         mainWindow.reset(new MainWindow(getApplicationName()));
-        testWindow.reset(new TempTestWindow("Track Preview"));
     }
 
     void shutdown() override
@@ -38,7 +36,6 @@ public:
         // Add your application's shutdown code here..
 
         mainWindow = nullptr; // (deletes our window)
-        testWindow = nullptr;
     }
 
     //==============================================================================
@@ -58,7 +55,6 @@ public:
 
 private:
     std::unique_ptr<MainWindow> mainWindow;
-    std::unique_ptr<TempTestWindow> testWindow;
 };
 
 //==============================================================================

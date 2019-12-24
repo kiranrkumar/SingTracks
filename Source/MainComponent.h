@@ -31,6 +31,8 @@ public:
     void resized() override;
     
     void setCurrentComponent(Component *);
+    
+    void setUpConfigScreen(); // KRK_FIXME - this seems really inflexible, but I'm just trying it for now. May generalize/clean up a bit later
 
 private:
     std::unique_ptr<Component> mCurrentComponent;

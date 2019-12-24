@@ -63,6 +63,7 @@ void FileChooserComponent::updateConfigureTracksButtonEnableState()
 void FileChooserComponent::buttonClicked (Button *button) {
     if (button == &mConfigureTracksButton) {
         printf("'Configure Tracks' button clicked\n");
+        AppController::getInstance()->moveToConfigScreen();
     }
 }
 

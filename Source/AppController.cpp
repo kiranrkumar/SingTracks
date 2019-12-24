@@ -14,14 +14,14 @@
 
 std::unique_ptr<AppController> AppController::instance = std::unique_ptr<AppController>(nullptr);
 
-AppController::AppController()
+AppController::AppController() : mMainComponent(nullptr)
 {
     mFile.reset(nullptr);
 }
 
 AppController::~AppController()
 {
-    mFile.release();
+    mFile.reset();
 }
 
 AppController *
@@ -52,6 +52,28 @@ AppController::createTracks()
         }
     }
 }
+
+void
+AppController::moveToConfigScreen()
+{
+    if (mMainComponent != nullptr) {
+        mMainComponent->setUpConfigScreen();
+    }
+}
+
+void
+AppController::setMainComponent(MainComponent *mainComponent)
+{
+    if (mMainComponent != mainComponent) {
+        mMainComponent = mainComponent;
+    }
+}
+
+MainComponent*
+AppController::getMainComponent()
+{
+    return mMainComponent;
+};
 
 File*
 AppController::getCurrentFile()

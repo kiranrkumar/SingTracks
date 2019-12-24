@@ -65,9 +65,9 @@
 			isa = PBXBuildFile;
 			fileRef = C1EAFDEBF67B496A4CD5071E;
 		};
-		F916000768D4616693CF1121 = {
+		E4106BFD5D9C197A778A5CF9 = {
 			isa = PBXBuildFile;
-			fileRef = 9B3F08572CAB6DCE5E3D6BDB;
+			fileRef = 534E4829D59B40B2B5BD9058;
 		};
 		F699FF824697C673F76D2DCC = {
 			isa = PBXBuildFile;
@@ -249,13 +249,6 @@
 			path = System/Library/Frameworks/Cocoa.framework;
 			sourceTree = SDKROOT;
 		};
-		39810F59B806C96212216BD9 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = TempTestWindow.h;
-			path = ../../Source/TempTestWindow.h;
-			sourceTree = "SOURCE_ROOT";
-		};
 		3A9603ACA969F355E24B067D = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -277,12 +270,26 @@
 			path = "~/JUCE/modules/juce_audio_basics";
 			sourceTree = "<absolute>";
 		};
+		4D22083C87C74BBEA3E56568 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = SubComponent.h;
+			path = ../../Source/SubComponent.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		526B41F31724C227DA45C1C9 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
 			name = "juce_audio_processors";
 			path = "~/JUCE/modules/juce_audio_processors";
 			sourceTree = "<absolute>";
+		};
+		534E4829D59B40B2B5BD9058 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = SubComponent.cpp;
+			path = ../../Source/SubComponent.cpp;
+			sourceTree = "SOURCE_ROOT";
 		};
 		5512842C30AE50BEE39FEB93 = {
 			isa = PBXFileReference;
@@ -457,13 +464,6 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_events.mm";
 			path = "../../JuceLibraryCode/include_juce_events.mm";
-			sourceTree = "SOURCE_ROOT";
-		};
-		9B3F08572CAB6DCE5E3D6BDB = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = TempTestWindow.cpp;
-			path = ../../Source/TempTestWindow.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		A113396C262F3F3DB987F152 = {
@@ -715,8 +715,6 @@
 			children = (
 				79EA3FDA0271D2387412C2D2,
 				C1EAFDEBF67B496A4CD5071E,
-				39810F59B806C96212216BD9,
-				9B3F08572CAB6DCE5E3D6BDB,
 			);
 			name = Windows;
 			sourceTree = "<group>";
@@ -724,6 +722,8 @@
 		4944A19C03B31940D81925FA = {
 			isa = PBXGroup;
 			children = (
+				4D22083C87C74BBEA3E56568,
+				534E4829D59B40B2B5BD9058,
 				C6C7A9C7DEDB219683AABE4B,
 				7140546A1B8DD4B8A069961E,
 				C826A1383954359EB25CDC40,
@@ -1100,7 +1100,7 @@
 			files = (
 				8AAA3BAEBA938D3E58608AD9,
 				7BB9110337E097B3FFF173EC,
-				F916000768D4616693CF1121,
+				E4106BFD5D9C197A778A5CF9,
 				F699FF824697C673F76D2DCC,
 				3238AE6A8AF83FF4F43E9E6A,
 				8A0178D170DDC3E27A4AA279,

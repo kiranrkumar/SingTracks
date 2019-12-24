@@ -16,7 +16,7 @@ const int cTrackFieldContainerTopInset = 20;
 
 TrackPreviewComponent::TrackPreviewComponent()
 {
-    setSize(600, 700);
+    setSize(400, 600);
     
     addAndMakeVisible(mTrackFieldsContainer);
     setUpTrackFields(8); // KRK_FIXME placeholder value - will eventually be based on actual number of tracks

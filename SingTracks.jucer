@@ -18,12 +18,11 @@
         <GROUP id="{72E6337D-5C4F-FAA6-502D-6FA0EB64CAEA}" name="Windows">
           <FILE id="UKPozw" name="MainWindow.h" compile="0" resource="0" file="Source/MainWindow.h"/>
           <FILE id="nIFCB1" name="MainWindow.cpp" compile="1" resource="0" file="Source/MainWindow.cpp"/>
-          <FILE id="LcGyg7" name="TempTestWindow.h" compile="0" resource="0"
-                file="Source/TempTestWindow.h"/>
-          <FILE id="B8EMwG" name="TempTestWindow.cpp" compile="1" resource="0"
-                file="Source/TempTestWindow.cpp"/>
         </GROUP>
         <GROUP id="{7151523B-859B-72E4-A1AE-0A6945108137}" name="Other Components">
+          <FILE id="ZdIKvc" name="SubComponent.h" compile="0" resource="0" file="Source/SubComponent.h"/>
+          <FILE id="Iw7CVs" name="SubComponent.cpp" compile="1" resource="0"
+                file="Source/SubComponent.cpp"/>
           <FILE id="lSvSLz" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
           <FILE id="yzO60a" name="MainComponent.cpp" compile="1" resource="0"
                 file="Source/MainComponent.cpp"/>
