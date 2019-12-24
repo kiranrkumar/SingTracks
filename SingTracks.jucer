@@ -43,30 +43,30 @@
         </GROUP>
       </GROUP>
       <GROUP id="{D13874DF-2628-5BEC-4FB8-B4736031B4CE}" name="Controller">
+        <FILE id="oiv1gY" name="AppController.h" compile="0" resource="0" file="Source/AppController.h"/>
         <FILE id="B5lpt5" name="AppController.cpp" compile="1" resource="0"
               file="Source/AppController.cpp"/>
-        <FILE id="oiv1gY" name="AppController.h" compile="0" resource="0" file="Source/AppController.h"/>
-        <FILE id="RRIkTG" name="MIDITrackSynthesizer.cpp" compile="1" resource="0"
-              file="Source/MIDITrackSynthesizer.cpp"/>
         <FILE id="ZvK34E" name="MIDITrackSynthesizer.h" compile="0" resource="0"
               file="Source/MIDITrackSynthesizer.h"/>
-        <FILE id="H1MaXm" name="TrackGenerator.cpp" compile="1" resource="0"
-              file="Source/TrackGenerator.cpp"/>
+        <FILE id="RRIkTG" name="MIDITrackSynthesizer.cpp" compile="1" resource="0"
+              file="Source/MIDITrackSynthesizer.cpp"/>
         <FILE id="mtamVk" name="TrackGenerator.hpp" compile="0" resource="0"
               file="Source/TrackGenerator.hpp"/>
+        <FILE id="H1MaXm" name="TrackGenerator.cpp" compile="1" resource="0"
+              file="Source/TrackGenerator.cpp"/>
       </GROUP>
       <GROUP id="{4FD928CF-7BFE-7D6E-A792-E25D65C35559}" name="Tests">
+        <FILE id="b68nzF" name="MidiFile_TEST.h" compile="0" resource="0" file="Source/MidiFile_TEST.h"/>
         <FILE id="WxOT9q" name="MidiFile_TEST.cpp" compile="1" resource="0"
               file="Source/MidiFile_TEST.cpp"/>
-        <FILE id="b68nzF" name="MidiFile_TEST.h" compile="0" resource="0" file="Source/MidiFile_TEST.h"/>
-        <FILE id="TAls2O" name="TrackGenerator_TEST.cpp" compile="1" resource="0"
-              file="Source/TrackGenerator_TEST.cpp"/>
         <FILE id="S8547E" name="TrackGenerator_TEST.h" compile="0" resource="0"
               file="Source/TrackGenerator_TEST.h"/>
-        <FILE id="jUXENz" name="UnitTestsConfig.cpp" compile="1" resource="0"
-              file="Source/UnitTestsConfig.cpp"/>
+        <FILE id="TAls2O" name="TrackGenerator_TEST.cpp" compile="1" resource="0"
+              file="Source/TrackGenerator_TEST.cpp"/>
         <FILE id="pJStSd" name="UnitTestsConfig.h" compile="0" resource="0"
               file="Source/UnitTestsConfig.h"/>
+        <FILE id="jUXENz" name="UnitTestsConfig.cpp" compile="1" resource="0"
+              file="Source/UnitTestsConfig.cpp"/>
       </GROUP>
     </GROUP>
   </MAINGROUP>
