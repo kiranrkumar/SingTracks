@@ -17,11 +17,14 @@ class TrackGeneratorTest : public UnitTest
 {
 public:
     TrackGeneratorTest() : UnitTest ("Test rendering midi tracks to audio data") {}
+    ~TrackGeneratorTest() {}
+    void initialise() override;
     void runTest() override;
+    void shutdown() override;
     
 private:
     bool readMidiFromFile();
     
-    TrackGenerator mTrackGenerator;
+    std::unique_ptr<TrackGenerator> mTrackGenerator;
     MidiFile mMidiFile;
 };

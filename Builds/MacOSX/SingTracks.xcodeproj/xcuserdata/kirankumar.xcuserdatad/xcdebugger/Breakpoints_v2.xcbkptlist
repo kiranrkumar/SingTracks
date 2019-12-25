@@ -7,159 +7,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6A46E4AA-79BA-48F9-A66E-612C374848D5"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../Source/FileChooserComponent.cpp"
+            filePath = "../../Source/MidiFile_TEST.cpp"
+            timestampString = "598990385.785571"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "FileChooserComponent::~FileChooserComponent()"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "MIDIReadTest::shutdown()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6A46E4AA-79BA-48F9-A66E-612C374848D5 - 803d9f0182201f81"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FileChooserComponent::~FileChooserComponent()"
-                  moduleName = "SingTracks"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirankumar/SingTracks/Source/FileChooserComponent.cpp"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "28"
-                  endingLineNumber = "28"
-                  offsetFromSymbolStart = "47">
-               </Location>
-               <Location
-                  uuid = "6A46E4AA-79BA-48F9-A66E-612C374848D5 - 803d9f0182201f81"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FileChooserComponent::~FileChooserComponent()"
-                  moduleName = "SingTracks"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirankumar/SingTracks/Source/FileChooserComponent.cpp"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "28"
-                  endingLineNumber = "28"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  uuid = "6A46E4AA-79BA-48F9-A66E-612C374848D5 - 803d9f0182201f81"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FileChooserComponent::~FileChooserComponent()"
-                  moduleName = "SingTracks"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirankumar/SingTracks/Source/FileChooserComponent.cpp"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "28"
-                  endingLineNumber = "28"
-                  offsetFromSymbolStart = "20">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A31087EA-AEA4-4F8A-9106-4C61C82F319A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/FileChooserComponent.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "FileChooserComponent::FileChooserComponent()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CD0E2D37-CB01-4D88-8EFC-369835442176"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/MainComponent.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "MainComponent::~MainComponent()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "829A02E3-21EB-4619-B189-5E54099631DD"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/FullPageComponent.h"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "FullPageComponent"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "829A02E3-21EB-4619-B189-5E54099631DD - daf7f954772dfb98"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FullPageComponent::~FullPageComponent()"
-                  moduleName = "SingTracks"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirankumar/SingTracks/Source/FullPageComponent.h"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "24"
-                  endingLineNumber = "24"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  uuid = "829A02E3-21EB-4619-B189-5E54099631DD - daf7f954772dfb98"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FullPageComponent::~FullPageComponent()"
-                  moduleName = "SingTracks"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirankumar/SingTracks/Source/FullPageComponent.h"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "24"
-                  endingLineNumber = "24"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  uuid = "829A02E3-21EB-4619-B189-5E54099631DD - daf7f954772dfb98"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FullPageComponent::~FullPageComponent()"
-                  moduleName = "SingTracks"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kirankumar/SingTracks/Source/FullPageComponent.h"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "24"
-                  endingLineNumber = "24"
-                  offsetFromSymbolStart = "20">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

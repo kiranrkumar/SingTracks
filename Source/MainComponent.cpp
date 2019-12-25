@@ -13,6 +13,7 @@
 #include "AppController.h"
 #include "FileChooserComponent.h"
 #include "TrackPreviewComponent.h"
+#import "UnitTestsConfig.h"
 
 MainComponent::MainComponent()
 {
@@ -33,6 +34,10 @@ MainComponent::~MainComponent()
 //==============================================================================
 void MainComponent::paint (Graphics&)
 {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        SingTracksUnitTests::runUnitTests();
+    });
 }
 
 void MainComponent::resized()

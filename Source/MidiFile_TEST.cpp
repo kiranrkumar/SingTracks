@@ -12,9 +12,9 @@
 
 const char* const MIDI_FILEPATH = "/Users/kirankumar/SingTracks/Builds/MacOSX/OnlyLove.mid";
 
-void MIDIReadTest::setUp()
+void MIDIReadTest::initialise()
 {
-    // no-op?
+    mTrackGenerator.reset(new TrackGenerator());
 }
 
 void MIDIReadTest::runTest()
@@ -26,40 +26,18 @@ void MIDIReadTest::runTest()
     expect(getNumTracks(), String("Cannot get num tracks from MIDI file"));
 }
 
+void MIDIReadTest::shutdown()
+{
+    mTrackGenerator.reset();
+}
+
 bool MIDIReadTest::readMIDIFile()
 {
     File file(MIDI_FILEPATH);
-    return mTrackGenerator.readMidiDataFromFile(file);
+    return mTrackGenerator.get()->readMidiDataFromFile(file);
 }
 
 bool MIDIReadTest::getNumTracks()
 {
-    return (mTrackGenerator.getMidiFile().getNumTracks() > 0);
-}
-
-#pragma mark - FileWriteTest
-
-void FileWriteTest::runTest()
-{
-    
-}
-
-void FileWriteTest::setUp()
-{
-    
-}
-
-bool FileWriteTest::createFileObject(String)
-{
-    File dir = File::getSpecialLocation(File::userDocumentsDirectory);
-    mFileObject = dir.getNonexistentChildFile("FileWriteUnitTest", ".wav");
-    
-    return true;
-}
-
-bool FileWriteTest::writeFileToDisk()
-{
-    mBackgroundThread.startThread();
-    
-    return false;
+    return (mTrackGenerator.get()->getMidiFile().getNumTracks() > 0);
 }

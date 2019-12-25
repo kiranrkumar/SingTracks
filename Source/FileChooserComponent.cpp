@@ -9,7 +9,6 @@
 #include "FileChooserComponent.h"
 
 #include "AppController.h"
-#include "UnitTestsConfig.h"
 
 //==============================================================================
 FileChooserComponent::FileChooserComponent()
@@ -37,8 +36,6 @@ void FileChooserComponent::paint (Graphics& g)
     g.setFont (Font (16.0f));
     g.setColour (Colours::white);
     g.drawText ("Select a MIDI File", getLocalBounds(), Justification::centredTop, true);
-    
-    SingTracksUnitTests::runUnitTests();
 }
 
 void FileChooserComponent::resized()
