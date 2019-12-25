@@ -17,8 +17,8 @@
 class MIDIReadTest : public UnitTest
 {
 public:
-    MIDIReadTest() : UnitTest ("Read a valid MIDI file") {}
-    ~MIDIReadTest() {}
+    MIDIReadTest();
+    ~MIDIReadTest();
     
     void initialise() override;
     void runTest() override;

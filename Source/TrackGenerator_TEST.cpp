@@ -10,6 +10,10 @@
 
 #include "TrackGenerator_TEST.h"
 
+TrackGeneratorTest::TrackGeneratorTest() : UnitTest ("Test rendering midi tracks to audio data") {}
+
+TrackGeneratorTest::~TrackGeneratorTest() {}
+
 void TrackGeneratorTest::initialise() {
     mTrackGenerator.reset(new TrackGenerator());
 }

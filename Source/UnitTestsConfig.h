@@ -10,7 +10,7 @@
 
 #pragma once
 
-#define RUN_UNIT_TESTS 0
+const bool RUN_UNIT_TESTS = 1;
 
 #include "MidiFile_TEST.h"
 #include "TrackGenerator_TEST.h"

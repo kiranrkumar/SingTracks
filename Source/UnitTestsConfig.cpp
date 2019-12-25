@@ -11,11 +11,11 @@
 #include "UnitTestsConfig.h"
 
 void SingTracksUnitTests::runUnitTests() {
-#if RUN_UNIT_TESTS
-    static MIDIReadTest midiTest;
-    static TrackGeneratorTest trackTest;
-    UnitTestRunner runner;
-    runner.runAllTests();
-#endif
+    if (RUN_UNIT_TESTS) {
+        static MIDIReadTest midiTest;
+        static TrackGeneratorTest trackTest;
+        UnitTestRunner runner;
+        runner.runAllTests();
+    }
 }
 

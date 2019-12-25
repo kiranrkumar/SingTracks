@@ -12,6 +12,10 @@
 
 const char* const MIDI_FILEPATH = "/Users/kirankumar/SingTracks/Builds/MacOSX/OnlyLove.mid";
 
+MIDIReadTest::MIDIReadTest() : UnitTest ("Read a valid MIDI file") {}
+
+MIDIReadTest::~MIDIReadTest() {}
+
 void MIDIReadTest::initialise()
 {
     mTrackGenerator.reset(new TrackGenerator());
