@@ -17,7 +17,6 @@ public:
     TrackGenerator();
     ~TrackGenerator();
     bool readMidiDataFromFile(File&);
-    void setMidiFile(MidiFile&);
     const MidiFile& getMidiFile() const;
     
     void printSummary();

@@ -34,12 +34,6 @@ bool TrackGenerator::readMidiDataFromFile(File& file) {
     return mMidiFile.readFrom(inStream);
 }
 
-void TrackGenerator::setMidiFile(MidiFile& midiFile) {
-    if (&mMidiFile != &midiFile) {
-        mMidiFile = midiFile;
-    }
-}
-
 const MidiFile& TrackGenerator::getMidiFile() const {
     return mMidiFile;
 }
