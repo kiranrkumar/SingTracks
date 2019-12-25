@@ -13,11 +13,15 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 class TrackGenerator {
+private:
+    constexpr static const double DEFAULT_SAMPLE_RATE = 48000;
 public:
-    TrackGenerator();
+    TrackGenerator(double sampleRate = DEFAULT_SAMPLE_RATE);
     ~TrackGenerator();
     bool readMidiDataFromFile(File&);
+    
     const MidiFile& getMidiFile() const;
+    double getSampleRate() const;
     
     void printSummary();
     void renderAudio();

@@ -24,6 +24,7 @@ public:
     
 private:
     bool readMidiFromFile();
+    bool test_defaultSampleRateIsPositive();
     
     std::unique_ptr<TrackGenerator> mTrackGenerator;
     MidiFile mMidiFile;

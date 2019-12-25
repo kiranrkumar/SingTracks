@@ -9,12 +9,13 @@
 #include "MIDITrackSynthesizer.h"
 
 const int NUM_OUTPUT_CHANNELS = 2;
+const int NUM_SYNTH_VOICES = 10;
 
-TrackGenerator::TrackGenerator() {
-    mSampleRate = 48000;
+TrackGenerator::TrackGenerator(double sampleRate) {
+    mSampleRate = sampleRate;
     
     mSynth.clearVoices();
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < NUM_SYNTH_VOICES; ++i) {
         mSynth.addVoice(new MIDITrackSynthesizerVoice());
     }
     
@@ -36,6 +37,10 @@ bool TrackGenerator::readMidiDataFromFile(File& file) {
 
 const MidiFile& TrackGenerator::getMidiFile() const {
     return mMidiFile;
+}
+
+double TrackGenerator::getSampleRate() const {
+    return mSampleRate;
 }
 
 void TrackGenerator::printSummary() {

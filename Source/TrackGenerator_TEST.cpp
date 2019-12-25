@@ -21,10 +21,17 @@ void TrackGeneratorTest::initialise() {
 void TrackGeneratorTest::runTest() {
     beginTest("readMidiFromFile");
     expect(readMidiFromFile(), String("Could not read sample MIDI file data"));
+    
+    beginTest("test_defaultSampleRateIsPositive()");
+    expect(test_defaultSampleRateIsPositive());
 }
 
 void TrackGeneratorTest::shutdown() {
     mTrackGenerator.reset();
+}
+
+bool TrackGeneratorTest::test_defaultSampleRateIsPositive() {
+    return mTrackGenerator->getSampleRate() > 0;
 }
 
 bool TrackGeneratorTest::readMidiFromFile() {
