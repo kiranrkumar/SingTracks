@@ -13,6 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "CustomButtons.hpp"
 #include "TrackFieldsComponent.h"
+#include "TrackSettingsComponent.h"
 
 class TrackPreviewComponent : public Component, private Button::Listener
 {
@@ -31,6 +32,8 @@ private:
     Component mTrackFieldsContainer;
     OwnedArray<TrackFieldsComponent> mTrackFields;
     Viewport mTrackFieldsContainerViewport;
+    
+    TrackSettingsComponent mTrackSettingsComponent;
     
     CreateTracksButton mCreateTracksButton;
     int mNumTracks;

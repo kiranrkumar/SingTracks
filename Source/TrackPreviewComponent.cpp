@@ -21,6 +21,7 @@ TrackPreviewComponent::TrackPreviewComponent(int numTracks) : mNumTracks(numTrac
 {
     addAndMakeVisible(mTrackFieldsContainer);
     setUpTrackFields(mNumTracks); // KRK_FIXME placeholder value - will eventually be based on actual number of tracks
+    addAndMakeVisible(mTrackSettingsComponent);
     
     addAndMakeVisible(mTrackFieldsContainerViewport);
     mTrackFieldsContainerViewport.setViewedComponent(&mTrackFieldsContainer, false);
@@ -50,8 +51,10 @@ void TrackPreviewComponent::resized()
         tfc->setBounds(0, cTrackFieldContainerTopInset + i * cVerticalSpacePerTrackField, getWidth(), 35);
     }
     
+    Rectangle<int> area = getLocalBounds();
     // Limit track fields view to the top of the overall component
-    mTrackFieldsContainerViewport.setBounds(0, 0, getWidth(), 350);
+    mTrackFieldsContainerViewport.setBounds(area.removeFromTop(200));
+    mTrackSettingsComponent.setBounds(area.removeFromTop(area.getHeight() - 50));
     
     mCreateTracksButton.setBounds(mCreateTracksButton.boundsToDraw(getLocalBounds()));
 }

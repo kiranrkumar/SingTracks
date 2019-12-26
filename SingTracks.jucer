@@ -20,6 +20,10 @@
           <FILE id="LCMFKt" name="MainWindow.cpp" compile="1" resource="0" file="Source/MainWindow.cpp"/>
         </GROUP>
         <GROUP id="{7151523B-859B-72E4-A1AE-0A6945108137}" name="Other Components">
+          <FILE id="fUXHLr" name="TrackSettingsComponent.cpp" compile="1" resource="0"
+                file="Source/TrackSettingsComponent.cpp"/>
+          <FILE id="VtDJPU" name="TrackSettingsComponent.h" compile="0" resource="0"
+                file="Source/TrackSettingsComponent.h"/>
           <FILE id="gmnGiw" name="CustomButtons.hpp" compile="0" resource="0"
                 file="Source/CustomButtons.hpp"/>
           <FILE id="GGVYf4" name="CustomButtons.cpp" compile="1" resource="0"
