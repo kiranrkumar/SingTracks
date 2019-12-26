@@ -13,13 +13,12 @@
 //==============================================================================
 FileChooserComponent::FileChooserComponent()
 {
-    setBounds(0, 0, 400, 600);
-    
     addAndMakeVisible(mFilenameBrowser);
     addAndMakeVisible(mConfigureTracksButton);
     
     mFilenameBrowser.addListener(this);
     mConfigureTracksButton.addListener(this);
+    
     updateConfigureTracksButtonEnableState();
 }
 
@@ -40,9 +39,6 @@ void FileChooserComponent::paint (Graphics& g)
 
 void FileChooserComponent::resized()
 {
-    // This is called when the FileChooserComponent is resized.
-    // If you add any child components, this is where you should
-    // update their positions.
     Rectangle<int> localBounds = getLocalBounds();
     
     mConfigureTracksButton.setBounds(mConfigureTracksButton.boundsToDraw(localBounds));

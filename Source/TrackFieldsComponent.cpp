@@ -21,8 +21,6 @@ TrackFieldsComponent::TrackFieldsComponent()
     mIsSoloButton.addListener(this);
     mIsSoloButton.setButtonText("Is Solo");
     
-    setSize(getWidth(), getHeight());
-    
     addAndMakeVisible(mNameField);
     addAndMakeVisible(mIsSoloButton);
 }
