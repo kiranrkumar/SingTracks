@@ -64,5 +64,6 @@ void MainComponent::setUpConfigScreen()
     // We shouldn't be here if we're not on the FileChooserComponent screen
     if (dynamic_cast<FileChooserComponent *>(mCurrentComponent.get()) != nullptr) {
         setCurrentComponent(new TrackPreviewComponent());
+        resized();
     }
 }

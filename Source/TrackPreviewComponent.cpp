@@ -16,8 +16,6 @@ const int cTrackFieldContainerTopInset = 20;
 
 TrackPreviewComponent::TrackPreviewComponent()
 {
-    setSize(400, 600);
-    
     addAndMakeVisible(mTrackFieldsContainer);
     setUpTrackFields(8); // KRK_FIXME placeholder value - will eventually be based on actual number of tracks
     
@@ -26,8 +24,6 @@ TrackPreviewComponent::TrackPreviewComponent()
     
     addAndMakeVisible(mCreateTracksButton);
     mCreateTracksButton.addListener(this);
-    
-    layoutSubComponents();
 }
 
 TrackPreviewComponent::~TrackPreviewComponent()
@@ -42,20 +38,6 @@ void TrackPreviewComponent::paint(Graphics &g)
 
 void TrackPreviewComponent::resized()
 {
-    layoutSubComponents();
-}
-
-#pragma mark - Button Listener
-
-void TrackPreviewComponent::buttonClicked(Button *button)
-{
-    if (button == &mCreateTracksButton) {
-        AppController::getInstance()->createTracks();
-    }
-}
-
-void TrackPreviewComponent::layoutSubComponents()
-{
     int numComponents = mTrackFields.size();
     mTrackFieldsContainer.setBounds(0, 0, getWidth(), cTrackFieldContainerTopInset + numComponents * cVerticalSpacePerTrackField);
     
@@ -69,6 +51,14 @@ void TrackPreviewComponent::layoutSubComponents()
     mTrackFieldsContainerViewport.setBounds(0, 0, getWidth(), 350);
     
     mCreateTracksButton.setBounds(mCreateTracksButton.boundsToDraw(getLocalBounds()));
+}
+
+#pragma mark - Button Listener
+void TrackPreviewComponent::buttonClicked(Button *button)
+{
+    if (button == &mCreateTracksButton) {
+        AppController::getInstance()->createTracks();
+    }
 }
 
 void TrackPreviewComponent::setUpTrackFields(int numComponents)
