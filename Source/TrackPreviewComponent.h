@@ -17,7 +17,7 @@
 class TrackPreviewComponent : public Component, private Button::Listener
 {
 public:
-    TrackPreviewComponent();
+    TrackPreviewComponent(int numTracks);
     ~TrackPreviewComponent();
     
     void paint (Graphics&) override;
@@ -33,4 +33,5 @@ private:
     Viewport mTrackFieldsContainerViewport;
     
     CreateTracksButton mCreateTracksButton;
+    int mNumTracks;
 };

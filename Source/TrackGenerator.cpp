@@ -43,6 +43,10 @@ double TrackGenerator::getSampleRate() const {
     return mSampleRate;
 }
 
+int TrackGenerator::getNumTracks() const {
+    return mMidiFile.getNumTracks();
+}
+
 void TrackGenerator::printSummary() {
     mMidiFile.convertTimestampTicksToSeconds();
     DEBUG_LOG("Num tracks: %d\n", mMidiFile.getNumTracks());

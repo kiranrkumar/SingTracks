@@ -22,6 +22,7 @@ public:
     
     const MidiFile& getMidiFile() const;
     double getSampleRate() const;
+    int getNumTracks() const;
     
     void printSummary();
     void renderAudio();

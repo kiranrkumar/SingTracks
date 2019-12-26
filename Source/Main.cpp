@@ -9,6 +9,7 @@
 */
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "AppController.h"
 #include "MainWindow.h"
 #include "TrackPreviewComponent.h"
 
@@ -34,7 +35,7 @@ public:
     void shutdown() override
     {
         // Add your application's shutdown code here..
-
+        AppController::getInstance()->~AppController();
         mainWindow = nullptr; // (deletes our window)
     }
 

@@ -14,10 +14,10 @@
 const int cVerticalSpacePerTrackField = 50;
 const int cTrackFieldContainerTopInset = 20;
 
-TrackPreviewComponent::TrackPreviewComponent()
+TrackPreviewComponent::TrackPreviewComponent(int numTracks) : mNumTracks(numTracks)
 {
     addAndMakeVisible(mTrackFieldsContainer);
-    setUpTrackFields(8); // KRK_FIXME placeholder value - will eventually be based on actual number of tracks
+    setUpTrackFields(mNumTracks); // KRK_FIXME placeholder value - will eventually be based on actual number of tracks
     
     addAndMakeVisible(mTrackFieldsContainerViewport);
     mTrackFieldsContainerViewport.setViewedComponent(&mTrackFieldsContainer, false);

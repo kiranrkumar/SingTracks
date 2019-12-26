@@ -28,7 +28,7 @@ public:
     void setCurrentFile(File&);
     void createTracks();
     
-    void moveToConfigScreen(); // KRK_FIXME - this seems really inflexible, but I'm just trying it for now. May generalize/clean up a bit later
+    void moveToConfigScreen(int numTracks); // KRK_FIXME - this seems really inflexible, but I'm just trying it for now. May generalize/clean up a bit later
     
 private:
     static std::unique_ptr<AppController> instance;
@@ -36,4 +36,5 @@ private:
     AppController();
     std::unique_ptr<File> mFile;
     MainComponent *mMainComponent;
+    std::unique_ptr<TrackGenerator> mTrackGenerator;
 };

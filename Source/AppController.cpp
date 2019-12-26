@@ -22,6 +22,7 @@ AppController::AppController() : mMainComponent(nullptr)
 AppController::~AppController()
 {
     mFile.reset();
+    mTrackGenerator.reset();
 }
 
 AppController *
@@ -37,27 +38,14 @@ AppController::getInstance()
 void
 AppController::createTracks()
 {
-    if (mFile.get() != nullptr) {
-        printf("AppController::createTracksFromFile\n");
-        TrackGenerator trackGenerator;
-        // Create source stream from file
-        FileInputStream inStream(*(mFile.get()));
-        bool didRead = trackGenerator.readMidiDataFromFile(*(mFile.get()));
-        if (didRead) {
-            trackGenerator.printSummary();
-            trackGenerator.renderAudio();
-        }
-        else {
-            printf("Uh-oh, didn't read MIDI properly...");
-        }
-    }
+    mTrackGenerator->renderAudio();
 }
 
 void
-AppController::moveToConfigScreen()
+AppController::moveToConfigScreen(int numTracks)
 {
     if (mMainComponent != nullptr) {
-        mMainComponent->setUpConfigScreen();
+        mMainComponent->setUpConfigScreen(mTrackGenerator->getNumTracks());
     }
 }
 
@@ -87,5 +75,16 @@ AppController::setCurrentFile(File &file)
     if (mFile.get() != &file) {
         mFile.reset(new File(file));
         std::cout << "File changed to: " << mFile.get()->getFileName() << "\n";
+        if (mFile.get() != nullptr) {
+            // Create source stream from file
+            FileInputStream inStream(*(mFile.get()));
+            mTrackGenerator.reset(new TrackGenerator());
+            if (mTrackGenerator->readMidiDataFromFile(*(mFile.get()))) {
+                mTrackGenerator->printSummary();
+            }
+            else {
+                printf("Uh-oh, didn't read MIDI properly...");
+            }
+        }
     }
 }
