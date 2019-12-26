@@ -14,6 +14,9 @@
 const int cVerticalSpacePerTrackField = 50;
 const int cTrackFieldContainerTopInset = 20;
 
+/*
+    KRK_FIXME - numTracks as passed in below will have an extra track if it's a multitrack MIDI file create in Logic (maybe some other programs as well) because Logic adds the additional metadata track at the beginning. Need a way to filter this non-musical track out as necessary
+*/
 TrackPreviewComponent::TrackPreviewComponent(int numTracks) : mNumTracks(numTracks)
 {
     addAndMakeVisible(mTrackFieldsContainer);
