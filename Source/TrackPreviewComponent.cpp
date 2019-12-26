@@ -21,7 +21,12 @@ TrackPreviewComponent::TrackPreviewComponent(int numTracks) : mNumTracks(numTrac
 {
     addAndMakeVisible(mTrackFieldsContainer);
     setUpTrackFields(mNumTracks); // KRK_FIXME placeholder value - will eventually be based on actual number of tracks
-    addAndMakeVisible(mTrackSettingsComponent);
+    
+    for (int i = 0; i < 3; ++i) {
+        TrackSettingsComponent *tsc = new TrackSettingsComponent();
+        mTrackSettings.add(tsc);
+        addAndMakeVisible(tsc);
+    }
     
     addAndMakeVisible(mTrackFieldsContainerViewport);
     mTrackFieldsContainerViewport.setViewedComponent(&mTrackFieldsContainer, false);
@@ -54,7 +59,13 @@ void TrackPreviewComponent::resized()
     Rectangle<int> area = getLocalBounds();
     // Limit track fields view to the top of the overall component
     mTrackFieldsContainerViewport.setBounds(area.removeFromTop(200));
-    mTrackSettingsComponent.setBounds(area.removeFromTop(area.getHeight() - 50));
+    
+    int trackSettingsWidth = getWidth() / mTrackSettings.size();
+    area = area.removeFromTop(area.getHeight() - 50);
+    for (int i = 0; i < mTrackSettings.size(); ++i) {
+        TrackSettingsComponent *tsc = mTrackSettings[i];
+        tsc->setBounds(i * trackSettingsWidth, area.getY(), trackSettingsWidth, area.getHeight());
+    }
     
     mCreateTracksButton.setBounds(mCreateTracksButton.boundsToDraw(getLocalBounds()));
 }

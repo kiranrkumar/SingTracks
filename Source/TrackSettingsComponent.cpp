@@ -43,8 +43,8 @@ void TrackSettingsComponent::resized()
     
     int spaceAtSides = areaWidth - gainWidth - panWidth - spaceBetweenControls;
     
-    mGainSlider.setBounds(spaceAtSides/2, gainVerticalPadding, gainWidth, areaHeight - gainVerticalPadding * 2);
-    mPanSlider.setBounds(areaWidth - spaceAtSides/2 - panWidth, areaHeight - panWidth - gainVerticalPadding, panWidth, panWidth);
+    mGainSlider.setBounds(spaceAtSides/2 + spaceBetweenControls/2, gainVerticalPadding, gainWidth, areaHeight - gainVerticalPadding * 2);
+    mPanSlider.setBounds(areaWidth - spaceAtSides/2 - panWidth - spaceBetweenControls/2, areaHeight - panWidth - gainVerticalPadding, panWidth, panWidth);
 }
 
 #pragma mark - Listener Overrides

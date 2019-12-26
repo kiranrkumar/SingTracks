@@ -33,7 +33,7 @@ private:
     OwnedArray<TrackFieldsComponent> mTrackFields;
     Viewport mTrackFieldsContainerViewport;
     
-    TrackSettingsComponent mTrackSettingsComponent;
+    OwnedArray<TrackSettingsComponent> mTrackSettings;
     
     CreateTracksButton mCreateTracksButton;
     int mNumTracks;
