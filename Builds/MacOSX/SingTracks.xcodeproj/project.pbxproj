@@ -755,7 +755,7 @@
 				5DBEBB630F21A9FBC49B1DC7,
 				1973D9B418264E586566544F,
 			);
-			name = "Other Components";
+			name = Components;
 			sourceTree = "<group>";
 		};
 		0107C78FEE0919B111583F6A = {

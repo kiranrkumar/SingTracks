@@ -19,7 +19,7 @@
           <FILE id="C5OAfC" name="MainWindow.h" compile="0" resource="0" file="Source/MainWindow.h"/>
           <FILE id="LCMFKt" name="MainWindow.cpp" compile="1" resource="0" file="Source/MainWindow.cpp"/>
         </GROUP>
-        <GROUP id="{7151523B-859B-72E4-A1AE-0A6945108137}" name="Other Components">
+        <GROUP id="{7151523B-859B-72E4-A1AE-0A6945108137}" name="Components">
           <FILE id="dHx7zz" name="CustomButtons.cpp" compile="1" resource="0"
                 file="Source/Components/CustomButtons.cpp"/>
           <FILE id="AlA7gQ" name="CustomButtons.hpp" compile="0" resource="0"
