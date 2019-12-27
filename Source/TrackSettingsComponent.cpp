@@ -14,11 +14,18 @@ TrackSettingsComponent::TrackSettingsComponent()
 {
     mGainSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
     mGainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 45, 25);
+    mGainSlider.setNumDecimalPlacesToDisplay(1);
+    mGainSlider.setRange(Range<double>(-80.0, 6.0), 1.0);
+    mGainSlider.setValue(0.0);
+    mGainSlider.setTextValueSuffix("dB");
     mGainSlider.addListener(this);
     addAndMakeVisible(mGainSlider);
     
     mPanSlider.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     mPanSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 45, 25);
+    mPanSlider.setNumDecimalPlacesToDisplay(0);
+    mPanSlider.setRange(Range<double>(-64, 63), 1);
+    mPanSlider.setValue(0);
     mPanSlider.addListener(this);
     addAndMakeVisible(mPanSlider);
 }
