@@ -10,10 +10,10 @@
 
 #include "MainComponent.h"
 
-#include "AppController.h"
+#include "../Controllers/AppController.h"
 #include "FileChooserComponent.h"
 #include "TrackPreviewComponent.h"
-#import "UnitTestsConfig.h"
+#import "../Tests/UnitTestsConfig.h"
 
 MainComponent::MainComponent()
 {

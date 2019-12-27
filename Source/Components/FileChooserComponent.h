@@ -10,7 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "CustomButtons.hpp"
-#include "TrackGenerator.hpp"
+#include "../Controllers/TrackGenerator.hpp"
 
 //==============================================================================
 /*

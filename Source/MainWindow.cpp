@@ -9,7 +9,7 @@
 */
 
 #include "MainWindow.h"
-#include "MainComponent.h"
+#include "Components/MainComponent.h"
 
 MainWindow::MainWindow(String name) : DocumentWindow(name, Desktop::getInstance().getDefaultLookAndFeel().findColour(ResizableWindow::backgroundColourId), DocumentWindow::allButtons)
 {

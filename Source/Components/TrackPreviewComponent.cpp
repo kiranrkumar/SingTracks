@@ -9,7 +9,7 @@
 */
 
 #include "TrackPreviewComponent.h"
-#include "AppController.h"
+#include "../Controllers/AppController.h"
 
 const int cVerticalSpacePerTrackField = 40;
 const int cTrackFieldContainerTopInset = 20;

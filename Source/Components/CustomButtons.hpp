@@ -8,7 +8,7 @@
 #ifndef CustomButtons_hpp
 #define CustomButtons_hpp
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "../../JuceLibraryCode/JuceHeader.h"
 
 class SelfDrawingComponent {
 public:

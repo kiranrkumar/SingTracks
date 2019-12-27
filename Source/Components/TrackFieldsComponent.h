@@ -12,7 +12,7 @@
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "../../JuceLibraryCode/JuceHeader.h"
 
 class TrackFieldsComponent : public Component, private Button::Listener
 {

@@ -8,7 +8,7 @@
 
 #include "FileChooserComponent.h"
 
-#include "AppController.h"
+#include "../Controllers/AppController.h"
 
 //==============================================================================
 FileChooserComponent::FileChooserComponent()

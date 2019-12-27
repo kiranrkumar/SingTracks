@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "../../JuceLibraryCode/JuceHeader.h"
 
 class TrackSettingsComponent : public Component, private Button::Listener, private Slider::Listener {
 public:

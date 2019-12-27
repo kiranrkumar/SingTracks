@@ -9,9 +9,9 @@
 */
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "AppController.h"
+#include "Controllers/AppController.h"
 #include "MainWindow.h"
-#include "TrackPreviewComponent.h"
+#include "Components/TrackPreviewComponent.h"
 
 //==============================================================================
 class SingTracksApplication  : public JUCEApplication

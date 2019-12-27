@@ -18,7 +18,7 @@
 #define DEBUG_LOG(...) {}
 #endif
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "../../JuceLibraryCode/JuceHeader.h"
 
 class MIDITrackSynthesizerSound : public SynthesiserSound {
 public:

@@ -10,9 +10,9 @@
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "../../JuceLibraryCode/JuceHeader.h"
 
-#include "MainComponent.h"
+#include "../Components/MainComponent.h"
 #include "TrackGenerator.hpp"
 
 class AppController

@@ -10,8 +10,8 @@
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
-#include "TrackGenerator.hpp"
+#include "../../JuceLibraryCode/JuceHeader.h"
+#include "../Controllers/TrackGenerator.hpp"
 
 class TrackGeneratorTest : public UnitTest
 {

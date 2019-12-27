@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "../../JuceLibraryCode/JuceHeader.h"
 
 class TrackGenerator {
 private:

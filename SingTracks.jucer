@@ -20,59 +20,59 @@
           <FILE id="LCMFKt" name="MainWindow.cpp" compile="1" resource="0" file="Source/MainWindow.cpp"/>
         </GROUP>
         <GROUP id="{7151523B-859B-72E4-A1AE-0A6945108137}" name="Other Components">
-          <FILE id="fUXHLr" name="TrackSettingsComponent.cpp" compile="1" resource="0"
-                file="Source/TrackSettingsComponent.cpp"/>
-          <FILE id="VtDJPU" name="TrackSettingsComponent.h" compile="0" resource="0"
-                file="Source/TrackSettingsComponent.h"/>
-          <FILE id="gmnGiw" name="CustomButtons.hpp" compile="0" resource="0"
-                file="Source/CustomButtons.hpp"/>
-          <FILE id="GGVYf4" name="CustomButtons.cpp" compile="1" resource="0"
-                file="Source/CustomButtons.cpp"/>
-          <FILE id="BGBzSh" name="FileChooserComponent.h" compile="0" resource="0"
-                file="Source/FileChooserComponent.h"/>
-          <FILE id="KnwIHk" name="FileChooserComponent.cpp" compile="1" resource="0"
-                file="Source/FileChooserComponent.cpp"/>
-          <FILE id="tmf8Ym" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-          <FILE id="i3pPRl" name="MainComponent.cpp" compile="1" resource="0"
-                file="Source/MainComponent.cpp"/>
-          <FILE id="ISfOwN" name="SubComponent.h" compile="0" resource="0" file="Source/SubComponent.h"/>
-          <FILE id="AMcLGh" name="SubComponent.cpp" compile="1" resource="0"
-                file="Source/SubComponent.cpp"/>
-          <FILE id="WpS1m8" name="TrackFieldsComponent.h" compile="0" resource="0"
-                file="Source/TrackFieldsComponent.h"/>
-          <FILE id="uguYCS" name="TrackFieldsComponent.cpp" compile="1" resource="0"
-                file="Source/TrackFieldsComponent.cpp"/>
-          <FILE id="fnmeYa" name="TrackPreviewComponent.h" compile="0" resource="0"
-                file="Source/TrackPreviewComponent.h"/>
-          <FILE id="tCKO1L" name="TrackPreviewComponent.cpp" compile="1" resource="0"
-                file="Source/TrackPreviewComponent.cpp"/>
+          <FILE id="dHx7zz" name="CustomButtons.cpp" compile="1" resource="0"
+                file="Source/Components/CustomButtons.cpp"/>
+          <FILE id="AlA7gQ" name="CustomButtons.hpp" compile="0" resource="0"
+                file="Source/Components/CustomButtons.hpp"/>
+          <FILE id="xMw5Vp" name="FileChooserComponent.cpp" compile="1" resource="0"
+                file="Source/Components/FileChooserComponent.cpp"/>
+          <FILE id="zV4K3F" name="FileChooserComponent.h" compile="0" resource="0"
+                file="Source/Components/FileChooserComponent.h"/>
+          <FILE id="fDcYnv" name="MainComponent.cpp" compile="1" resource="0"
+                file="Source/Components/MainComponent.cpp"/>
+          <FILE id="sBtF46" name="MainComponent.h" compile="0" resource="0" file="Source/Components/MainComponent.h"/>
+          <FILE id="XXYTWI" name="SubComponent.cpp" compile="1" resource="0"
+                file="Source/Components/SubComponent.cpp"/>
+          <FILE id="Oir973" name="SubComponent.h" compile="0" resource="0" file="Source/Components/SubComponent.h"/>
+          <FILE id="gTS8oB" name="TrackFieldsComponent.cpp" compile="1" resource="0"
+                file="Source/Components/TrackFieldsComponent.cpp"/>
+          <FILE id="Gk1WAG" name="TrackFieldsComponent.h" compile="0" resource="0"
+                file="Source/Components/TrackFieldsComponent.h"/>
+          <FILE id="uX6iwj" name="TrackPreviewComponent.cpp" compile="1" resource="0"
+                file="Source/Components/TrackPreviewComponent.cpp"/>
+          <FILE id="kgoBxe" name="TrackPreviewComponent.h" compile="0" resource="0"
+                file="Source/Components/TrackPreviewComponent.h"/>
+          <FILE id="iG0VEp" name="TrackSettingsComponent.cpp" compile="1" resource="0"
+                file="Source/Components/TrackSettingsComponent.cpp"/>
+          <FILE id="tzo7CX" name="TrackSettingsComponent.h" compile="0" resource="0"
+                file="Source/Components/TrackSettingsComponent.h"/>
         </GROUP>
       </GROUP>
       <GROUP id="{D13874DF-2628-5BEC-4FB8-B4736031B4CE}" name="Controller">
-        <FILE id="mfUH96" name="AppController.h" compile="0" resource="0" file="Source/AppController.h"/>
-        <FILE id="tCzRIx" name="AppController.cpp" compile="1" resource="0"
-              file="Source/AppController.cpp"/>
-        <FILE id="JYWOR2" name="MIDITrackSynthesizer.h" compile="0" resource="0"
-              file="Source/MIDITrackSynthesizer.h"/>
-        <FILE id="wKnaDa" name="MIDITrackSynthesizer.cpp" compile="1" resource="0"
-              file="Source/MIDITrackSynthesizer.cpp"/>
-        <FILE id="vo2G1t" name="TrackGenerator.hpp" compile="0" resource="0"
-              file="Source/TrackGenerator.hpp"/>
-        <FILE id="ckAdlj" name="TrackGenerator.cpp" compile="1" resource="0"
-              file="Source/TrackGenerator.cpp"/>
+        <FILE id="tUjLCK" name="AppController.cpp" compile="1" resource="0"
+              file="Source/Controllers/AppController.cpp"/>
+        <FILE id="Y084cy" name="AppController.h" compile="0" resource="0" file="Source/Controllers/AppController.h"/>
+        <FILE id="zxG4A4" name="MIDITrackSynthesizer.cpp" compile="1" resource="0"
+              file="Source/Controllers/MIDITrackSynthesizer.cpp"/>
+        <FILE id="gT3152" name="MIDITrackSynthesizer.h" compile="0" resource="0"
+              file="Source/Controllers/MIDITrackSynthesizer.h"/>
+        <FILE id="dOz7ja" name="TrackGenerator.cpp" compile="1" resource="0"
+              file="Source/Controllers/TrackGenerator.cpp"/>
+        <FILE id="QU543S" name="TrackGenerator.hpp" compile="0" resource="0"
+              file="Source/Controllers/TrackGenerator.hpp"/>
       </GROUP>
       <GROUP id="{4FD928CF-7BFE-7D6E-A792-E25D65C35559}" name="Tests">
-        <FILE id="XOaTSi" name="MidiFile_TEST.h" compile="0" resource="0" file="Source/MidiFile_TEST.h"/>
-        <FILE id="KY5e5H" name="MidiFile_TEST.cpp" compile="1" resource="0"
-              file="Source/MidiFile_TEST.cpp"/>
-        <FILE id="TSdiQn" name="TrackGenerator_TEST.h" compile="0" resource="0"
-              file="Source/TrackGenerator_TEST.h"/>
-        <FILE id="z90Yah" name="TrackGenerator_TEST.cpp" compile="1" resource="0"
-              file="Source/TrackGenerator_TEST.cpp"/>
-        <FILE id="TdMDGq" name="UnitTestsConfig.h" compile="0" resource="0"
-              file="Source/UnitTestsConfig.h"/>
-        <FILE id="QZPzRw" name="UnitTestsConfig.cpp" compile="1" resource="0"
-              file="Source/UnitTestsConfig.cpp"/>
+        <FILE id="aUqIcl" name="MidiFile_TEST.cpp" compile="1" resource="0"
+              file="Source/Tests/MidiFile_TEST.cpp"/>
+        <FILE id="axDQL9" name="MidiFile_TEST.h" compile="0" resource="0" file="Source/Tests/MidiFile_TEST.h"/>
+        <FILE id="ism7kj" name="TrackGenerator_TEST.cpp" compile="1" resource="0"
+              file="Source/Tests/TrackGenerator_TEST.cpp"/>
+        <FILE id="W5uKQg" name="TrackGenerator_TEST.h" compile="0" resource="0"
+              file="Source/Tests/TrackGenerator_TEST.h"/>
+        <FILE id="OROoiY" name="UnitTestsConfig.cpp" compile="1" resource="0"
+              file="Source/Tests/UnitTestsConfig.cpp"/>
+        <FILE id="qj8sdN" name="UnitTestsConfig.h" compile="0" resource="0"
+              file="Source/Tests/UnitTestsConfig.h"/>
       </GROUP>
     </GROUP>
   </MAINGROUP>

@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "../../JuceLibraryCode/JuceHeader.h"
 #include "CustomButtons.hpp"
 #include "TrackFieldsComponent.h"
 #include "TrackSettingsComponent.h"

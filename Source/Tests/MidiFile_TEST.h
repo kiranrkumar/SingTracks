@@ -10,9 +10,9 @@
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "../../JuceLibraryCode/JuceHeader.h"
 
-#include "TrackGenerator.hpp"
+#include "../Controllers/TrackGenerator.hpp"
 
 class MIDIReadTest : public UnitTest
 {
