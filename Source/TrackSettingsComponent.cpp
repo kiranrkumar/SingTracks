@@ -17,7 +17,7 @@ TrackSettingsComponent::TrackSettingsComponent()
     mGainSlider.setNumDecimalPlacesToDisplay(1);
     mGainSlider.setRange(Range<double>(-80.0, 6.0), 1.0);
     mGainSlider.setValue(0.0);
-    mGainSlider.setTextValueSuffix("dB");
+    mGainSlider.setTextValueSuffix(" dB");
     mGainSlider.addListener(this);
     addAndMakeVisible(mGainSlider);
     
@@ -45,13 +45,12 @@ void TrackSettingsComponent::resized()
     
     const int gainWidth = 85;
     const int panWidth = 95;
+    const int panHeight = 95;
     const int gainVerticalPadding = 10;
-    const int spaceBetweenControls = 15;
+    const int horizontalOffsetFromCenter = 2;
     
-    int spaceAtSides = areaWidth - gainWidth - panWidth - spaceBetweenControls;
-    
-    mGainSlider.setBounds(spaceAtSides/2 + spaceBetweenControls/2, gainVerticalPadding, gainWidth, areaHeight - gainVerticalPadding * 2);
-    mPanSlider.setBounds(areaWidth - spaceAtSides/2 - panWidth - spaceBetweenControls/2, areaHeight - panWidth - gainVerticalPadding, panWidth, panWidth);
+    mGainSlider.setBounds(areaWidth/2 - gainWidth - horizontalOffsetFromCenter, gainVerticalPadding, gainWidth, areaHeight - gainVerticalPadding * 2);
+    mPanSlider.setBounds(areaWidth/2 + horizontalOffsetFromCenter, areaHeight - panWidth - gainVerticalPadding, panWidth, panHeight);
 }
 
 #pragma mark - Listener Overrides
