@@ -43,7 +43,7 @@ void TrackSettingsComponent::resized()
     int areaHeight = area.getHeight();
     int areaWidth = area.getWidth();
     
-    const int gainWidth = 85;
+    const int gainWidth = 65;
     const int panWidth = 95;
     const int panHeight = 95;
     const int gainVerticalPadding = 10;

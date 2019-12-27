@@ -11,7 +11,7 @@
 #include "TrackPreviewComponent.h"
 #include "AppController.h"
 
-const int cVerticalSpacePerTrackField = 50;
+const int cVerticalSpacePerTrackField = 40;
 const int cTrackFieldContainerTopInset = 20;
 
 /*
@@ -53,7 +53,7 @@ void TrackPreviewComponent::resized()
     // Track field components are child components of mTrackFieldsContainer
     for (int i = 0; i < numComponents; ++i) {
         TrackFieldsComponent *tfc = mTrackFields[i];
-        tfc->setBounds(0, cTrackFieldContainerTopInset + i * cVerticalSpacePerTrackField, getWidth(), 35);
+        tfc->setBounds(0, cTrackFieldContainerTopInset + i * cVerticalSpacePerTrackField, getWidth(), 25);
     }
     
     Rectangle<int> area = getLocalBounds();

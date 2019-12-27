@@ -21,8 +21,11 @@ TrackFieldsComponent::TrackFieldsComponent()
     mIsSoloButton.addListener(this);
     mIsSoloButton.setButtonText("Is Solo");
     
-    addAndMakeVisible(mNameField);
+    mNameField.setMultiLine(false);
+    mNameField.applyFontToAllText(Font(16));
+    
     addAndMakeVisible(mIsSoloButton);
+    addAndMakeVisible(mNameField);
 }
 
 TrackFieldsComponent::~TrackFieldsComponent()
