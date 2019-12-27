@@ -14,12 +14,12 @@
 FileChooserComponent::FileChooserComponent()
 {
     addAndMakeVisible(mFilenameBrowser);
-    addAndMakeVisible(mConfigureTracksButton);
+    addAndMakeVisible(mImportMidiButton);
     
     mFilenameBrowser.addListener(this);
-    mConfigureTracksButton.addListener(this);
+    mImportMidiButton.addListener(this);
     
-    updateConfigureTracksButtonEnableState();
+    updateImportMidiButtonEnableState();
 }
 
 FileChooserComponent::~FileChooserComponent()
@@ -41,21 +41,21 @@ void FileChooserComponent::resized()
 {
     Rectangle<int> localBounds = getLocalBounds();
     
-    mConfigureTracksButton.setBounds(mConfigureTracksButton.boundsToDraw(localBounds));
+    mImportMidiButton.setBounds(mImportMidiButton.boundsToDraw(localBounds));
     mFilenameBrowser.setBounds(mFilenameBrowser.boundsToDraw(localBounds));
     
-    updateConfigureTracksButtonEnableState();
+    updateImportMidiButtonEnableState();
 }
 
-void FileChooserComponent::updateConfigureTracksButtonEnableState()
+void FileChooserComponent::updateImportMidiButtonEnableState()
 {
-    mConfigureTracksButton.setEnabled(AppController::getInstance()->getCurrentFile() != nullptr);
+    mImportMidiButton.setEnabled(AppController::getInstance()->getCurrentFile() != nullptr);
 }
 
 #pragma mark - Button Listener
 void FileChooserComponent::buttonClicked (Button *button) {
-    if (button == &mConfigureTracksButton) {
-        printf("'Configure Tracks' button clicked\n");
+    if (button == &mImportMidiButton) {
+        printf("'Import MIDI' button clicked\n");
         AppController::getInstance()->moveToConfigScreen(mMidiFile.getNumTracks());
     }
 }
@@ -65,6 +65,6 @@ void FileChooserComponent::filenameComponentChanged (FilenameComponent *fileComp
     if (fileComponent == &mFilenameBrowser) {
         File currentFile = fileComponent->getCurrentFile();
         AppController::getInstance()->setCurrentFile(currentFile);
-        updateConfigureTracksButtonEnableState();
+        updateImportMidiButtonEnableState();
     }
 }

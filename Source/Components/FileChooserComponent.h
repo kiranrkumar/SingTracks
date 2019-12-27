@@ -32,12 +32,12 @@ private:
     void buttonClicked (Button*) override;
     void filenameComponentChanged (FilenameComponent *) override;
     
-    void updateConfigureTracksButtonEnableState();
+    void updateImportMidiButtonEnableState();
     
     //==============================================================================
     // Your private member variables go here...
     MIDIFilenameComponent mFilenameBrowser;
-    ConfigureTracksButton mConfigureTracksButton;
+    ImportMidiButton mImportMidiButton;
     TrackGenerator mTrackGenerator;
     
     MidiFile mMidiFile;

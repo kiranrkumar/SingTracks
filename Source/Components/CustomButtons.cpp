@@ -28,8 +28,8 @@ BottomButton::boundsToDraw(Rectangle<int> localBounds) {
     return Rectangle<int>(xPos, yPos, width, height);
 }
 
-#pragma mark - ConfigureTracksButton
-ConfigureTracksButton::ConfigureTracksButton() : BottomButton("Configure Tracks", "Configure settings for tracks to be generated from the MIDI file")
+#pragma mark - ImportMidiButton
+ImportMidiButton::ImportMidiButton() : BottomButton("Import MIDI", "Import the selected MIDI File")
 {
 }
 

@@ -25,9 +25,9 @@ private:
     int mHeight;
 };
 
-class ConfigureTracksButton : public BottomButton {
+class ImportMidiButton : public BottomButton {
 public:
-    ConfigureTracksButton();
+    ImportMidiButton();
 };
 
 class CreateTracksButton : public BottomButton {
