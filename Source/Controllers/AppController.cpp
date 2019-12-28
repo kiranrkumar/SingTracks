@@ -48,12 +48,12 @@ AppController::importMidi()
         int numTracks = mTrackGenerator->getNumTracks();
         
         for (int trackIndex = 0; trackIndex < numTracks; ++trackIndex) {
-            if (mTrackGenerator->isMusicalTrack(trackIndex)) {
-                mVocalTracks.push_back(VocalTrack(mTrackGenerator->getMidiFile(), trackIndex));
+            if (!mTrackGenerator->isMusicalTrack(trackIndex)) {
+                --numTracks;
             }
         }
         
-        mMainComponent->setUpConfigScreen(static_cast<int>(mVocalTracks.size()));
+        mMainComponent->setUpConfigScreen(numTracks);
     }
 }
 
