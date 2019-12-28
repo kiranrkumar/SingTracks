@@ -15,6 +15,7 @@
 class TrackGenerator {
 private:
     constexpr static const double DEFAULT_SAMPLE_RATE = 48000;
+    
 public:
     TrackGenerator(double sampleRate = DEFAULT_SAMPLE_RATE);
     ~TrackGenerator();

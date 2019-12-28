@@ -20,17 +20,14 @@ class VocalTrack;
 
 //==============================================================================
 /*
-    This component lives inside our window, and this is where you should put all
-    your controls and content.
+    This is the top-level/root component of the app. Different screens exist as fullscreen children of MainComponent. Those immediate children have their own children for the UI elements that the user will see and interact with
 */
 class MainComponent : public Component
 {
 public:
-    //==============================================================================
     MainComponent();
     ~MainComponent();
 
-    //==============================================================================
     void paint (Graphics&) override;
     void resized() override;
     

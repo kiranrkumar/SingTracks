@@ -31,10 +31,6 @@ TrackFieldsComponent::TrackFieldsComponent(VocalTrack &track)
     addAndMakeVisible(mNameField);
 }
 
-TrackFieldsComponent::~TrackFieldsComponent()
-{
-}
-
 void TrackFieldsComponent::paint(Graphics &g)
 {
 }

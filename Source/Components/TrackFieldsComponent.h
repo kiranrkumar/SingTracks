@@ -21,7 +21,6 @@ class TrackFieldsComponent : public Component, private Button::Listener
 public:
     TrackFieldsComponent();
     TrackFieldsComponent(VocalTrack &);
-    ~TrackFieldsComponent();
     
     void paint(Graphics&) override;
     void resized() override;

@@ -16,6 +16,7 @@ public:
     virtual Rectangle<int> boundsToDraw(Rectangle<int>) = 0;
 };
 
+// Buttons that appear at the bottom center of a component
 class BottomButton : public TextButton, SelfDrawingComponent {
 public:
     BottomButton(const String &name, const String &description);

@@ -34,7 +34,7 @@ MainComponent::~MainComponent()
     mAppController.reset();
 }
 
-//==============================================================================
+
 void MainComponent::paint (Graphics&)
 {
     static dispatch_once_t onceToken;

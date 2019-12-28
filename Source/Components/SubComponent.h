@@ -14,6 +14,15 @@
 
 class MainComponent;
 
+/*
+    An immediate child component of the MainComponent. One SubComponent represents a specific screen, within which other controls will exist as children.
+ 
+    Example:
+        MainComponent
+            -> FileChooserComponent : public SubComponent
+                -> FileChooser ("Choose a MIDI file")
+                -> TextButton ("Import MIDI")
+*/
 class SubComponent : public Component
 {
 public:
