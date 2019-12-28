@@ -56,7 +56,7 @@ void FileChooserComponent::updateImportMidiButtonEnableState()
 void FileChooserComponent::buttonClicked (Button *button) {
     if (button == &mImportMidiButton) {
         printf("'Import MIDI' button clicked\n");
-        AppController::getInstance()->moveToConfigScreen(mMidiFile.getNumTracks());
+        AppController::getInstance()->importMidi();
     }
 }
 

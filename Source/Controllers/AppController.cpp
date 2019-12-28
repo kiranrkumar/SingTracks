@@ -42,10 +42,18 @@ AppController::createTracks()
 }
 
 void
-AppController::moveToConfigScreen(int numTracks)
+AppController::importMidi()
 {
     if (mMainComponent != nullptr) {
-        mMainComponent->setUpConfigScreen(mTrackGenerator->getNumTracks());
+        int numTracks = mTrackGenerator->getNumTracks();
+        
+        for (int trackIndex = 0; trackIndex < numTracks; ++trackIndex) {
+            if (mTrackGenerator->isMusicalTrack(trackIndex)) {
+                mVocalTracks.push_back(VocalTrack(mTrackGenerator->getMidiFile(), trackIndex));
+            }
+        }
+        
+        mMainComponent->setUpConfigScreen(static_cast<int>(mVocalTracks.size()));
     }
 }
 

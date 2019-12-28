@@ -25,6 +25,7 @@ public:
     int getNumTracks() const;
     
     void printSummary();
+    bool isMusicalTrack(int trackNum);
     void renderAudio();
 private:
     void prepareOutputBuffer(AudioBuffer<float> &outputBuffer);

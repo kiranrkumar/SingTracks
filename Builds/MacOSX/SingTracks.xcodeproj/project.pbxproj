@@ -61,6 +61,10 @@
 			isa = PBXBuildFile;
 			fileRef = 2E290065741D838078CD9CD6;
 		};
+		A60157EFC0B485C60317CF92 = {
+			isa = PBXBuildFile;
+			fileRef = 6BE20DB8F93E49658B2A6899;
+		};
 		7BB9110337E097B3FFF173EC = {
 			isa = PBXBuildFile;
 			fileRef = C1EAFDEBF67B496A4CD5071E;
@@ -309,6 +313,13 @@
 			path = "~/JUCE/modules/juce_audio_processors";
 			sourceTree = "<absolute>";
 		};
+		531C432E7FAAEE3EE572CFFF = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = VocalTrack.h;
+			path = ../../Source/Model/VocalTrack.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		5391A732D9D99E8CAE7B0E6C = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -378,6 +389,13 @@
 			name = AudioToolbox.framework;
 			path = System/Library/Frameworks/AudioToolbox.framework;
 			sourceTree = SDKROOT;
+		};
+		6BE20DB8F93E49658B2A6899 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = VocalTrack.cpp;
+			path = ../../Source/Model/VocalTrack.cpp;
+			sourceTree = "SOURCE_ROOT";
 		};
 		70F5995C27BAD97EB41B139C = {
 			isa = PBXFileReference;
@@ -728,6 +746,15 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		3D3E4971ECFEFD02E35D1933 = {
+			isa = PBXGroup;
+			children = (
+				6BE20DB8F93E49658B2A6899,
+				531C432E7FAAEE3EE572CFFF,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		60A7FA0D33EAD26F890D0B24 = {
 			isa = PBXGroup;
 			children = (
@@ -797,6 +824,7 @@
 			isa = PBXGroup;
 			children = (
 				2E290065741D838078CD9CD6,
+				3D3E4971ECFEFD02E35D1933,
 				0107C78FEE0919B111583F6A,
 				3F36AD8E3A8146620F5B1311,
 				21258FDBC7D0A5B01FF28339,
@@ -1119,6 +1147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AAA3BAEBA938D3E58608AD9,
+				A60157EFC0B485C60317CF92,
 				7BB9110337E097B3FFF173EC,
 				3D27F06BE87042ABE114643F,
 				DD7FA4D9AD8054D682B388E8,

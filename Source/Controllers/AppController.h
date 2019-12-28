@@ -14,6 +14,7 @@
 
 #include "../Components/MainComponent.h"
 #include "TrackGenerator.hpp"
+#include "../Model/VocalTrack.h"
 
 class AppController
 {
@@ -28,7 +29,7 @@ public:
     void setCurrentFile(File&);
     void createTracks();
     
-    void moveToConfigScreen(int numTracks); // KRK_FIXME - this seems really inflexible, but I'm just trying it for now. May generalize/clean up a bit later
+    void importMidi();
     
 private:
     static std::unique_ptr<AppController> instance;
@@ -37,4 +38,5 @@ private:
     std::unique_ptr<File> mFile;
     MainComponent *mMainComponent;
     std::unique_ptr<TrackGenerator> mTrackGenerator;
+    std::vector<VocalTrack> mVocalTracks;
 };

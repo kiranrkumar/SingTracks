@@ -64,6 +64,23 @@ void TrackGenerator::renderAudio()
     writeAudioToFile(outputBuffer);
 }
 
+bool TrackGenerator::isMusicalTrack(int trackNum)
+{
+    if (trackNum < 0 || trackNum >= mMidiFile.getNumTracks()) {
+        return false;
+    }
+    
+    const MidiMessageSequence *sequence = mMidiFile.getTrack(trackNum);
+    
+    for (int eventIndex = sequence->getNumEvents() - 1; eventIndex >= 0; --eventIndex) {
+        if (sequence->getEventPointer(eventIndex)->message.isNoteOff()) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
 void TrackGenerator::prepareOutputBuffer(AudioBuffer<float> &outputBuffer) {
     int numTracks = mMidiFile.getNumTracks();
     DEBUG_LOG("%d tracks\n", numTracks);

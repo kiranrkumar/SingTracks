@@ -38,7 +38,6 @@ private:
     // Your private member variables go here...
     MIDIFilenameComponent mFilenameBrowser;
     ImportMidiButton mImportMidiButton;
-    TrackGenerator mTrackGenerator;
     
     MidiFile mMidiFile;
     
