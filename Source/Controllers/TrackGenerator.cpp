@@ -54,11 +54,11 @@ void TrackGenerator::printSummary() {
 }
 
 void TrackGenerator::renderAudio()
-{   
+{
     AudioBuffer<float> outputBuffer;
     prepareOutputBuffer(outputBuffer);
-
     renderAllMidiTracks(outputBuffer);
+    
     DEBUG_LOG("\n");
     normalizeBuffer(outputBuffer, 0.85);
     writeAudioToFile(outputBuffer);

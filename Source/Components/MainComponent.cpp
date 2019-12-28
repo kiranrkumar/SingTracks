@@ -13,6 +13,7 @@
 #include "../Controllers/AppController.h"
 #include "FileChooserComponent.h"
 #include "TrackPreviewComponent.h"
+#include "SubComponent.h"
 #import "../Tests/UnitTestsConfig.h"
 
 MainComponent::MainComponent()
@@ -52,7 +53,7 @@ void MainComponent::resized()
     mBoundsConstrainer.checkComponentBounds(this);
 }
 
-void MainComponent::setCurrentComponent(Component *component)
+void MainComponent::setCurrentComponent(SubComponent *component)
 {
     if (mCurrentComponent.get() != component) {
         removeAllChildren();

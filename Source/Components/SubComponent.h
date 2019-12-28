@@ -12,15 +12,14 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 
-class SubComponent : Component
+class MainComponent;
+
+class SubComponent : public Component
 {
 public:
-    SubComponent();
-    virtual ~SubComponent();
-    
-    void setRootComponent(Component *);
-    Component *getRootComponent();
+    SubComponent(MainComponent *rootComponent);
+    MainComponent *getRootComponent();
     
 private:
-    std::unique_ptr<Component> mRootComponent;
+    MainComponent *mRootComponent;
 };

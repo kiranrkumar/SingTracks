@@ -8,4 +8,15 @@
   ==============================================================================
 */
 
+#include "MainComponent.h"
 #include "SubComponent.h"
+
+SubComponent::SubComponent(MainComponent *rootComponent)
+{
+    mRootComponent = rootComponent;
+}
+
+MainComponent * SubComponent::getRootComponent()
+{
+    return mRootComponent;
+}

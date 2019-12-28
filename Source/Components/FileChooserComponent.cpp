@@ -12,7 +12,7 @@
 #include "../Controllers/AppController.h"
 
 //==============================================================================
-FileChooserComponent::FileChooserComponent(MainComponent *mainComponent) : mMainComponent(mainComponent)
+FileChooserComponent::FileChooserComponent(MainComponent *mainComponent) : SubComponent::SubComponent(mainComponent)
 {
     addAndMakeVisible(mFilenameBrowser);
     addAndMakeVisible(mImportMidiButton);
@@ -50,8 +50,8 @@ void FileChooserComponent::resized()
 
 void FileChooserComponent::updateImportMidiButtonEnableState()
 {
-    if (mMainComponent != nullptr) {
-        mImportMidiButton.setEnabled(mMainComponent->getCurrentFile() != nullptr);
+    if (getRootComponent() != nullptr) {
+        mImportMidiButton.setEnabled(getRootComponent()->getCurrentFile() != nullptr);
     }
 }
 
@@ -59,17 +59,17 @@ void FileChooserComponent::updateImportMidiButtonEnableState()
 void FileChooserComponent::buttonClicked (Button *button) {
     if (button == &mImportMidiButton) {
         printf("'Import MIDI' button clicked\n");
-        if (mMainComponent != nullptr) {
-            mMainComponent->importMidi();
+        if (getRootComponent() != nullptr) {
+            getRootComponent()->importMidi();
         }
     }
 }
 
 #pragma mark - FilenameComponent Listener
 void FileChooserComponent::filenameComponentChanged (FilenameComponent *fileComponent) {
-    if (fileComponent == &mFilenameBrowser && mMainComponent != nullptr) {
+    if (fileComponent == &mFilenameBrowser && getRootComponent() != nullptr) {
         File currentFile = fileComponent->getCurrentFile();
-        mMainComponent->setCurrentFile(currentFile);
+        getRootComponent()->setCurrentFile(currentFile);
         updateImportMidiButtonEnableState();
     }
 }

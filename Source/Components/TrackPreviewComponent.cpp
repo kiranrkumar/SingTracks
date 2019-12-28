@@ -15,7 +15,7 @@
 const int cVerticalSpacePerTrackField = 40;
 const int cTrackFieldContainerTopInset = 20;
 
-TrackPreviewComponent::TrackPreviewComponent(MainComponent *mainComponent, OwnedArray<VocalTrack> &tracks) : mMainComponent(mainComponent)
+TrackPreviewComponent::TrackPreviewComponent(MainComponent *mainComponent, OwnedArray<VocalTrack> &tracks) : SubComponent::SubComponent(mainComponent)
 {
     // Fields for each track (name, is solo, etc)
     for (int i = 0; i < tracks.size(); ++i) {
@@ -76,7 +76,7 @@ void TrackPreviewComponent::resized()
 #pragma mark - Button Listener
 void TrackPreviewComponent::buttonClicked(Button *button)
 {
-    if (button == &mCreateTracksButton && mMainComponent != nullptr) {
-        mMainComponent->createTracks();
+    if (button == &mCreateTracksButton && getRootComponent() != nullptr) {
+        getRootComponent()->createTracks();
     }
 }

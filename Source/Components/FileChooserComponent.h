@@ -10,6 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "CustomButtons.hpp"
+#include "SubComponent.h"
 #include "../Controllers/TrackGenerator.hpp"
 
 //==============================================================================
@@ -20,7 +21,7 @@
 
 class MainComponent;
 
-class FileChooserComponent  : public Component, private Button::Listener, private FilenameComponentListener
+class FileChooserComponent  : public SubComponent, private Button::Listener, private FilenameComponentListener
 {
 public:
     //==============================================================================
@@ -39,8 +40,6 @@ private:
     
     //==============================================================================
     // Your private member variables go here...
-    MainComponent *mMainComponent;
-    
     MIDIFilenameComponent mFilenameBrowser;
     ImportMidiButton mImportMidiButton;
     

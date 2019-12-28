@@ -12,13 +12,14 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 #include "CustomButtons.hpp"
+#include "SubComponent.h"
 #include "TrackFieldsComponent.h"
 #include "TrackSettingsComponent.h"
 
 class MainComponent;
 class VocalTrack;
 
-class TrackPreviewComponent : public Component, private Button::Listener
+class TrackPreviewComponent : public SubComponent, private Button::Listener
 {
 public:
     TrackPreviewComponent(MainComponent *component, OwnedArray<VocalTrack> &tracks);
@@ -29,7 +30,6 @@ public:
 private:
     void buttonClicked(Button *) override;
     
-    MainComponent *mMainComponent;
     Component mTrackFieldsContainer;
     OwnedArray<TrackFieldsComponent> mTrackFields;
     Viewport mTrackFieldsContainerViewport;

@@ -15,6 +15,7 @@
 #include "../Controllers/TrackGenerator.hpp"
 
 class AppController;
+class SubComponent;
 class VocalTrack;
 
 //==============================================================================
@@ -33,7 +34,7 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    void setCurrentComponent(Component *);
+    void setCurrentComponent(SubComponent *);
     
     void setUpConfigScreen(OwnedArray<VocalTrack> &);
     
@@ -45,7 +46,7 @@ public:
 
 private:
     std::unique_ptr<AppController> mAppController;
-    std::unique_ptr<Component> mCurrentComponent;
+    std::unique_ptr<SubComponent> mCurrentComponent;
     ComponentBoundsConstrainer mBoundsConstrainer;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
