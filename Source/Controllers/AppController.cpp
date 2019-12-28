@@ -12,8 +12,6 @@
 
 #include "MIDITrackSynthesizer.h"
 
-std::unique_ptr<AppController> AppController::instance = std::unique_ptr<AppController>(nullptr);
-
 AppController::AppController() : mMainComponent(nullptr)
 {
     mFile.reset(nullptr);
@@ -23,16 +21,6 @@ AppController::~AppController()
 {
     mFile.reset();
     mTrackGenerator.reset();
-}
-
-AppController *
-AppController::getInstance()
-{
-    if (instance.get() == nullptr) {
-        instance.reset(new AppController());
-    }
-    
-    return instance.get();
 }
 
 void
@@ -78,7 +66,7 @@ AppController::getCurrentFile()
 }
 
 void
-AppController::setCurrentFile(File &file)
+AppController::setCurrentFile(const File &file)
 {
     if (mFile.get() != &file) {
         mFile.reset(new File(file));

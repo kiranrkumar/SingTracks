@@ -14,6 +14,8 @@
 #include "CustomButtons.hpp"
 #include "../Controllers/TrackGenerator.hpp"
 
+class AppController;
+
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all
@@ -33,8 +35,16 @@ public:
     void setCurrentComponent(Component *);
     
     void setUpConfigScreen(int numTracks); // KRK_FIXME - this seems really inflexible, but I'm just trying it for now. May generalize/clean up a bit later
+    
+    // Delegate to AppController
+    File* getCurrentFile();
+    void createTracks();
+    void importMidi();
+    void setCurrentFile(const File &);
 
 private:
+    std::unique_ptr<AppController> mAppController;
+    
     std::unique_ptr<Component> mCurrentComponent;
     ComponentBoundsConstrainer mBoundsConstrainer;
     

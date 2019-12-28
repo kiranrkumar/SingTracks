@@ -19,22 +19,19 @@
 class AppController
 {
 public:
-    static AppController *getInstance();
+    AppController();
     ~AppController();
     
     void setMainComponent(MainComponent *);
     MainComponent* getMainComponent();
     
     File* getCurrentFile();
-    void setCurrentFile(File&);
+    void setCurrentFile(const File&);
     void createTracks();
     
     void importMidi();
     
 private:
-    static std::unique_ptr<AppController> instance;
-    
-    AppController();
     std::unique_ptr<File> mFile;
     MainComponent *mMainComponent;
     std::unique_ptr<TrackGenerator> mTrackGenerator;

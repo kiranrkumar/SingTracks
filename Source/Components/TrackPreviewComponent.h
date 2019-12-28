@@ -15,10 +15,12 @@
 #include "TrackFieldsComponent.h"
 #include "TrackSettingsComponent.h"
 
+class MainComponent;
+
 class TrackPreviewComponent : public Component, private Button::Listener
 {
 public:
-    TrackPreviewComponent(int numTracks);
+    TrackPreviewComponent(MainComponent *component, int numTracks);
     ~TrackPreviewComponent();
     
     void paint (Graphics&) override;
@@ -29,6 +31,7 @@ private:
     
     void setUpTrackFields(int numComponents); // KRK_FIXME will expand this to include necessary information (track names, maybe duration, etc)
     
+    MainComponent *mMainComponent;
     Component mTrackFieldsContainer;
     OwnedArray<TrackFieldsComponent> mTrackFields;
     Viewport mTrackFieldsContainerViewport;

@@ -8,10 +8,11 @@
 
 #include "FileChooserComponent.h"
 
+#include "MainComponent.h"
 #include "../Controllers/AppController.h"
 
 //==============================================================================
-FileChooserComponent::FileChooserComponent()
+FileChooserComponent::FileChooserComponent(MainComponent *mainComponent) : mMainComponent(mainComponent)
 {
     addAndMakeVisible(mFilenameBrowser);
     addAndMakeVisible(mImportMidiButton);
@@ -49,22 +50,26 @@ void FileChooserComponent::resized()
 
 void FileChooserComponent::updateImportMidiButtonEnableState()
 {
-    mImportMidiButton.setEnabled(AppController::getInstance()->getCurrentFile() != nullptr);
+    if (mMainComponent != nullptr) {
+        mImportMidiButton.setEnabled(mMainComponent->getCurrentFile() != nullptr);
+    }
 }
 
 #pragma mark - Button Listener
 void FileChooserComponent::buttonClicked (Button *button) {
     if (button == &mImportMidiButton) {
         printf("'Import MIDI' button clicked\n");
-        AppController::getInstance()->importMidi();
+        if (mMainComponent != nullptr) {
+            mMainComponent->importMidi();
+        }
     }
 }
 
 #pragma mark - FilenameComponent Listener
 void FileChooserComponent::filenameComponentChanged (FilenameComponent *fileComponent) {
-    if (fileComponent == &mFilenameBrowser) {
+    if (fileComponent == &mFilenameBrowser && mMainComponent != nullptr) {
         File currentFile = fileComponent->getCurrentFile();
-        AppController::getInstance()->setCurrentFile(currentFile);
+        mMainComponent->setCurrentFile(currentFile);
         updateImportMidiButtonEnableState();
     }
 }

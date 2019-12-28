@@ -9,18 +9,16 @@
 */
 
 #include "TrackPreviewComponent.h"
-#include "../Controllers/AppController.h"
+#include "MainComponent.h"
 
 const int cVerticalSpacePerTrackField = 40;
 const int cTrackFieldContainerTopInset = 20;
 
-/*
-    KRK_FIXME - numTracks as passed in below will have an extra track if it's a multitrack MIDI file create in Logic (maybe some other programs as well) because Logic adds the additional metadata track at the beginning. Need a way to filter this non-musical track out as necessary
-*/
-TrackPreviewComponent::TrackPreviewComponent(int numTracks) : mNumTracks(numTracks)
+TrackPreviewComponent::TrackPreviewComponent(MainComponent *mainComponent, int numTracks) : mMainComponent(mainComponent)
 {
+    mNumTracks = std::max(0, numTracks);
     addAndMakeVisible(mTrackFieldsContainer);
-    setUpTrackFields(mNumTracks); // KRK_FIXME placeholder value - will eventually be based on actual number of tracks
+    setUpTrackFields(mNumTracks);
     
     for (int i = 0; i < 3; ++i) {
         TrackSettingsComponent *tsc = new TrackSettingsComponent();
@@ -73,8 +71,8 @@ void TrackPreviewComponent::resized()
 #pragma mark - Button Listener
 void TrackPreviewComponent::buttonClicked(Button *button)
 {
-    if (button == &mCreateTracksButton) {
-        AppController::getInstance()->createTracks();
+    if (button == &mCreateTracksButton && mMainComponent != nullptr) {
+        mMainComponent->createTracks();
     }
 }
 

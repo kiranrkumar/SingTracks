@@ -17,18 +17,20 @@
 
 MainComponent::MainComponent()
 {
+    mAppController.reset(new AppController());
+    mAppController->setMainComponent(this);
+    
     setSize(400, 600);
     mBoundsConstrainer.setMinimumSize(400, 200);
-    mCurrentComponent.reset(new FileChooserComponent());
+    mCurrentComponent.reset(new FileChooserComponent(this));
     addAndMakeVisible(mCurrentComponent.get());
     mCurrentComponent.get()->setBounds(getLocalBounds());
-    
-    AppController::getInstance()->setMainComponent(this);
 }
 
 MainComponent::~MainComponent()
 {
     mCurrentComponent.reset();
+    mAppController.reset();
 }
 
 //==============================================================================
@@ -63,8 +65,29 @@ void MainComponent::setUpConfigScreen(int numTracks)
 {
     // We shouldn't be here if we're not on the FileChooserComponent screen
     if (dynamic_cast<FileChooserComponent *>(mCurrentComponent.get()) != nullptr) {
-        setCurrentComponent(new TrackPreviewComponent(numTracks));
+        setCurrentComponent(new TrackPreviewComponent(this, numTracks));
         mBoundsConstrainer.setMinimumSize(500, 400);
         resized();
     }
+}
+
+#pragma mark - Delegate to AppController
+File* MainComponent::getCurrentFile()
+{
+    return mAppController->getCurrentFile();
+}
+
+void MainComponent::createTracks()
+{
+    mAppController->createTracks();
+}
+
+void MainComponent::importMidi()
+{
+    mAppController->importMidi();
+}
+
+void MainComponent::setCurrentFile(const File &file)
+{
+    mAppController->setCurrentFile(file);
 }

@@ -17,11 +17,14 @@
     This component lives inside our window, and this is where you should put all
     your controls and content.
 */
+
+class MainComponent;
+
 class FileChooserComponent  : public Component, private Button::Listener, private FilenameComponentListener
 {
 public:
     //==============================================================================
-    FileChooserComponent();
+    FileChooserComponent(MainComponent *mainComponent);
     ~FileChooserComponent();
 
     //==============================================================================
@@ -36,6 +39,8 @@ private:
     
     //==============================================================================
     // Your private member variables go here...
+    MainComponent *mMainComponent;
+    
     MIDIFilenameComponent mFilenameBrowser;
     ImportMidiButton mImportMidiButton;
     
