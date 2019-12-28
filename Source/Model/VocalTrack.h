@@ -20,10 +20,12 @@ typedef enum {
 class VocalTrack {
 public:
     VocalTrack(const MidiFile &midiFile, int trackNum);
-    ~VocalTrack();
+    
+    String getDisplayName();
 
 private:
     AudioBuffer<float> mBuffer;
+    String mDisplayName;
     float mPanLevel;
     float mGain;
     VocalBus mBus;

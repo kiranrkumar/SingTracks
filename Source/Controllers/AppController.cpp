@@ -34,14 +34,15 @@ AppController::importMidi()
 {
     if (mMainComponent != nullptr) {
         int numTracks = mTrackGenerator->getNumTracks();
+        const MidiFile midiFile = mTrackGenerator->getMidiFile();
         
         for (int trackIndex = 0; trackIndex < numTracks; ++trackIndex) {
-            if (!mTrackGenerator->isMusicalTrack(trackIndex)) {
-                --numTracks;
+            if (mTrackGenerator->isMusicalTrack(trackIndex)) {
+                mVocalTracks.add(new VocalTrack(midiFile, trackIndex));
             }
         }
         
-        mMainComponent->setUpConfigScreen(numTracks);
+        mMainComponent->setUpConfigScreen(mVocalTracks);
     }
 }
 

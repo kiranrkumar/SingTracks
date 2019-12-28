@@ -35,5 +35,5 @@ private:
     std::unique_ptr<File> mFile;
     MainComponent *mMainComponent;
     std::unique_ptr<TrackGenerator> mTrackGenerator;
-    std::vector<VocalTrack> mVocalTracks;
+    OwnedArray<VocalTrack> mVocalTracks;
 };

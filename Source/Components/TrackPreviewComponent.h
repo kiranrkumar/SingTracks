@@ -16,20 +16,18 @@
 #include "TrackSettingsComponent.h"
 
 class MainComponent;
+class VocalTrack;
 
 class TrackPreviewComponent : public Component, private Button::Listener
 {
 public:
-    TrackPreviewComponent(MainComponent *component, int numTracks);
-    ~TrackPreviewComponent();
+    TrackPreviewComponent(MainComponent *component, OwnedArray<VocalTrack> &tracks);
     
     void paint (Graphics&) override;
     void resized() override;
 
 private:
     void buttonClicked(Button *) override;
-    
-    void setUpTrackFields(int numComponents); // KRK_FIXME will expand this to include necessary information (track names, maybe duration, etc)
     
     MainComponent *mMainComponent;
     Component mTrackFieldsContainer;
@@ -39,5 +37,4 @@ private:
     OwnedArray<TrackSettingsComponent> mTrackSettings;
     
     CreateTracksButton mCreateTracksButton;
-    int mNumTracks;
 };

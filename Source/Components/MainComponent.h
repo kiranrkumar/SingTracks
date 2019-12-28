@@ -15,6 +15,7 @@
 #include "../Controllers/TrackGenerator.hpp"
 
 class AppController;
+class VocalTrack;
 
 //==============================================================================
 /*
@@ -34,7 +35,7 @@ public:
     
     void setCurrentComponent(Component *);
     
-    void setUpConfigScreen(int numTracks); // KRK_FIXME - this seems really inflexible, but I'm just trying it for now. May generalize/clean up a bit later
+    void setUpConfigScreen(OwnedArray<VocalTrack> &);
     
     // Delegate to AppController
     File* getCurrentFile();
@@ -44,7 +45,6 @@ public:
 
 private:
     std::unique_ptr<AppController> mAppController;
-    
     std::unique_ptr<Component> mCurrentComponent;
     ComponentBoundsConstrainer mBoundsConstrainer;
     

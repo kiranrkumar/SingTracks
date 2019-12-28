@@ -10,12 +10,14 @@
 
 #include "TrackFieldsComponent.h"
 
+#include "../Model/VocalTrack.h"
+
 const int cLeftInset = 30;
 const int cRightInset = 30;
 const int cSoloButtonWidth = 80;
 const int cSoloButtonNameFieldPadding = 20;
 
-TrackFieldsComponent::TrackFieldsComponent()
+TrackFieldsComponent::TrackFieldsComponent(VocalTrack &track)
 {
     mIsSoloButton.setClickingTogglesState(true);
     mIsSoloButton.addListener(this);
@@ -23,6 +25,7 @@ TrackFieldsComponent::TrackFieldsComponent()
     
     mNameField.setMultiLine(false);
     mNameField.applyFontToAllText(Font(16));
+    mNameField.setText(track.getDisplayName());
     
     addAndMakeVisible(mIsSoloButton);
     addAndMakeVisible(mNameField);

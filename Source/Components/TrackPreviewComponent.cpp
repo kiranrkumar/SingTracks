@@ -10,16 +10,26 @@
 
 #include "TrackPreviewComponent.h"
 #include "MainComponent.h"
+#include "../Model/VocalTrack.h"
 
 const int cVerticalSpacePerTrackField = 40;
 const int cTrackFieldContainerTopInset = 20;
 
-TrackPreviewComponent::TrackPreviewComponent(MainComponent *mainComponent, int numTracks) : mMainComponent(mainComponent)
+TrackPreviewComponent::TrackPreviewComponent(MainComponent *mainComponent, OwnedArray<VocalTrack> &tracks) : mMainComponent(mainComponent)
 {
-    mNumTracks = std::max(0, numTracks);
-    addAndMakeVisible(mTrackFieldsContainer);
-    setUpTrackFields(mNumTracks);
+    // Fields for each track (name, is solo, etc)
+    for (int i = 0; i < tracks.size(); ++i) {
+        TrackFieldsComponent *tfc = new TrackFieldsComponent(*(tracks[i]));
+        mTrackFields.add(tfc);
+        mTrackFieldsContainer.addAndMakeVisible(tfc);
+    }
     
+    addAndMakeVisible(mTrackFieldsContainer);
+    
+    // 3 settings fields:
+    //  - Solo/harmony
+    //  - Primary part
+    //  - Background parts
     for (int i = 0; i < 3; ++i) {
         TrackSettingsComponent *tsc = new TrackSettingsComponent();
         mTrackSettings.add(tsc);
@@ -31,11 +41,6 @@ TrackPreviewComponent::TrackPreviewComponent(MainComponent *mainComponent, int n
     
     addAndMakeVisible(mCreateTracksButton);
     mCreateTracksButton.addListener(this);
-}
-
-TrackPreviewComponent::~TrackPreviewComponent()
-{
-    
 }
 
 void TrackPreviewComponent::paint(Graphics &g)
@@ -73,18 +78,5 @@ void TrackPreviewComponent::buttonClicked(Button *button)
 {
     if (button == &mCreateTracksButton && mMainComponent != nullptr) {
         mMainComponent->createTracks();
-    }
-}
-
-void TrackPreviewComponent::setUpTrackFields(int numComponents)
-{
-    if (mTrackFields.size() > 0) {
-        return;
-    }
-    
-    for (int i = 0; i < numComponents; ++i) {
-        TrackFieldsComponent *tfc = new TrackFieldsComponent();
-        mTrackFields.add(tfc);
-        mTrackFieldsContainer.addAndMakeVisible(tfc);
     }
 }

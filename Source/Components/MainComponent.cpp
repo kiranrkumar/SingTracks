@@ -61,11 +61,11 @@ void MainComponent::setCurrentComponent(Component *component)
     }
 }
 
-void MainComponent::setUpConfigScreen(int numTracks)
+void MainComponent::setUpConfigScreen(OwnedArray<VocalTrack> &tracks)
 {
     // We shouldn't be here if we're not on the FileChooserComponent screen
     if (dynamic_cast<FileChooserComponent *>(mCurrentComponent.get()) != nullptr) {
-        setCurrentComponent(new TrackPreviewComponent(this, numTracks));
+        setCurrentComponent(new TrackPreviewComponent(this, tracks));
         mBoundsConstrainer.setMinimumSize(500, 400);
         resized();
     }

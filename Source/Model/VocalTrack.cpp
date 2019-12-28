@@ -12,10 +12,13 @@
 
 VocalTrack::VocalTrack(const MidiFile &midiFile, int trackNum)
 {
-    
+    std::string displayName;
+    displayName += "Midi track "; // KRK_TEMP
+    displayName += std::to_string(trackNum);
+    mDisplayName = String(displayName);
 }
 
-VocalTrack::~VocalTrack()
+String VocalTrack::getDisplayName()
 {
-
+    return mDisplayName;
 }
