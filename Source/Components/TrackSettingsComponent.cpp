@@ -63,5 +63,10 @@ void TrackSettingsComponent::resized()
 #pragma mark - Listener Overrides
 void TrackSettingsComponent::sliderValueChanged(Slider* slider)
 {
-    
+    if (slider == &mGainSlider) {
+        std::cout << "Gain (" << slider << "): " << mGainSlider.getValue() << std::endl;
+    }
+    else if (slider == &mPanSlider) {
+        std::cout << "Pan (" << slider << "): " << mPanSlider.getValue() << std::endl;
+    }
 }
