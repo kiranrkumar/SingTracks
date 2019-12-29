@@ -24,7 +24,12 @@ public:
     String getDisplayName();
 
 private:
+    void initializeBuffer(const MidiFile& midiFile, int trackNum);
+    void renderMidiTrack(const MidiMessageSequence &track, AudioBuffer<float> &outputBuffer);
+    
     AudioBuffer<float> mBuffer;
+    Synthesiser mSynth;
+    
     String mDisplayName;
     float mPanLevel;
     float mGain;
