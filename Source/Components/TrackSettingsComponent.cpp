@@ -65,7 +65,3 @@ void TrackSettingsComponent::sliderValueChanged(Slider* slider)
 {
     
 }
-void TrackSettingsComponent::buttonClicked(Button* button)
-{
-
-}

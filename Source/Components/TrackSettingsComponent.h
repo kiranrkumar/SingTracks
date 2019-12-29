@@ -12,7 +12,7 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 
-class TrackSettingsComponent : public Component, private Button::Listener, private Slider::Listener {
+class TrackSettingsComponent : public Component, private Slider::Listener {
 public:
     TrackSettingsComponent(String name);
     ~TrackSettingsComponent();
@@ -21,7 +21,6 @@ public:
     void resized() override;
     
     void sliderValueChanged (Slider* slider) override;
-    void buttonClicked (Button* button) override;
 
 private:
     String mDisplayName;
