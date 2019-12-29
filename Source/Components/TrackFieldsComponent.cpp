@@ -46,3 +46,8 @@ void TrackFieldsComponent::resized()
 void TrackFieldsComponent::buttonClicked(Button *button)
 {
 }
+
+VocalTrack* TrackFieldsComponent::getVocalTrack() const
+{
+    return mVocalTrack.get();
+}

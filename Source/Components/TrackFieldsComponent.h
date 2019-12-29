@@ -23,8 +23,9 @@ public:
     TrackFieldsComponent(VocalTrack *);
     
     void resized() override;
-    
     void buttonClicked(Button*) override;
+    
+    VocalTrack* getVocalTrack() const;
     
 private:
     std::unique_ptr<VocalTrack> mVocalTrack;
