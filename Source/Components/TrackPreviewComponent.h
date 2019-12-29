@@ -14,10 +14,10 @@
 #include "CustomButtons.hpp"
 #include "SubComponent.h"
 #include "TrackFieldsComponent.h"
-#include "TrackSettingsComponent.h"
 
 class MainComponent;
 class VocalTrack;
+class TrackSettingsComponent;
 
 class TrackPreviewComponent : public SubComponent, private Button::Listener
 {

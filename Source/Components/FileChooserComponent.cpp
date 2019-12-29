@@ -33,9 +33,9 @@ void FileChooserComponent::paint (Graphics& g)
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
 
-    g.setFont (Font (16.0f));
+    g.setFont (Font (18.0f));
     g.setColour (Colours::white);
-    g.drawText ("Select a MIDI File", getLocalBounds(), Justification::centredTop, true);
+    g.drawText ("Select a MIDI File", getX(), getY() + 10, getWidth(), getHeight(), Justification::centredTop, true);
 }
 
 void FileChooserComponent::resized()

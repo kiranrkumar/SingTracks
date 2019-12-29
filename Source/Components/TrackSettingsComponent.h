@@ -14,7 +14,7 @@
 
 class TrackSettingsComponent : public Component, private Button::Listener, private Slider::Listener {
 public:
-    TrackSettingsComponent();
+    TrackSettingsComponent(String name);
     ~TrackSettingsComponent();
     
     void paint(Graphics &g) override;
@@ -24,6 +24,7 @@ public:
     void buttonClicked (Button* button) override;
 
 private:
+    String mDisplayName;
     Slider mGainSlider;
     Slider mPanSlider;
 };

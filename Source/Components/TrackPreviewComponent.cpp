@@ -9,7 +9,9 @@
 */
 
 #include "TrackPreviewComponent.h"
+
 #include "MainComponent.h"
+#include "TrackSettingsComponent.h"
 #include "../Model/VocalTrack.h"
 
 const int cVerticalSpacePerTrackField = 40;
@@ -26,12 +28,9 @@ TrackPreviewComponent::TrackPreviewComponent(MainComponent *mainComponent, Owned
     
     addAndMakeVisible(mTrackFieldsContainer);
     
-    // 3 settings fields:
-    //  - Solo/harmony
-    //  - Primary part
-    //  - Background parts
-    for (int i = 0; i < 3; ++i) {
-        TrackSettingsComponent *tsc = new TrackSettingsComponent();
+    std::vector<String> settingsNames = {"Primary", "Solo/Harmony", "Background"};
+    for (int i = 0; i < settingsNames.size(); ++i) {
+        TrackSettingsComponent *tsc = new TrackSettingsComponent(settingsNames[i]);
         mTrackSettings.add(tsc);
         addAndMakeVisible(tsc);
     }

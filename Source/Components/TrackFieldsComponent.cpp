@@ -14,14 +14,14 @@
 
 const int cLeftInset = 30;
 const int cRightInset = 30;
-const int cSoloButtonWidth = 80;
+const int cIsSoloButtonWidth = 140;
 const int cSoloButtonNameFieldPadding = 20;
 
 TrackFieldsComponent::TrackFieldsComponent(VocalTrack &track)
 {
     mIsSoloButton.setClickingTogglesState(true);
     mIsSoloButton.addListener(this);
-    mIsSoloButton.setButtonText("Is Solo");
+    mIsSoloButton.setButtonText("Is Solo/Harmony");
     
     mNameField.setMultiLine(false);
     mNameField.applyFontToAllText(Font(16));
@@ -31,17 +31,13 @@ TrackFieldsComponent::TrackFieldsComponent(VocalTrack &track)
     addAndMakeVisible(mNameField);
 }
 
-void TrackFieldsComponent::paint(Graphics &g)
-{
-}
-
 void TrackFieldsComponent::resized()
 {
     int width = getWidth();
     int height = getHeight();
     
-    mNameField.setBounds(cLeftInset, 0, width - cLeftInset - cRightInset - cSoloButtonWidth - cSoloButtonNameFieldPadding, height);
-    mIsSoloButton.setBounds(width - cSoloButtonWidth - cRightInset, 0, cSoloButtonWidth, height);
+    mNameField.setBounds(cLeftInset, 0, width - cLeftInset - cRightInset - cIsSoloButtonWidth - cSoloButtonNameFieldPadding, height);
+    mIsSoloButton.setBounds(width - cIsSoloButtonWidth - cRightInset, 0, cIsSoloButtonWidth, height);
 }
 
 #pragma mark - Button Listener
