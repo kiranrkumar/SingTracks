@@ -17,15 +17,17 @@ const int cRightInset = 30;
 const int cIsSoloButtonWidth = 140;
 const int cSoloButtonNameFieldPadding = 20;
 
-TrackFieldsComponent::TrackFieldsComponent(VocalTrack &track)
+TrackFieldsComponent::TrackFieldsComponent(VocalTrack *track)
 {
+    mVocalTrack.reset(track);
+    
     mIsSoloButton.setClickingTogglesState(true);
     mIsSoloButton.addListener(this);
     mIsSoloButton.setButtonText("Is Solo/Harmony");
     
     mNameField.setMultiLine(false);
     mNameField.applyFontToAllText(Font(16));
-    mNameField.setText(track.getDisplayName());
+    mNameField.setText(track->getDisplayName());
     
     addAndMakeVisible(mIsSoloButton);
     addAndMakeVisible(mNameField);

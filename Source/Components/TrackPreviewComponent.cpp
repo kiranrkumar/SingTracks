@@ -21,7 +21,7 @@ TrackPreviewComponent::TrackPreviewComponent(MainComponent *mainComponent, Owned
 {
     // Fields for each track (name, is solo, etc)
     for (int i = 0; i < tracks.size(); ++i) {
-        TrackFieldsComponent *tfc = new TrackFieldsComponent(*(tracks[i]));
+        TrackFieldsComponent *tfc = new TrackFieldsComponent(tracks.removeAndReturn(i));
         mTrackFields.add(tfc);
         mTrackFieldsContainer.addAndMakeVisible(tfc);
     }

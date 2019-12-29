@@ -20,13 +20,14 @@ class TrackFieldsComponent : public Component, private Button::Listener
 {
 public:
     TrackFieldsComponent();
-    TrackFieldsComponent(VocalTrack &);
+    TrackFieldsComponent(VocalTrack *);
     
     void resized() override;
     
     void buttonClicked(Button*) override;
     
 private:
+    std::unique_ptr<VocalTrack> mVocalTrack;
     ToggleButton mIsSoloButton;
     TextEditor mNameField;
 };
