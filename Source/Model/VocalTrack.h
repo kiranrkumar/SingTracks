@@ -25,7 +25,7 @@ public:
 
 private:
     void initializeBuffer(const MidiFile& midiFile, int trackNum);
-    void renderMidiTrack(const MidiMessageSequence &track, AudioBuffer<float> &outputBuffer);
+    void renderMidiTrack(const MidiFile& midiFile, int trackNum);
     
     AudioBuffer<float> mBuffer;
     Synthesiser mSynth;

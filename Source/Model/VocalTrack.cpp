@@ -35,6 +35,7 @@ VocalTrack::VocalTrack(const MidiFile &midiFile, int trackNum)
     
     // Set up buffer
     initializeBuffer(midiFile, trackNum);
+    renderMidiTrack(midiFile, trackNum);
 }
 
 String VocalTrack::getDisplayName()
@@ -64,13 +65,14 @@ void VocalTrack::initializeBuffer(const MidiFile& midiFile, int trackNum)
     mBuffer.clear();
 }
 
-void VocalTrack::renderMidiTrack(const MidiMessageSequence &track, AudioBuffer<float> &outputBuffer) {
+void VocalTrack::renderMidiTrack(const MidiFile& midiFile, int trackNum) {
+    MidiMessageSequence track = *(midiFile.getTrack(trackNum));
     const int BLOCKSIZE = 256;
     MidiBuffer midiBuffer;
     int startIndex = 0;
     int midiEventIndex = 0;
     
-    int bufferNumSamples = outputBuffer.getNumSamples();
+    int bufferNumSamples = mBuffer.getNumSamples();
     int numMidiEventsInTrack = track.getNumEvents();
     
     int currentBufferLength = std::min(BLOCKSIZE, bufferNumSamples - startIndex);
@@ -104,7 +106,7 @@ void VocalTrack::renderMidiTrack(const MidiMessageSequence &track, AudioBuffer<f
             
         }
         
-        mSynth.renderNextBlock(outputBuffer, midiBuffer, startIndex, currentBufferLength);
+        mSynth.renderNextBlock(mBuffer, midiBuffer, startIndex, currentBufferLength);
         
         startIndex += BLOCKSIZE;
         currentBufferLength = std::min(bufferNumSamples - startIndex - 1, BLOCKSIZE);
