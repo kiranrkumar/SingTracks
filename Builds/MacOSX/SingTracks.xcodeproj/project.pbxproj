@@ -29,9 +29,17 @@
 			isa = PBXBuildFile;
 			fileRef = FACEC9BD358D95AF67FB2C3E;
 		};
+		79572239DAA3F050ACBEB92A = {
+			isa = PBXBuildFile;
+			fileRef = 420D2F19F9A09B77853E45C2;
+		};
 		1B13BBAF43E450876091153F = {
 			isa = PBXBuildFile;
 			fileRef = D52E9CE91438C73A9EB10C16;
+		};
+		D1AD88809CA62770030F0FF5 = {
+			isa = PBXBuildFile;
+			fileRef = 87486F67834811ECB499904B;
 		};
 		0A0763BDF977FC78A686006F = {
 			isa = PBXBuildFile;
@@ -140,6 +148,10 @@
 		9BD977C2FB74A25DB46FC584 = {
 			isa = PBXBuildFile;
 			fileRef = A5966743591255C80BF6A669;
+		};
+		7335FCED346DD69CEACBEEEA = {
+			isa = PBXBuildFile;
+			fileRef = 49C43A212E6C2B69288604A2;
 		};
 		98B04B96552CE59A12D2F29D = {
 			isa = PBXBuildFile;
@@ -299,12 +311,33 @@
 			path = "~/JUCE/modules/juce_audio_basics";
 			sourceTree = "<absolute>";
 		};
+		420D2F19F9A09B77853E45C2 = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.framework;
+			name = CoreAudioKit.framework;
+			path = System/Library/Frameworks/CoreAudioKit.framework;
+			sourceTree = SDKROOT;
+		};
 		421B38EA4B9B43D636728D77 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
 			name = TrackGenerator.hpp;
 			path = ../../Source/Controllers/TrackGenerator.hpp;
 			sourceTree = "SOURCE_ROOT";
+		};
+		49C43A212E6C2B69288604A2 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.objcpp;
+			name = "include_juce_audio_utils.mm";
+			path = "../../JuceLibraryCode/include_juce_audio_utils.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		51A307074C8D8E113421FB39 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file;
+			name = "juce_audio_utils";
+			path = "~/JUCE/modules/juce_audio_utils";
+			sourceTree = "<absolute>";
 		};
 		526B41F31724C227DA45C1C9 = {
 			isa = PBXFileReference;
@@ -459,6 +492,13 @@
 			name = "include_juce_audio_devices.mm";
 			path = "../../JuceLibraryCode/include_juce_audio_devices.mm";
 			sourceTree = "SOURCE_ROOT";
+		};
+		87486F67834811ECB499904B = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.framework;
+			name = DiscRecording.framework;
+			path = System/Library/Frameworks/DiscRecording.framework;
+			sourceTree = SDKROOT;
 		};
 		8A6AA9F4A0FD270D8828019A = {
 			isa = PBXFileReference;
@@ -848,6 +888,7 @@
 				DD8788F92D63D6D94F1D8F1C,
 				A81E405C6BF3DF1F9455F8ED,
 				526B41F31724C227DA45C1C9,
+				51A307074C8D8E113421FB39,
 				073868F293CBCBC5C304D415,
 				D7E1471EA05E95369A558C69,
 				F4F035F6B229AF1591BAEC14,
@@ -870,6 +911,7 @@
 				855652352F9CAC03FC619E0D,
 				E40DA80A0F1C85FD04B166D2,
 				A5966743591255C80BF6A669,
+				49C43A212E6C2B69288604A2,
 				80897D804FE4361FF781DC77,
 				A634194D1468515B6EB13FA9,
 				AB2BE963766693FE7D0090C4,
@@ -901,7 +943,9 @@
 				92B8853B086E136BBA6C39B4,
 				38F1228EA1C3589278B695DC,
 				FACEC9BD358D95AF67FB2C3E,
+				420D2F19F9A09B77853E45C2,
 				D52E9CE91438C73A9EB10C16,
+				87486F67834811ECB499904B,
 				19D7659E62D04B85DF4278F6,
 				EDD5446CFB88DE49C0540476,
 				B836935BDB1A29FB938FE39B,
@@ -1167,6 +1211,7 @@
 				342ABD1E0C2067B6385EB961,
 				ECCBF0D9D13C2FE70BD8AF90,
 				9BD977C2FB74A25DB46FC584,
+				7335FCED346DD69CEACBEEEA,
 				98B04B96552CE59A12D2F29D,
 				9A0261C302C5BDA1E73C1637,
 				17A3C7810E37D872FC31E1E7,
@@ -1187,7 +1232,9 @@
 				464B3747A88F5611BD5ABD5C,
 				49276BD119E236B3ACFD435B,
 				A48D15C20E131B59F5D71C65,
+				79572239DAA3F050ACBEB92A,
 				1B13BBAF43E450876091153F,
+				D1AD88809CA62770030F0FF5,
 				0A0763BDF977FC78A686006F,
 				A2C8AA208E84BF54B4001587,
 				8C2D96F9079BB5396BD1A165,
