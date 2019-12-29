@@ -15,6 +15,7 @@
     <GROUP id="{0359700B-7377-6DB0-8F39-8884B1DC0A6E}" name="Source">
       <FILE id="sx7T3w" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <GROUP id="{3AC4BF20-E5EE-0C8F-ADD6-BB705FA90D1E}" name="Model">
+        <FILE id="Po5VKv" name="VocalGroupBus.h" compile="0" resource="0" file="Source/Model/VocalGroupBus.h"/>
         <FILE id="hev94s" name="VocalTrack.cpp" compile="1" resource="0" file="Source/Model/VocalTrack.cpp"/>
         <FILE id="weSgXi" name="VocalTrack.h" compile="0" resource="0" file="Source/Model/VocalTrack.h"/>
       </GROUP>

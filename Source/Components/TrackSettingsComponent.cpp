@@ -10,10 +10,14 @@
 
 #include "TrackSettingsComponent.h"
 
-TrackSettingsComponent::TrackSettingsComponent(String name) : mDisplayName(name)
+TrackSettingsComponent::TrackSettingsComponent(String name)
 {
     const int textBoxWidth = 50;
     const int textBoxHeight = 25;
+    
+    mBus.displayName = name;
+    mBus.panValue = 0.f;
+    mBus.gainValue = 0.f;
     
     mGainSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
     mGainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -21,7 +25,10 @@ TrackSettingsComponent::TrackSettingsComponent(String name) : mDisplayName(name)
     mGainSlider.setRange(Range<double>(-80.0, 6.0), 1.0);
     mGainSlider.setValue(0.0);
     mGainSlider.setTextValueSuffix(" dB");
-    mGainSlider.addListener(this);
+    mGainSlider.onValueChange = [this] {
+        mBus.gainValue = mGainSlider.getValue();
+        std::cout << "Gain: " << mBus.gainValue << std::endl;
+    };
     addAndMakeVisible(mGainSlider);
     
     mPanSlider.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
@@ -29,7 +36,10 @@ TrackSettingsComponent::TrackSettingsComponent(String name) : mDisplayName(name)
     mPanSlider.setNumDecimalPlacesToDisplay(0);
     mPanSlider.setRange(Range<double>(-64, 63), 1);
     mPanSlider.setValue(0);
-    mPanSlider.addListener(this);
+    mPanSlider.onValueChange = [this] {
+        mBus.panValue = mPanSlider.getValue();
+        std::cout << "Pan: " << mBus.panValue << std::endl;
+    };
     addAndMakeVisible(mPanSlider);
 }
 
@@ -41,7 +51,7 @@ void TrackSettingsComponent::paint(Graphics &g)
     
     g.setColour(Colours::white);
     g.setFont (Font (16.0f));
-    g.drawText(mDisplayName, getLocalBounds(), Justification::centredTop);
+    g.drawText(mBus.displayName, getLocalBounds(), Justification::centredTop);
 }
 
 void TrackSettingsComponent::resized()
@@ -58,15 +68,4 @@ void TrackSettingsComponent::resized()
     
     mGainSlider.setBounds(areaWidth/2 - gainWidth - horizontalOffsetFromCenter, gainVerticalPadding, gainWidth, areaHeight - gainVerticalPadding * 2);
     mPanSlider.setBounds(areaWidth/2 + horizontalOffsetFromCenter, areaHeight - panWidth - gainVerticalPadding, panWidth, panHeight);
-}
-
-#pragma mark - Listener Overrides
-void TrackSettingsComponent::sliderValueChanged(Slider* slider)
-{
-    if (slider == &mGainSlider) {
-        std::cout << "Gain (" << slider << "): " << mGainSlider.getValue() << std::endl;
-    }
-    else if (slider == &mPanSlider) {
-        std::cout << "Pan (" << slider << "): " << mPanSlider.getValue() << std::endl;
-    }
 }

@@ -11,19 +11,19 @@
 #pragma once
 
 #include "../../JuceLibraryCode/JuceHeader.h"
+#include "../Model/VocalGroupBus.h"
 
-class TrackSettingsComponent : public Component, private Slider::Listener {
+class TrackSettingsComponent : public Component {
 public:
     TrackSettingsComponent(String name);
     ~TrackSettingsComponent();
     
     void paint(Graphics &g) override;
     void resized() override;
-    
-    void sliderValueChanged (Slider* slider) override;
 
 private:
-    String mDisplayName;
     Slider mGainSlider;
     Slider mPanSlider;
+    
+    VocalGroupBus mBus;
 };

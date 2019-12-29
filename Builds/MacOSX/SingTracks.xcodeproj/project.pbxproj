@@ -465,6 +465,13 @@
 			path = ../../Source/MainWindow.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		7BF231A5217696FC8051D75A = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = VocalGroupBus.h;
+			path = ../../Source/Model/VocalGroupBus.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		7C6C7FD9B55D025C839C3501 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -789,6 +796,7 @@
 		3D3E4971ECFEFD02E35D1933 = {
 			isa = PBXGroup;
 			children = (
+				7BF231A5217696FC8051D75A,
 				6BE20DB8F93E49658B2A6899,
 				531C432E7FAAEE3EE572CFFF,
 			);
