@@ -43,6 +43,11 @@ String VocalTrack::getDisplayName()
     return mDisplayName;
 }
 
+const AudioBuffer<float>& VocalTrack::getBuffer() const
+{
+    return mBuffer;
+}
+
 void VocalTrack::initializeBuffer(const MidiFile& midiFile, int trackNum)
 {
     jassert(trackNum < midiFile.getNumTracks());

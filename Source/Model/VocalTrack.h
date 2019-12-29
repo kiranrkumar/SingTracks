@@ -22,6 +22,7 @@ public:
     VocalTrack(const MidiFile &midiFile, int trackNum);
     
     String getDisplayName();
+    const AudioBuffer<float>& getBuffer() const;
 
 private:
     void initializeBuffer(const MidiFile& midiFile, int trackNum);
