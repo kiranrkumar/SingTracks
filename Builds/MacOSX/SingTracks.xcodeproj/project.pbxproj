@@ -630,6 +630,13 @@
 			path = ../../Source/Controllers/MIDITrackSynthesizer.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		B2C826A522AFE929F4E9ACE0 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = AudioDefines.h;
+			path = ../../Source/Model/AudioDefines.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		B836935BDB1A29FB938FE39B = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -807,6 +814,7 @@
 		3D3E4971ECFEFD02E35D1933 = {
 			isa = PBXGroup;
 			children = (
+				B2C826A522AFE929F4E9ACE0,
 				0390EAD94DB777781ADAC503,
 				7BF231A5217696FC8051D75A,
 				6BE20DB8F93E49658B2A6899,

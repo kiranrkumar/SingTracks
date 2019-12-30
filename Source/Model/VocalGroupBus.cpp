@@ -10,8 +10,13 @@
 
 #include "VocalGroupBus.h"
 
-VocalGroupBus::VocalGroupBus(String displayName, float gainValue, float panValue) : mDisplayName(displayName), mGainValue(gainValue), mPanValue(panValue)
+VocalGroupBus::VocalGroupBus(String displayName, float gainValue, float panValue) : mDisplayName(displayName), mGainValue(gainValue), mPanValue(panValue) {}
+
+VocalGroupBus::VocalGroupBus(const VocalGroupBus &busToCopy) : mBus(busToCopy.getBus()), mDisplayName(busToCopy.getDisplayName()), mGainValue(busToCopy.getGainValue()), mPanValue(busToCopy.getPanValue()) {}
+
+VocalBus VocalGroupBus::getBus() const
 {
+    return mBus;
 }
 
 void VocalGroupBus::setDisplayName(String displayName)
@@ -19,7 +24,7 @@ void VocalGroupBus::setDisplayName(String displayName)
     mDisplayName = displayName;
 }
 
-String VocalGroupBus::getDisplayName()
+String VocalGroupBus::getDisplayName() const
 {
     return mDisplayName;
 }
@@ -29,7 +34,7 @@ void VocalGroupBus::setGainValueFromDb(float dbValue)
     mGainValue = std::pow(10.f, dbValue/20.f);
 }
 
-float VocalGroupBus::getGainValue()
+float VocalGroupBus::getGainValue() const
 {
     return mGainValue;
 }
@@ -39,7 +44,7 @@ void VocalGroupBus::setPanValue(float pan, float minPan, float maxPan)
     mPanValue = (pan - minPan) / (maxPan - minPan);
 }
 
-float VocalGroupBus::getPanValue()
+float VocalGroupBus::getPanValue() const
 {
     return mPanValue;
 }

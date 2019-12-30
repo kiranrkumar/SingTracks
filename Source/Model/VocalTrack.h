@@ -11,18 +11,16 @@
 #pragma once
 
 #include "../../JuceLibraryCode/JuceHeader.h"
-
-typedef enum {
-    Solo,
-    Background
-} VocalBus;
+#include "AudioDefines.h"
 
 class VocalTrack {
 public:
     VocalTrack(const MidiFile &midiFile, int trackNum);
     
     String getDisplayName();
+    VocalBus getBus();
     const AudioBuffer<float>& getBuffer() const;
+    AudioBuffer<float> getBufferCopy();
 
 private:
     void initializeBuffer(const MidiFile& midiFile, int trackNum);

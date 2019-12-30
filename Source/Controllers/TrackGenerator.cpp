@@ -68,6 +68,35 @@ void TrackGenerator::renderAudio()
 
 void TrackGenerator::renderAudio(OwnedArray<VocalGroupBus>& busses, OwnedArray<VocalTrack>& tracks)
 {
+    int numSamples = DEFAULT_SAMPLE_RATE * getTrueLastTimestamp(mMidiFile);
+    
+    // Set up and store the solo/harmony buffers once
+
+//      Panning formulas:
+//          float leftGain *= cos(pan * pi/2) * gain;
+//          float rightGain *= sin(pan * pin/2) * gain;
+//          (get pan and gain from "Solo" VocalGroupBus)
+    
+    std::map<VocalBus, OwnedArray<AudioBuffer<float>>> busToBuffersMap;
+    for (VocalTrack *track : tracks) {
+        if (track->getBus() == Solo) {
+            AudioBuffer<float> *stereoBuffer = new AudioBuffer<float>(NUM_OUTPUT_CHANNELS, numSamples);
+            // Copy mono buffer of source track to each channel of stereo output buffer
+            for (int ch = 0; ch < NUM_OUTPUT_CHANNELS; ++ch) {
+                stereoBuffer->copyFrom(ch, 0, track->getBuffer(), 0, 0, track->getBuffer().getNumSamples());
+                
+                // Apply gain and pan
+                
+            }
+            busToBuffersMap[Solo].add(stereoBuffer);
+        }
+    }
+    
+    // Initialize stereo output buffer
+    double lastTimeStamp = getTrueLastTimestamp(mMidiFile);
+    AudioBuffer<float> outputBuffer(NUM_OUTPUT_CHANNELS, DEFAULT_SAMPLE_RATE * lastTimeStamp);
+    outputBuffer.clear();
+    
     
 }
 

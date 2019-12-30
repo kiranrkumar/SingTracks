@@ -20,10 +20,11 @@ public:
     
     void paint(Graphics &g) override;
     void resized() override;
+    
+    VocalGroupBus getBus() const;
 
 private:
     Slider mDbSlider;
     Slider mPanSlider;
-    
     VocalGroupBus mBus;
 };

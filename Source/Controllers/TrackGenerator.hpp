@@ -22,8 +22,8 @@ private:
 public:
     TrackGenerator(double sampleRate = DEFAULT_SAMPLE_RATE);
     ~TrackGenerator();
-    bool readMidiDataFromFile(File&);
     
+    bool readMidiDataFromFile(File&);
     const MidiFile& getMidiFile() const;
     double getSampleRate() const;
     int getNumTracks() const;

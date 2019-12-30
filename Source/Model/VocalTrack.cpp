@@ -13,7 +13,7 @@
 #include "../Controllers/MIDITrackSynthesizer.h"
 
 const double SAMPLE_RATE = 48000;
-const int NUM_OUTPUT_CHANNELS = 2;
+const int NUM_OUTPUT_CHANNELS = 1; // make mono for the local track. When fully rendered into an output file, this will be split to stereo
 const int NUM_SYNTH_VOICES = 10;
 
 VocalTrack::VocalTrack(const MidiFile &midiFile, int trackNum)
@@ -43,9 +43,19 @@ String VocalTrack::getDisplayName()
     return mDisplayName;
 }
 
+VocalBus VocalTrack::getBus()
+{
+    return mBus;
+}
+
 const AudioBuffer<float>& VocalTrack::getBuffer() const
 {
     return mBuffer;
+}
+
+AudioBuffer<float> VocalTrack::getBufferCopy()
+{
+    return AudioBuffer<float>(mBuffer);
 }
 
 void VocalTrack::initializeBuffer(const MidiFile& midiFile, int trackNum)

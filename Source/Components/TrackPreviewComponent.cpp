@@ -71,12 +71,22 @@ void TrackPreviewComponent::resized()
     
     mCreateTracksButton.setBounds(mCreateTracksButton.boundsToDraw(getLocalBounds()));
 }
-
-#pragma mark - Button Listener
+#pragma mark - Private -
+#pragma mark Button Listener
 void TrackPreviewComponent::buttonClicked(Button *button)
 {
     if (button == &mCreateTracksButton && getRootComponent() != nullptr) {
         getRootComponent()->createTracks();
-//        getRootComponent()->createTracks(tracks);
+    
+//  USE THE BELOW ONCE WE'RE READY TO SWITCH TO THE NEW RENDER CALLS
+
+//        // Collect group busses containing current gain and pan information
+//        OwnedArray<VocalGroupBus> groupBusses;
+//        for (TrackSettingsComponent *settingsComp : mTrackSettings) {
+//            groupBusses.add(new VocalGroupBus(settingsComp->getBus()));
+//        }
+//
+//        getRootComponent()->createTrackscreateTracks(OwnedArray<VocalGroupBus>& busses, OwnedArray<VocalTrack> &tracks);
+        
     }
 }

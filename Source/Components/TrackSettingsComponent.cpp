@@ -45,6 +45,7 @@ TrackSettingsComponent::TrackSettingsComponent(String name)
 
 TrackSettingsComponent::~TrackSettingsComponent() {}
 
+#pragma mark Component
 void TrackSettingsComponent::paint(Graphics &g)
 {
     g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
@@ -68,4 +69,10 @@ void TrackSettingsComponent::resized()
     
     mDbSlider.setBounds(areaWidth/2 - gainWidth - horizontalOffsetFromCenter, gainVerticalPadding, gainWidth, areaHeight - gainVerticalPadding * 2);
     mPanSlider.setBounds(areaWidth/2 + horizontalOffsetFromCenter, areaHeight - panWidth - gainVerticalPadding, panWidth, panHeight);
+}
+
+#pragma mark Accessors
+VocalGroupBus TrackSettingsComponent::getBus() const
+{
+    return mBus;
 }
