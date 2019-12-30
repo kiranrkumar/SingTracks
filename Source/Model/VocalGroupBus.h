@@ -22,7 +22,7 @@ public:
     void setGainValue(float gain);
     float getGainValue();
     
-    void setPanValue(float pan);
+    void setPanValue(float pan, float minPan = -64, float maxPan = 63);
     float getPanValue();
     
 private:

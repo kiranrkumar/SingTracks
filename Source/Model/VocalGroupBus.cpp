@@ -34,9 +34,9 @@ float VocalGroupBus::getGainValue()
     return mGainValue;
 }
 
-void VocalGroupBus::setPanValue(float pan)
+void VocalGroupBus::setPanValue(float pan, float minPan, float maxPan)
 {
-    mPanValue = pan;
+    mPanValue = (pan - minPan) / (maxPan - minPan);
 }
 
 float VocalGroupBus::getPanValue()
