@@ -13,7 +13,7 @@
 #include "../../JuceLibraryCode/JuceHeader.h"
 
 class VocalTrack;
-class VocalGroupBus;
+class VocalBusSettings;
 
 class TrackGenerator {
 private:
@@ -31,7 +31,7 @@ public:
     void printSummary();
     bool isMusicalTrack(int trackNum);
     void renderAudio();
-    void renderAudio(OwnedArray<VocalGroupBus>& busses, OwnedArray<VocalTrack>& tracks);
+    void renderAudio(OwnedArray<VocalBusSettings>& busSettings, OwnedArray<VocalTrack>& tracks);
 private:
     void prepareOutputBuffer(AudioBuffer<float> &outputBuffer);
     void renderAllMidiTracks(AudioBuffer<float> &outputBuffer);

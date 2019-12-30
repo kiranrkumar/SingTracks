@@ -69,9 +69,9 @@
 			isa = PBXBuildFile;
 			fileRef = 2E290065741D838078CD9CD6;
 		};
-		74BDACB1F511A6FAAB03C5A1 = {
+		74424A4CAE8C7737BDC833AB = {
 			isa = PBXBuildFile;
-			fileRef = 0390EAD94DB777781ADAC503;
+			fileRef = D7D2266F4A2E0BFBD0E1EA29;
 		};
 		A60157EFC0B485C60317CF92 = {
 			isa = PBXBuildFile;
@@ -188,13 +188,6 @@
 		30D366A3555A28D6593C636A = {
 			isa = PBXBuildFile;
 			fileRef = A77A6746E3BA5F5358AC3331;
-		};
-		0390EAD94DB777781ADAC503 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = VocalGroupBus.cpp;
-			path = ../../Source/Model/VocalGroupBus.cpp;
-			sourceTree = "SOURCE_ROOT";
 		};
 		042B60FEB8596F4506B5E668 = {
 			isa = PBXFileReference;
@@ -476,13 +469,6 @@
 			path = ../../Source/MainWindow.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		7BF231A5217696FC8051D75A = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = VocalGroupBus.h;
-			path = ../../Source/Model/VocalGroupBus.h;
-			sourceTree = "SOURCE_ROOT";
-		};
 		7C6C7FD9B55D025C839C3501 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -565,6 +551,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = AppController.h;
 			path = ../../Source/Controllers/AppController.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		A2852E9B0CEE56069BC603B7 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = VocalBusSettings.h;
+			path = ../../Source/Model/VocalBusSettings.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		A5966743591255C80BF6A669 = {
@@ -671,6 +664,13 @@
 			name = CoreMIDI.framework;
 			path = System/Library/Frameworks/CoreMIDI.framework;
 			sourceTree = SDKROOT;
+		};
+		D7D2266F4A2E0BFBD0E1EA29 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = VocalBusSettings.cpp;
+			path = ../../Source/Model/VocalBusSettings.cpp;
+			sourceTree = "SOURCE_ROOT";
 		};
 		D7E1471EA05E95369A558C69 = {
 			isa = PBXFileReference;
@@ -815,10 +815,10 @@
 			isa = PBXGroup;
 			children = (
 				B2C826A522AFE929F4E9ACE0,
-				0390EAD94DB777781ADAC503,
-				7BF231A5217696FC8051D75A,
-				6BE20DB8F93E49658B2A6899,
+				A2852E9B0CEE56069BC603B7,
+				D7D2266F4A2E0BFBD0E1EA29,
 				531C432E7FAAEE3EE572CFFF,
+				6BE20DB8F93E49658B2A6899,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1219,7 +1219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AAA3BAEBA938D3E58608AD9,
-				74BDACB1F511A6FAAB03C5A1,
+				74424A4CAE8C7737BDC833AB,
 				A60157EFC0B485C60317CF92,
 				7BB9110337E097B3FFF173EC,
 				3D27F06BE87042ABE114643F,

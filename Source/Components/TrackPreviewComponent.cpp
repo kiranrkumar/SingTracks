@@ -81,12 +81,12 @@ void TrackPreviewComponent::buttonClicked(Button *button)
 //  USE THE BELOW ONCE WE'RE READY TO SWITCH TO THE NEW RENDER CALLS
 
 //        // Collect group busses containing current gain and pan information
-//        OwnedArray<VocalGroupBus> groupBusses;
+//        OwnedArray<VocalBusSettings> busSettingsArray;
 //        for (TrackSettingsComponent *settingsComp : mTrackSettings) {
-//            groupBusses.add(new VocalGroupBus(settingsComp->getBus()));
+//            busSettingsArray(new VocalBusSettings(settingsComp->getBus()));
 //        }
 //
-//        getRootComponent()->createTrackscreateTracks(OwnedArray<VocalGroupBus>& busses, OwnedArray<VocalTrack> &tracks);
+//        getRootComponent()->createTrackscreateTracks(OwnedArray<VocalBusSettings>& busses, OwnedArray<VocalTrack> &tracks);
         
     }
 }

@@ -8,7 +8,7 @@
 #include "TrackGenerator.hpp"
 #include "MIDITrackSynthesizer.h"
 #include "../Model/VocalTrack.h"
-#include "../Model/VocalGroupBus.h"
+#include "../Model/VocalBusSettings.h"
 
 const int NUM_OUTPUT_CHANNELS = 2;
 const int NUM_SYNTH_VOICES = 10;
@@ -66,7 +66,7 @@ void TrackGenerator::renderAudio()
     writeAudioToFile(outputBuffer);
 }
 
-void TrackGenerator::renderAudio(OwnedArray<VocalGroupBus>& busses, OwnedArray<VocalTrack>& tracks)
+void TrackGenerator::renderAudio(OwnedArray<VocalBusSettings>& busSettings, OwnedArray<VocalTrack>& tracks)
 {
     int numSamples = DEFAULT_SAMPLE_RATE * getTrueLastTimestamp(mMidiFile);
     
@@ -75,7 +75,7 @@ void TrackGenerator::renderAudio(OwnedArray<VocalGroupBus>& busses, OwnedArray<V
 //      Panning formulas:
 //          float leftGain *= cos(pan * pi/2) * gain;
 //          float rightGain *= sin(pan * pin/2) * gain;
-//          (get pan and gain from "Solo" VocalGroupBus)
+//          (get pan and gain from "Solo" VocalBusSettings)
     
     std::map<VocalBus, OwnedArray<AudioBuffer<float>>> busToBuffersMap;
     for (VocalTrack *track : tracks) {

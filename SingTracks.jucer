@@ -16,11 +16,12 @@
       <FILE id="sx7T3w" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <GROUP id="{3AC4BF20-E5EE-0C8F-ADD6-BB705FA90D1E}" name="Model">
         <FILE id="pvqmJ3" name="AudioDefines.h" compile="0" resource="0" file="Source/Model/AudioDefines.h"/>
-        <FILE id="nhcnEb" name="VocalGroupBus.cpp" compile="1" resource="0"
-              file="Source/Model/VocalGroupBus.cpp"/>
-        <FILE id="Po5VKv" name="VocalGroupBus.h" compile="0" resource="0" file="Source/Model/VocalGroupBus.h"/>
-        <FILE id="hev94s" name="VocalTrack.cpp" compile="1" resource="0" file="Source/Model/VocalTrack.cpp"/>
+        <FILE id="NfX1Ra" name="VocalBusSettings.h" compile="0" resource="0"
+              file="Source/Model/VocalBusSettings.h"/>
+        <FILE id="kBQiKl" name="VocalBusSettings.cpp" compile="1" resource="0"
+              file="Source/Model/VocalBusSettings.cpp"/>
         <FILE id="weSgXi" name="VocalTrack.h" compile="0" resource="0" file="Source/Model/VocalTrack.h"/>
+        <FILE id="hev94s" name="VocalTrack.cpp" compile="1" resource="0" file="Source/Model/VocalTrack.cpp"/>
       </GROUP>
       <GROUP id="{3ECC4F28-B63A-8841-8255-36F3FF6C9FB4}" name="UI">
         <GROUP id="{72E6337D-5C4F-FAA6-502D-6FA0EB64CAEA}" name="Windows">

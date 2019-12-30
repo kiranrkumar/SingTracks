@@ -11,7 +11,7 @@
 #pragma once
 
 #include "../../JuceLibraryCode/JuceHeader.h"
-#include "../Model/VocalGroupBus.h"
+#include "../Model/VocalBusSettings.h"
 
 class TrackSettingsComponent : public Component {
 public:
@@ -21,10 +21,10 @@ public:
     void paint(Graphics &g) override;
     void resized() override;
     
-    VocalGroupBus getBus() const;
+    VocalBusSettings getBusSettings() const;
 
 private:
     Slider mDbSlider;
     Slider mPanSlider;
-    VocalGroupBus mBus;
+    VocalBusSettings mBusSettings;
 };

@@ -83,9 +83,9 @@ void MainComponent::createTracks()
     mAppController->createTracks();
 }
 
-void MainComponent::createTracks(OwnedArray<VocalGroupBus>& busses, OwnedArray<VocalTrack> &tracks)
+void MainComponent::createTracks(OwnedArray<VocalBusSettings>& busSettings, OwnedArray<VocalTrack> &tracks)
 {
-    mAppController->createTracks(busses, tracks);
+    mAppController->createTracks(busSettings, tracks);
 }
 
 void MainComponent::importMidi()
