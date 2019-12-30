@@ -23,6 +23,8 @@ VocalTrack::VocalTrack(const MidiFile &midiFile, int trackNum)
     displayName += std::to_string(trackNum);
     mDisplayName = String(displayName);
     
+    mBus = Background;
+    
     // Set up synth
     mSynth.clearVoices();
     for (int i = 0; i < NUM_SYNTH_VOICES; ++i) {

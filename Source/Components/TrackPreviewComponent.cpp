@@ -19,9 +19,9 @@ const int cTrackFieldContainerTopInset = 20;
 
 TrackPreviewComponent::TrackPreviewComponent(MainComponent *mainComponent, OwnedArray<VocalTrack> &tracks) : SubComponent::SubComponent(mainComponent)
 {
-    // Fields for each track (name, is solo, etc)
-    for (int i = 0; i < tracks.size(); ++i) {
-        TrackFieldsComponent *tfc = new TrackFieldsComponent(tracks.removeAndReturn(i));
+    // Fields for each track (name, isSolo, etc)
+    while (!tracks.isEmpty()) {
+        TrackFieldsComponent *tfc = new TrackFieldsComponent(tracks.removeAndReturn(0));
         mTrackFields.add(tfc);
         mTrackFieldsContainer.addAndMakeVisible(tfc);
     }
@@ -76,29 +76,25 @@ void TrackPreviewComponent::resized()
 void TrackPreviewComponent::buttonClicked(Button *button)
 {
     if (button == &mCreateTracksButton && getRootComponent() != nullptr) {
-        getRootComponent()->createTracks();
-    
-//  USE THE BELOW ONCE WE'RE READY TO SWITCH TO THE NEW RENDER CALLS
-
         // KRK_FIXME lots of copying going on. Could stand to optimize
         
+        // Create a temp map of bus to bus settings
         std::map<VocalBus, VocalBusSettings> busToSettingsMap;
         for (TrackSettingsComponent *settingsComp : mTrackSettings) {
-            VocalBusSettings busSettings = settingsComp->getBusSettings();
+            const VocalBusSettings& busSettings = settingsComp->getBusSettings();
             busToSettingsMap[busSettings.getBus()] = busSettings;
         }
         
+        // Use the above map to help map bus settings directly to the audio buffers using the same bus
         BusSettingsToBuffersMap busSettingsToBuffersMap;
-        
         for (TrackFieldsComponent *fieldsComp : mTrackFields) {
             VocalTrack *track = fieldsComp->getVocalTrack();
-            std::unique_ptr<VocalBusSettings> settingsForBus = std::make_unique<VocalBusSettings>(VocalBusSettings(busToSettingsMap[track->getBus()]));
+            const VocalBusSettings &settings = busToSettingsMap[track->getBus()];
+            std::unique_ptr<VocalBusSettings> settingsForBus = std::make_unique<VocalBusSettings>(VocalBusSettings(settings));
             busSettingsToBuffersMap[std::move(settingsForBus)].push_back(AudioBuffer<float>( track->getBuffer()));
         }
 
-        //
-
-//        getRootComponent()->createTracks(busSettingsArray, OwnedArray<VocalTrack> &tracks);
+        getRootComponent()->createTracks(busSettingsToBuffersMap);
         
     }
 }

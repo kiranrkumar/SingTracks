@@ -73,7 +73,7 @@ void TrackSettingsComponent::resized()
 }
 
 #pragma mark Accessors
-VocalBusSettings TrackSettingsComponent::getBusSettings() const
+const VocalBusSettings& TrackSettingsComponent::getBusSettings() const
 {
     return mBusSettings;
 }

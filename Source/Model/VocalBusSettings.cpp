@@ -10,12 +10,22 @@
 
 #include "VocalBusSettings.h"
 
-VocalBusSettings::VocalBusSettings(const String &displayName, float gainValue, float panValue) : mDisplayName(displayName), mGainValue(gainValue), mPanValue(panValue)
-{
-
+static void printDescription(VocalBusSettings &settings) {
+    std::cout << "VocalBusSettings - " << &settings << std::endl;
+    std::cout << "\t" << settings.getDisplayName() << std::endl;
+    std::cout << "\t" << settings.getGainValue() << std::endl;
+    std::cout << "\t" << settings.getPanValue() << std::endl;
 }
 
-VocalBusSettings::VocalBusSettings(const VocalBusSettings &settingsToCopy) : mBus(settingsToCopy.getBus()), mDisplayName(settingsToCopy.getDisplayName()), mGainValue(settingsToCopy.getGainValue()), mPanValue(settingsToCopy.getPanValue()) {}
+VocalBusSettings::VocalBusSettings(const String &displayName, float gainValue, float panValue) : mDisplayName(displayName), mGainValue(gainValue), mPanValue(panValue)
+{
+    printDescription(*this);
+}
+
+VocalBusSettings::VocalBusSettings(const VocalBusSettings &settingsToCopy) : mBus(settingsToCopy.getBus()), mDisplayName(settingsToCopy.getDisplayName()), mGainValue(settingsToCopy.getGainValue()), mPanValue(settingsToCopy.getPanValue())
+{
+    printDescription(*this);
+}
 
 void VocalBusSettings::setBus(VocalBus bus)
 {
@@ -39,7 +49,9 @@ String VocalBusSettings::getDisplayName() const
 
 void VocalBusSettings::setGainValueFromDb(float dbValue)
 {
+    std::cout << "Gain: " << mGainValue;
     mGainValue = std::pow(10.f, dbValue/20.f);
+    std::cout << " to " << mGainValue << std::endl;
 }
 
 float VocalBusSettings::getGainValue() const

@@ -21,7 +21,7 @@ public:
     void paint(Graphics &g) override;
     void resized() override;
     
-    VocalBusSettings getBusSettings() const;
+    const VocalBusSettings& getBusSettings() const;
 
 private:
     Slider mDbSlider;

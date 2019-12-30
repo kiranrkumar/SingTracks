@@ -68,7 +68,32 @@ void TrackGenerator::renderAudio()
 
 void TrackGenerator::renderAudio(BusSettingsToBuffersMap &busSettingsToBuffersMap)
 {
-    int numSamples = DEFAULT_SAMPLE_RATE * getTrueLastTimestamp(mMidiFile);
+    // KRK_FIXME does not yet include making any of the background parts "primary" to create multiple files. So far, this just creates one file with background and solo busses
+    
+    int numSamples = static_cast<int>(ceilf(DEFAULT_SAMPLE_RATE * getTrueLastTimestamp(mMidiFile)));
+    AudioBuffer<float> outputBuffer(NUM_OUTPUT_CHANNELS, numSamples);
+    outputBuffer.clear();
+    
+    for (BusSettingsToBuffersMap::iterator it = busSettingsToBuffersMap.begin(); it != busSettingsToBuffersMap.end(); ++it) {
+        VocalBusSettings *busSettings = it->first.get();
+        std::vector<AudioBuffer<float>> buffers = it->second;
+        
+        float gain = busSettings->getGainValue();
+        float pan = busSettings->getPanValue();
+        float leftGain = std::cos(pan * M_PI/2) * gain;
+        float rightGain = std::sin(pan * M_PI/2) * gain;
+        
+        for (auto buffer : buffers) {
+            AudioBuffer<float> left(buffer);
+            AudioBuffer<float> right(buffer);
+            left.applyGain(leftGain);
+            right.applyGain(rightGain);
+            outputBuffer.addFrom(0, 0, left, 0, 0, left.getNumSamples());
+            outputBuffer.addFrom(1, 0, right, 0, 0, right.getNumSamples());
+        }
+    }
+    
+    writeAudioToFile(outputBuffer);
 }
 
 bool TrackGenerator::isMusicalTrack(int trackNum)
@@ -166,7 +191,7 @@ void TrackGenerator::normalizeBuffer(AudioBuffer<float>& buffer, float maxMagnit
 bool TrackGenerator::writeAudioToFile(AudioBuffer<float>& buffer)
 {
     DEBUG_LOG("Writing audio to file...\n");
-    File outFile("~/audioTestFile.wav");
+    File outFile("~/audioTestFile_newRender.wav");
     
     FileOutputStream *outStream = new FileOutputStream(outFile);
     if (outStream->openedOk()) {
