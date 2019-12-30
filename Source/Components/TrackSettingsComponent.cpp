@@ -15,9 +15,9 @@ TrackSettingsComponent::TrackSettingsComponent(String name)
     const int textBoxWidth = 50;
     const int textBoxHeight = 25;
     
-    mBus.displayName = name;
-    mBus.panValue = 0.f;
-    mBus.gainValue = 0.f;
+    mBus.setDisplayName(name);
+    mBus.setPanValue(0.f);
+    mBus.setGainValue(0.f);
     
     mGainSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
     mGainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -26,8 +26,8 @@ TrackSettingsComponent::TrackSettingsComponent(String name)
     mGainSlider.setValue(0.0);
     mGainSlider.setTextValueSuffix(" dB");
     mGainSlider.onValueChange = [this] {
-        mBus.gainValue = mGainSlider.getValue();
-        std::cout << "Gain: " << mBus.gainValue << std::endl;
+        mBus.setGainValue(mGainSlider.getValue());
+        std::cout << "Gain: " << mBus.getGainValue() << std::endl;
     };
     addAndMakeVisible(mGainSlider);
     
@@ -37,8 +37,8 @@ TrackSettingsComponent::TrackSettingsComponent(String name)
     mPanSlider.setRange(Range<double>(-64, 63), 1);
     mPanSlider.setValue(0);
     mPanSlider.onValueChange = [this] {
-        mBus.panValue = mPanSlider.getValue();
-        std::cout << "Pan: " << mBus.panValue << std::endl;
+        mBus.setPanValue(mPanSlider.getValue());
+        std::cout << "Pan: " << mBus.getPanValue() << std::endl;
     };
     addAndMakeVisible(mPanSlider);
 }
@@ -51,7 +51,7 @@ void TrackSettingsComponent::paint(Graphics &g)
     
     g.setColour(Colours::white);
     g.setFont (Font (16.0f));
-    g.drawText(mBus.displayName, getLocalBounds(), Justification::centredTop);
+    g.drawText(mBus.getDisplayName(), getLocalBounds(), Justification::centredTop);
 }
 
 void TrackSettingsComponent::resized()

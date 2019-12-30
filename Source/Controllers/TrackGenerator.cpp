@@ -7,6 +7,8 @@
 
 #include "TrackGenerator.hpp"
 #include "MIDITrackSynthesizer.h"
+#include "../Model/VocalTrack.h"
+#include "../Model/VocalGroupBus.h"
 
 const int NUM_OUTPUT_CHANNELS = 2;
 const int NUM_SYNTH_VOICES = 10;
@@ -62,6 +64,11 @@ void TrackGenerator::renderAudio()
     DEBUG_LOG("\n");
     normalizeBuffer(outputBuffer, 0.85);
     writeAudioToFile(outputBuffer);
+}
+
+void TrackGenerator::renderAudio(OwnedArray<VocalGroupBus>& busses, OwnedArray<VocalTrack>& tracks)
+{
+    
 }
 
 bool TrackGenerator::isMusicalTrack(int trackNum)

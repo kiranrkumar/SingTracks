@@ -77,5 +77,6 @@ void TrackPreviewComponent::buttonClicked(Button *button)
 {
     if (button == &mCreateTracksButton && getRootComponent() != nullptr) {
         getRootComponent()->createTracks();
+//        getRootComponent()->createTracks(tracks);
     }
 }

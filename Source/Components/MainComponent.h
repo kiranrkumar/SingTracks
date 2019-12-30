@@ -17,6 +17,7 @@
 class AppController;
 class SubComponent;
 class VocalTrack;
+class VocalGroupBus;
 
 //==============================================================================
 /*
@@ -38,6 +39,7 @@ public:
     // Delegate to AppController
     File* getCurrentFile();
     void createTracks();
+    void createTracks(OwnedArray<VocalGroupBus>& busses, OwnedArray<VocalTrack> &tracks);
     void importMidi();
     void setCurrentFile(const File &);
 

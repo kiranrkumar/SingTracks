@@ -16,6 +16,8 @@
 #include "TrackGenerator.hpp"
 #include "../Model/VocalTrack.h"
 
+class VocalGroupBus;
+
 class AppController
 {
 public:
@@ -28,6 +30,7 @@ public:
     File* getCurrentFile();
     void setCurrentFile(const File&);
     void createTracks();
+    void createTracks(OwnedArray<VocalGroupBus>& busses, OwnedArray<VocalTrack> &tracks);
     
     void importMidi();
     

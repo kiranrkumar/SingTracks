@@ -69,6 +69,10 @@
 			isa = PBXBuildFile;
 			fileRef = 2E290065741D838078CD9CD6;
 		};
+		74BDACB1F511A6FAAB03C5A1 = {
+			isa = PBXBuildFile;
+			fileRef = 0390EAD94DB777781ADAC503;
+		};
 		A60157EFC0B485C60317CF92 = {
 			isa = PBXBuildFile;
 			fileRef = 6BE20DB8F93E49658B2A6899;
@@ -184,6 +188,13 @@
 		30D366A3555A28D6593C636A = {
 			isa = PBXBuildFile;
 			fileRef = A77A6746E3BA5F5358AC3331;
+		};
+		0390EAD94DB777781ADAC503 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = VocalGroupBus.cpp;
+			path = ../../Source/Model/VocalGroupBus.cpp;
+			sourceTree = "SOURCE_ROOT";
 		};
 		042B60FEB8596F4506B5E668 = {
 			isa = PBXFileReference;
@@ -796,6 +807,7 @@
 		3D3E4971ECFEFD02E35D1933 = {
 			isa = PBXGroup;
 			children = (
+				0390EAD94DB777781ADAC503,
 				7BF231A5217696FC8051D75A,
 				6BE20DB8F93E49658B2A6899,
 				531C432E7FAAEE3EE572CFFF,
@@ -1199,6 +1211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AAA3BAEBA938D3E58608AD9,
+				74BDACB1F511A6FAAB03C5A1,
 				A60157EFC0B485C60317CF92,
 				7BB9110337E097B3FFF173EC,
 				3D27F06BE87042ABE114643F,

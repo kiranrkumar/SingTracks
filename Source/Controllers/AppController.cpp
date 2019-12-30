@@ -11,6 +11,7 @@
 #include "AppController.h"
 
 #include "MIDITrackSynthesizer.h"
+#include "../Model/VocalGroupBus.h"
 
 AppController::AppController() : mMainComponent(nullptr)
 {
@@ -27,6 +28,11 @@ void
 AppController::createTracks()
 {
     mTrackGenerator->renderAudio();
+}
+
+void AppController::createTracks(OwnedArray<VocalGroupBus>& busses, OwnedArray<VocalTrack> &tracks)
+{
+    mTrackGenerator->renderAudio(busses, tracks);
 }
 
 void

@@ -12,6 +12,9 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 
+class VocalTrack;
+class VocalGroupBus;
+
 class TrackGenerator {
 private:
     constexpr static const double DEFAULT_SAMPLE_RATE = 48000;
@@ -28,6 +31,7 @@ public:
     void printSummary();
     bool isMusicalTrack(int trackNum);
     void renderAudio();
+    void renderAudio(OwnedArray<VocalGroupBus>& busses, OwnedArray<VocalTrack>& tracks);
 private:
     void prepareOutputBuffer(AudioBuffer<float> &outputBuffer);
     void renderAllMidiTracks(AudioBuffer<float> &outputBuffer);
