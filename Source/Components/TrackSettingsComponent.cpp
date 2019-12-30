@@ -27,7 +27,6 @@ TrackSettingsComponent::TrackSettingsComponent(String name)
     mDbSlider.setTextValueSuffix(" dB");
     mDbSlider.onValueChange = [this] {
         mBus.setGainValueFromDb(mDbSlider.getValue());
-        std::cout << "Gain: " << mBus.getGainValue() << std::endl;
     };
     addAndMakeVisible(mDbSlider);
     
@@ -38,7 +37,6 @@ TrackSettingsComponent::TrackSettingsComponent(String name)
     mPanSlider.setValue(0);
     mPanSlider.onValueChange = [this] {
         mBus.setPanValue(mPanSlider.getValue());
-        std::cout << "Pan: " << mBus.getPanValue() << std::endl;
     };
     addAndMakeVisible(mPanSlider);
 }
