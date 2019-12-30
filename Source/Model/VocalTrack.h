@@ -30,7 +30,5 @@ private:
     Synthesiser mSynth;
     
     String mDisplayName;
-    float mPanLevel;
-    float mGain;
     VocalBus mBus; // Maybe have some change notifications to broadcast from the TrackSettingsComponent to these vocal tracks to change the busses
 };

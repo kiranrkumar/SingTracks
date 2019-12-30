@@ -83,10 +83,12 @@ void TrackPreviewComponent::buttonClicked(Button *button)
 //        // Collect group busses containing current gain and pan information
 //        OwnedArray<VocalBusSettings> busSettingsArray;
 //        for (TrackSettingsComponent *settingsComp : mTrackSettings) {
-//            busSettingsArray(new VocalBusSettings(settingsComp->getBus()));
+//            busSettingsArray.add(new VocalBusSettings(settingsComp->getBusSettings()));
 //        }
-//
-//        getRootComponent()->createTrackscreateTracks(OwnedArray<VocalBusSettings>& busses, OwnedArray<VocalTrack> &tracks);
+
+        
+
+//        getRootComponent()->createTracks(busSettingsArray, OwnedArray<VocalTrack> &tracks);
         
     }
 }
