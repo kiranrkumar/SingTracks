@@ -24,9 +24,9 @@ String VocalGroupBus::getDisplayName()
     return mDisplayName;
 }
 
-void VocalGroupBus::setGainValue(float gain)
+void VocalGroupBus::setGainValueFromDb(float dbValue)
 {
-    mGainValue = gain;
+    mGainValue = std::pow(10.f, dbValue/20.f);
 }
 
 float VocalGroupBus::getGainValue()

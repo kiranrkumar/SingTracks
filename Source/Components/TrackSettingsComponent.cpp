@@ -17,19 +17,19 @@ TrackSettingsComponent::TrackSettingsComponent(String name)
     
     mBus.setDisplayName(name);
     mBus.setPanValue(0.f);
-    mBus.setGainValue(0.f);
+    mBus.setGainValueFromDb(0.f);
     
-    mGainSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    mGainSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
-    mGainSlider.setNumDecimalPlacesToDisplay(1);
-    mGainSlider.setRange(Range<double>(-80.0, 6.0), 1.0);
-    mGainSlider.setValue(0.0);
-    mGainSlider.setTextValueSuffix(" dB");
-    mGainSlider.onValueChange = [this] {
-        mBus.setGainValue(mGainSlider.getValue());
+    mDbSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    mDbSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+    mDbSlider.setNumDecimalPlacesToDisplay(1);
+    mDbSlider.setRange(Range<double>(-80.0, 6.0), 1.0);
+    mDbSlider.setValue(0.0);
+    mDbSlider.setTextValueSuffix(" dB");
+    mDbSlider.onValueChange = [this] {
+        mBus.setGainValueFromDb(mDbSlider.getValue());
         std::cout << "Gain: " << mBus.getGainValue() << std::endl;
     };
-    addAndMakeVisible(mGainSlider);
+    addAndMakeVisible(mDbSlider);
     
     mPanSlider.setSliderStyle(Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     mPanSlider.setTextBoxStyle(Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
@@ -66,6 +66,6 @@ void TrackSettingsComponent::resized()
     const int gainVerticalPadding = 15;
     const int horizontalOffsetFromCenter = 2;
     
-    mGainSlider.setBounds(areaWidth/2 - gainWidth - horizontalOffsetFromCenter, gainVerticalPadding, gainWidth, areaHeight - gainVerticalPadding * 2);
+    mDbSlider.setBounds(areaWidth/2 - gainWidth - horizontalOffsetFromCenter, gainVerticalPadding, gainWidth, areaHeight - gainVerticalPadding * 2);
     mPanSlider.setBounds(areaWidth/2 + horizontalOffsetFromCenter, areaHeight - panWidth - gainVerticalPadding, panWidth, panHeight);
 }

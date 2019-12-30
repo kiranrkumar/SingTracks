@@ -19,7 +19,7 @@ public:
     void setDisplayName(String displayName);
     String getDisplayName();
     
-    void setGainValue(float gain);
+    void setGainValueFromDb(float dbValue);
     float getGainValue();
     
     void setPanValue(float pan, float minPan = -64, float maxPan = 63);

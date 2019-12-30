@@ -22,7 +22,7 @@ public:
     void resized() override;
 
 private:
-    Slider mGainSlider;
+    Slider mDbSlider;
     Slider mPanSlider;
     
     VocalGroupBus mBus;
