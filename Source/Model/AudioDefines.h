@@ -12,9 +12,14 @@
 
 #include "../../JuceLibraryCode/JuceHeader.h"
 
+class VocalBusSettings;
+
 typedef enum {
-    Solo,
-    Background
+    Solo = 0,
+    Background,
+    Primary,
+    
+    NumBusses
 } VocalBus;
 
 namespace VocalBusStrings {
@@ -23,9 +28,17 @@ namespace VocalBusStrings {
     const String PRIMARY("Primary");
 }
 
-const std::map<String, VocalBus> DisplayNameToBusMap = {
+const std::map<const String, VocalBus> DisplayNameToBusMap = {
     { VocalBusStrings::SOLO_HARMONY, Solo },
     { VocalBusStrings::BACKGROUND, Background },
     { VocalBusStrings::PRIMARY, Background }
 };
+
+const std::map<VocalBus, const String> BusToDisplayName = {
+    {Solo, VocalBusStrings::SOLO_HARMONY},
+    {Background, VocalBusStrings::BACKGROUND},
+    {Primary, VocalBusStrings::PRIMARY},
+};
+
+typedef std::map<std::unique_ptr<VocalBusSettings>, std::vector<AudioBuffer<float>>> BusSettingsToBuffersMap;
 

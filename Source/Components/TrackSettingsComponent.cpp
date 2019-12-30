@@ -10,11 +10,14 @@
 
 #include "TrackSettingsComponent.h"
 
-TrackSettingsComponent::TrackSettingsComponent(String name)
+TrackSettingsComponent::TrackSettingsComponent(VocalBus bus)
 {
     const int textBoxWidth = 50;
     const int textBoxHeight = 25;
     
+    const String name = BusToDisplayName.at(bus);
+    
+    mBusSettings.setBus(bus);
     mBusSettings.setDisplayName(name);
     mBusSettings.setPanValue(0.f);
     mBusSettings.setGainValueFromDb(0.f);

@@ -15,9 +15,10 @@
 
 class VocalBusSettings {
 public:
-    VocalBusSettings(String displayName = "", float gainValue = 0, float panValue = 0);
+    VocalBusSettings(const String &displayName = "", float gainValue = 0, float panValue = 0);
     VocalBusSettings(const VocalBusSettings&);
     
+    void setBus(VocalBus);
     VocalBus getBus() const;
     
     void setDisplayName(String displayName);

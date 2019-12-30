@@ -10,9 +10,17 @@
 
 #include "VocalBusSettings.h"
 
-VocalBusSettings::VocalBusSettings(String displayName, float gainValue, float panValue) : mDisplayName(displayName), mGainValue(gainValue), mPanValue(panValue) {}
+VocalBusSettings::VocalBusSettings(const String &displayName, float gainValue, float panValue) : mDisplayName(displayName), mGainValue(gainValue), mPanValue(panValue)
+{
+
+}
 
 VocalBusSettings::VocalBusSettings(const VocalBusSettings &settingsToCopy) : mBus(settingsToCopy.getBus()), mDisplayName(settingsToCopy.getDisplayName()), mGainValue(settingsToCopy.getGainValue()), mPanValue(settingsToCopy.getPanValue()) {}
+
+void VocalBusSettings::setBus(VocalBus bus)
+{
+    mBus = bus;
+}
 
 VocalBus VocalBusSettings::getBus() const
 {

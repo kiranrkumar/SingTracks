@@ -30,9 +30,9 @@ AppController::createTracks()
     mTrackGenerator->renderAudio();
 }
 
-void AppController::createTracks(OwnedArray<VocalBusSettings>& busSettings, OwnedArray<VocalTrack> &tracks)
+void AppController::createTracks(BusSettingsToBuffersMap &busSettingsToBuffersMap)
 {
-    mTrackGenerator->renderAudio(busSettings, tracks);
+    mTrackGenerator->renderAudio(busSettingsToBuffersMap);
 }
 
 void

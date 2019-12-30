@@ -30,7 +30,7 @@ public:
     File* getCurrentFile();
     void setCurrentFile(const File&);
     void createTracks();
-    void createTracks(OwnedArray<VocalBusSettings>& busSettings, OwnedArray<VocalTrack> &tracks);
+    void createTracks(BusSettingsToBuffersMap &);
     
     void importMidi();
     

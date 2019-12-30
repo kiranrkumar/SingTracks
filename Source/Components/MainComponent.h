@@ -13,6 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "CustomButtons.hpp"
 #include "../Controllers/TrackGenerator.hpp"
+#include "../Model/AudioDefines.h"
 
 class AppController;
 class SubComponent;
@@ -39,7 +40,7 @@ public:
     // Delegate to AppController
     File* getCurrentFile();
     void createTracks();
-    void createTracks(OwnedArray<VocalBusSettings>& busSettings, OwnedArray<VocalTrack> &tracks);
+    void createTracks(BusSettingsToBuffersMap &);
     void importMidi();
     void setCurrentFile(const File &);
 

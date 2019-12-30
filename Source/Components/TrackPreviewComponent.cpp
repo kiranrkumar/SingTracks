@@ -28,9 +28,9 @@ TrackPreviewComponent::TrackPreviewComponent(MainComponent *mainComponent, Owned
     
     addAndMakeVisible(mTrackFieldsContainer);
     
-    std::vector<String> settingsNames = {"Primary", "Solo/Harmony", "Background"};
-    for (int i = 0; i < settingsNames.size(); ++i) {
-        TrackSettingsComponent *tsc = new TrackSettingsComponent(settingsNames[i]);
+    std::vector<String> settingsNames = { VocalBusStrings::PRIMARY, VocalBusStrings::SOLO_HARMONY, VocalBusStrings::BACKGROUND };
+    for (int i = 0; i < NumBusses; ++i) {
+        TrackSettingsComponent *tsc = new TrackSettingsComponent(VocalBus(i));
         mTrackSettings.add(tsc);
         addAndMakeVisible(tsc);
     }
@@ -80,13 +80,23 @@ void TrackPreviewComponent::buttonClicked(Button *button)
     
 //  USE THE BELOW ONCE WE'RE READY TO SWITCH TO THE NEW RENDER CALLS
 
-//        // Collect group busses containing current gain and pan information
-//        OwnedArray<VocalBusSettings> busSettingsArray;
-//        for (TrackSettingsComponent *settingsComp : mTrackSettings) {
-//            busSettingsArray.add(new VocalBusSettings(settingsComp->getBusSettings()));
-//        }
-
+        // KRK_FIXME lots of copying going on. Could stand to optimize
         
+        std::map<VocalBus, VocalBusSettings> busToSettingsMap;
+        for (TrackSettingsComponent *settingsComp : mTrackSettings) {
+            VocalBusSettings busSettings = settingsComp->getBusSettings();
+            busToSettingsMap[busSettings.getBus()] = busSettings;
+        }
+        
+        BusSettingsToBuffersMap busSettingsToBuffersMap;
+        
+        for (TrackFieldsComponent *fieldsComp : mTrackFields) {
+            VocalTrack *track = fieldsComp->getVocalTrack();
+            std::unique_ptr<VocalBusSettings> settingsForBus = std::make_unique<VocalBusSettings>(VocalBusSettings(busToSettingsMap[track->getBus()]));
+            busSettingsToBuffersMap[std::move(settingsForBus)].push_back(AudioBuffer<float>( track->getBuffer()));
+        }
+
+        //
 
 //        getRootComponent()->createTracks(busSettingsArray, OwnedArray<VocalTrack> &tracks);
         

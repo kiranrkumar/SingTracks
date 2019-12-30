@@ -9,8 +9,8 @@
 #define TrackGenerator_hpp
 
 #include <stdio.h>
-
 #include "../../JuceLibraryCode/JuceHeader.h"
+#include "../Model/AudioDefines.h"
 
 class VocalTrack;
 class VocalBusSettings;
@@ -31,7 +31,7 @@ public:
     void printSummary();
     bool isMusicalTrack(int trackNum);
     void renderAudio();
-    void renderAudio(OwnedArray<VocalBusSettings>& busSettings, OwnedArray<VocalTrack>& tracks);
+    void renderAudio(BusSettingsToBuffersMap &);
 private:
     void prepareOutputBuffer(AudioBuffer<float> &outputBuffer);
     void renderAllMidiTracks(AudioBuffer<float> &outputBuffer);

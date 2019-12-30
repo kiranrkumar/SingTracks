@@ -15,7 +15,7 @@
 
 class TrackSettingsComponent : public Component {
 public:
-    TrackSettingsComponent(String name);
+    TrackSettingsComponent(VocalBus);
     ~TrackSettingsComponent();
     
     void paint(Graphics &g) override;
