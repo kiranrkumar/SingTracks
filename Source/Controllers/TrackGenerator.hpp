@@ -36,6 +36,7 @@ private:
     void prepareOutputBuffer(AudioBuffer<float> &outputBuffer);
     void renderAllMidiTracks(AudioBuffer<float> &outputBuffer);
     void renderMidiTrack(const MidiMessageSequence &track, AudioBuffer<float> &outputBuffer);
+    void renderBusDataToBuffer(VocalBus bus, AudioBuffer<float>& outputBuffer, BusSettingsToBuffersMap &settingsToBuffersMap);
     void normalizeBuffer(AudioBuffer<float>&, float);
     bool writeAudioToFile(AudioBuffer<float>&);
     

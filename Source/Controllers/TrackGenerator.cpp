@@ -74,15 +74,25 @@ void TrackGenerator::renderAudio(BusSettingsToBuffersMap &busSettingsToBuffersMa
     AudioBuffer<float> outputBuffer(NUM_OUTPUT_CHANNELS, numSamples);
     outputBuffer.clear();
     
-    for (BusSettingsToBuffersMap::iterator it = busSettingsToBuffersMap.begin(); it != busSettingsToBuffersMap.end(); ++it) {
+    renderBusDataToBuffer(Background, outputBuffer, busSettingsToBuffersMap);
+    writeAudioToFile(outputBuffer);
+}
+
+void TrackGenerator::renderBusDataToBuffer(VocalBus bus, AudioBuffer<float>& outputBuffer, BusSettingsToBuffersMap &settingsToBuffersMap)
+{
+   for (BusSettingsToBuffersMap::iterator it = settingsToBuffersMap.begin(); it != settingsToBuffersMap.end(); ++it) {
         VocalBusSettings *busSettings = it->first.get();
+        if (busSettings->getBus() != bus) {
+            continue;
+        }
+       
         std::vector<AudioBuffer<float>> buffers = it->second;
-        
+       
         float gain = busSettings->getGainValue();
         float pan = busSettings->getPanValue();
         float leftGain = std::cos(pan * M_PI/2) * gain;
         float rightGain = std::sin(pan * M_PI/2) * gain;
-        
+       
         for (auto buffer : buffers) {
             AudioBuffer<float> left(buffer);
             AudioBuffer<float> right(buffer);
@@ -92,8 +102,6 @@ void TrackGenerator::renderAudio(BusSettingsToBuffersMap &busSettingsToBuffersMa
             outputBuffer.addFrom(1, 0, right, 0, 0, right.getNumSamples());
         }
     }
-    
-    writeAudioToFile(outputBuffer);
 }
 
 bool TrackGenerator::isMusicalTrack(int trackNum)
