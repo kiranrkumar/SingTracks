@@ -70,11 +70,17 @@ void TrackGenerator::renderAudio(BusSettingsToBuffersMap &busSettingsToBuffersMa
 {
     // KRK_FIXME does not yet include making any of the background parts "primary" to create multiple files. So far, this just creates one file with background and solo busses
     
+    // Initialize an empty output buffer
     int numSamples = static_cast<int>(ceilf(DEFAULT_SAMPLE_RATE * getTrueLastTimestamp(mMidiFile)));
     AudioBuffer<float> outputBuffer(NUM_OUTPUT_CHANNELS, numSamples);
     outputBuffer.clear();
     
+    // Render Solo bus once
+    renderBusDataToBuffer(Solo, outputBuffer, busSettingsToBuffersMap);
+    
+    // KRK_FIXME need to do background renders multiple times, alternating which one of the tracks feeds into the "Primary" bus
     renderBusDataToBuffer(Background, outputBuffer, busSettingsToBuffersMap);
+    
     writeAudioToFile(outputBuffer);
 }
 

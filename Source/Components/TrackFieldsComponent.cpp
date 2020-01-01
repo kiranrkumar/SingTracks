@@ -45,6 +45,9 @@ void TrackFieldsComponent::resized()
 #pragma mark - Button Listener
 void TrackFieldsComponent::buttonClicked(Button *button)
 {
+    if (button == &mIsSoloButton) {
+        mVocalTrack->setBus(button->getToggleState() ? Solo : Background);
+    }
 }
 
 VocalTrack* TrackFieldsComponent::getVocalTrack() const

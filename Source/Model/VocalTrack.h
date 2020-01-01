@@ -19,6 +19,7 @@ public:
     
     String getDisplayName();
     VocalBus getBus();
+    void setBus(VocalBus bus);
     const AudioBuffer<float>& getBuffer() const;
     AudioBuffer<float> getBufferCopy();
 

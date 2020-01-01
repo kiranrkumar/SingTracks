@@ -50,6 +50,11 @@ VocalBus VocalTrack::getBus()
     return mBus;
 }
 
+void VocalTrack::setBus(VocalBus bus)
+{
+    mBus = bus;
+}
+
 const AudioBuffer<float>& VocalTrack::getBuffer() const
 {
     return mBuffer;
