@@ -329,6 +329,13 @@
 			path = ../../Source/Controllers/TrackGenerator.hpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		48888F218E6B715A98A8BF71 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file.mid;
+			name = "Hallelujah_Sample_Midi.mid";
+			path = "Hallelujah_Sample_Midi.mid";
+			sourceTree = "SOURCE_ROOT";
+		};
 		49C43A212E6C2B69288604A2 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -794,6 +801,7 @@
 		584331FAEE664C7531634151 = {
 			isa = PBXGroup;
 			children = (
+				48888F218E6B715A98A8BF71,
 				1EA48633646BD7AAE374C689,
 				692FE1CB680FF8B7605F55FB,
 				140AEED7C25DA3046A9EE6BE,

@@ -8,6 +8,9 @@
 
 namespace BinaryData
 {
+    extern const char*   Hallelujah_Sample_Midi_mid;
+    const int            Hallelujah_Sample_Midi_midSize = 1098;
+
     extern const char*   moremidi_mid;
     const int            moremidi_midSize = 252;
 
@@ -24,7 +27,7 @@ namespace BinaryData
     const int            stIcon_pngSize = 11067;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 5;
+    const int namedResourceListSize = 6;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];
