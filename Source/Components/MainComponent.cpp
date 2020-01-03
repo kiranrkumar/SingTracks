@@ -78,11 +78,6 @@ File* MainComponent::getCurrentFile()
     return mAppController->getCurrentFile();
 }
 
-void MainComponent::createTracks()
-{
-    mAppController->createTracks();
-}
-
 void MainComponent::createTracks(BusSettingsToBuffersMap &busSettingsToBuffersMap)
 {
     mAppController->createTracks(busSettingsToBuffersMap);

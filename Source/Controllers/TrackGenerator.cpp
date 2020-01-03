@@ -55,17 +55,6 @@ void TrackGenerator::printSummary() {
     DEBUG_LOG("Time format: %d\n", mMidiFile.getTimeFormat());
 }
 
-void TrackGenerator::renderAudio()
-{
-    AudioBuffer<float> outputBuffer;
-    prepareOutputBuffer(outputBuffer);
-    renderAllMidiTracks(outputBuffer);
-    
-    DEBUG_LOG("\n");
-    normalizeBuffer(outputBuffer, 0.85);
-    writeAudioToFile(outputBuffer);
-}
-
 void TrackGenerator::renderAudio(BusSettingsToBuffersMap &busSettingsToBuffersMap)
 {
     // KRK_FIXME does not yet include making any of the background parts "primary" to create multiple files. So far, this just creates one file with background and solo busses

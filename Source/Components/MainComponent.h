@@ -39,7 +39,6 @@ public:
     
     // Delegate to AppController
     File* getCurrentFile();
-    void createTracks();
     void createTracks(BusSettingsToBuffersMap &);
     void importMidi();
     void setCurrentFile(const File &);

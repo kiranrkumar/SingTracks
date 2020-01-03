@@ -30,7 +30,6 @@ public:
     
     void printSummary();
     bool isMusicalTrack(int trackNum);
-    void renderAudio();
     void renderAudio(BusSettingsToBuffersMap &);
 private:
     void prepareOutputBuffer(AudioBuffer<float> &outputBuffer);
