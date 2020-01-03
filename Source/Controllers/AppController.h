@@ -29,7 +29,7 @@ public:
     
     File* getCurrentFile();
     void setCurrentFile(const File&);
-    void createTracks(BusSettingsToBuffersMap &);
+    void createTracks(BusToSettingsMap&, BusToBuffersMap&);
     
     void importMidi();
     

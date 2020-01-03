@@ -55,47 +55,105 @@ void TrackGenerator::printSummary() {
     DEBUG_LOG("Time format: %d\n", mMidiFile.getTimeFormat());
 }
 
-void TrackGenerator::renderAudio(BusSettingsToBuffersMap &busSettingsToBuffersMap)
+void TrackGenerator::renderAudio(BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap)
 {
-    // KRK_FIXME does not yet include making any of the background parts "primary" to create multiple files. So far, this just creates one file with background and solo busses
-    
     // Initialize an empty output buffer
     int numSamples = static_cast<int>(ceilf(DEFAULT_SAMPLE_RATE * getTrueLastTimestamp(mMidiFile)));
     AudioBuffer<float> outputBuffer(NUM_OUTPUT_CHANNELS, numSamples);
     outputBuffer.clear();
     
-    // Render Solo bus once
-    renderBusDataToBuffer(Solo, outputBuffer, busSettingsToBuffersMap);
+    // Render Solo stuff since that'll be constant
+    VocalBusSettings *soloSettings = busToSettingsMap[Solo].get();
+    std::vector<AudioBuffer<float>> soloBuffers = busToBuffersMap[Solo];
     
-    // KRK_FIXME need to do background renders multiple times, alternating which one of the tracks feeds into the "Primary" bus
-    renderBusDataToBuffer(Background, outputBuffer, busSettingsToBuffersMap);
-    
-    writeAudioToFile(outputBuffer);
-}
+    float gain = soloSettings->getGainValue();
+    float pan = soloSettings->getPanValue();
+    float soloLeftGain = std::cos(pan * M_PI_2) * gain;
+    float soloRightGain = std::sin(pan * M_PI_2) * gain;
 
-void TrackGenerator::renderBusDataToBuffer(VocalBus bus, AudioBuffer<float>& outputBuffer, BusSettingsToBuffersMap &settingsToBuffersMap)
-{
-   for (BusSettingsToBuffersMap::iterator it = settingsToBuffersMap.begin(); it != settingsToBuffersMap.end(); ++it) {
-        VocalBusSettings *busSettings = it->first.get();
-        if (busSettings->getBus() != bus) {
-            continue;
-        }
-       
-        std::vector<AudioBuffer<float>> buffers = it->second;
-       
-        float gain = busSettings->getGainValue();
-        float pan = busSettings->getPanValue();
-        float leftGain = std::cos(pan * M_PI/2) * gain;
-        float rightGain = std::sin(pan * M_PI/2) * gain;
-       
-        for (auto buffer : buffers) {
-            AudioBuffer<float> left(buffer);
-            AudioBuffer<float> right(buffer);
-            left.applyGain(leftGain);
-            right.applyGain(rightGain);
-            outputBuffer.addFrom(0, 0, left, 0, 0, left.getNumSamples());
-            outputBuffer.addFrom(1, 0, right, 0, 0, right.getNumSamples());
-        }
+    DEBUG_LOG("Solo buffers...\n");
+    for (auto buffer : soloBuffers) {
+        AudioBuffer<float> left(buffer);
+        AudioBuffer<float> right(buffer);
+        left.applyGain(soloLeftGain);
+        right.applyGain(soloRightGain);
+        outputBuffer.addFrom(0, 0, left, 0, 0, left.getNumSamples());
+        outputBuffer.addFrom(1, 0, right, 0, 0, right.getNumSamples());
+    }
+    
+    // Prepare Background
+    VocalBusSettings *bgSettings = busToSettingsMap[Background].get();
+    std::vector<AudioBuffer<float>> bgBuffers = busToBuffersMap[Background];
+    
+    gain = bgSettings->getGainValue();
+    pan = bgSettings->getPanValue();
+    float bgLeftGain = std::cos(pan * M_PI_2) * gain;
+    float bgRightGain = std::sin(pan * M_PI_2) * gain;
+    
+    DEBUG_LOG("Background buffers...\n");
+    AudioBuffer<float> bgStereoSum(NUM_OUTPUT_CHANNELS, numSamples);
+    bgStereoSum.clear();
+    for (auto buffer : bgBuffers) {
+        int numSamples = std::min(buffer.getNumSamples(), bgStereoSum.getNumSamples());
+        AudioBuffer<float> left(buffer);
+        AudioBuffer<float> right(buffer);
+        left.applyGain(bgLeftGain);
+        right.applyGain(bgRightGain);
+        bgStereoSum.addFrom(0, 0, left, 0, 0, numSamples);
+        bgStereoSum.addFrom(1, 0, right, 0, 0, numSamples);
+    }
+    
+    DEBUG_LOG("Primary buffers...\n");
+    // Give each bg buffer a chance to be the "primary" one
+    VocalBusSettings *primarySettings = busToSettingsMap[Primary].get();
+    gain = primarySettings->getGainValue();
+    pan = primarySettings->getPanValue();
+    float primLeftGain = std::cos(pan * M_PI_2) * gain;
+    float primRightGain = std::sin(pan * M_PI_2) * gain;
+    
+    int fileIndex = 0;
+    for (auto buffer : bgBuffers) {
+        // Remove the bg gain version
+        int numSamples = std::min(buffer.getNumSamples(), bgStereoSum.getNumSamples());
+        AudioBuffer<float> left(buffer);
+        AudioBuffer<float> right(buffer);
+        left.applyGain(-bgLeftGain);
+        right.applyGain(-bgRightGain);
+        bgStereoSum.addFrom(0, 0, left, 0, 0, numSamples);
+        bgStereoSum.addFrom(1, 0, right, 0, 0, numSamples);
+        
+        // Apply primary gain
+        left.copyFrom(0, 0, buffer.getReadPointer(0), numSamples);
+        right.copyFrom(0, 0, buffer.getReadPointer(0), numSamples);
+        left.applyGain(primLeftGain);
+        right.applyGain(primRightGain);
+        bgStereoSum.addFrom(0, 0, left, 0, 0, numSamples);
+        bgStereoSum.addFrom(1, 0, right, 0, 0, numSamples);
+        
+        // Add to a copy of the output buffer
+        AudioBuffer<float> outputCopy(outputBuffer);
+        outputCopy.addFrom(0, 0, bgStereoSum, 0, 0, numSamples);
+        outputCopy.addFrom(1, 0, bgStereoSum, 1, 0, numSamples);
+        
+        // Write it
+        String fileName = "~/audioRender_" + std::to_string(fileIndex++) + ".wav";
+        DEBUG_LOG("Writing file\n");
+        writeAudioToFile(outputCopy, fileName);
+        
+        // Reverse primary gain
+        DEBUG_LOG("Reversing primary gain\n");
+        left.applyGain(-1);
+        right.applyGain(-1);
+        bgStereoSum.addFrom(0, 0, left, 0, 0, numSamples);
+        bgStereoSum.addFrom(1, 0, right, 0, 0, numSamples);
+        
+        // Restore bg gain
+        left.copyFrom(0, 0, buffer.getReadPointer(0), numSamples);
+        right.copyFrom(0, 0, buffer.getReadPointer(0), numSamples);
+        left.applyGain(bgLeftGain);
+        right.applyGain(bgRightGain);
+        bgStereoSum.addFrom(0, 0, left, 0, 0, numSamples);
+        bgStereoSum.addFrom(1, 0, right, 0, 0, numSamples);
     }
 }
 
@@ -193,8 +251,14 @@ void TrackGenerator::normalizeBuffer(AudioBuffer<float>& buffer, float maxMagnit
 
 bool TrackGenerator::writeAudioToFile(AudioBuffer<float>& buffer)
 {
+    std::string fileName = "~/audioTestFile_newRender.wav";
+    return writeAudioToFile(buffer, fileName);
+}
+
+bool TrackGenerator::writeAudioToFile(AudioBuffer<float>& buffer, String fileName)
+{
     DEBUG_LOG("Writing audio to file...\n");
-    File outFile("~/audioTestFile_newRender.wav");
+    File outFile(fileName);
     
     FileOutputStream *outStream = new FileOutputStream(outFile);
     if (outStream->openedOk()) {

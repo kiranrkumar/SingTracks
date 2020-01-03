@@ -40,5 +40,5 @@ const std::map<VocalBus, const String> BusToDisplayName = {
     {Primary, VocalBusStrings::PRIMARY},
 };
 
-typedef std::map<std::unique_ptr<VocalBusSettings>, std::vector<AudioBuffer<float>>> BusSettingsToBuffersMap;
-
+typedef std::map<VocalBus, std::unique_ptr<VocalBusSettings>> BusToSettingsMap;
+typedef std::map<VocalBus, std::vector<AudioBuffer<float>>> BusToBuffersMap;

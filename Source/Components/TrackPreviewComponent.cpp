@@ -76,25 +76,22 @@ void TrackPreviewComponent::resized()
 void TrackPreviewComponent::buttonClicked(Button *button)
 {
     if (button == &mCreateTracksButton && getRootComponent() != nullptr) {
-        // KRK_FIXME lots of copying going on. Could stand to optimize
-        
-        // Create a temp map of bus to bus settings
-        std::map<VocalBus, VocalBusSettings> busToSettingsMap;
+    
+        // Map bus to vocal settings
+        BusToSettingsMap busToSettingsMap;
         for (TrackSettingsComponent *settingsComp : mTrackSettings) {
             const VocalBusSettings& busSettings = settingsComp->getBusSettings();
-            busToSettingsMap[busSettings.getBus()] = busSettings;
+            busToSettingsMap[busSettings.getBus()] = std::make_unique<VocalBusSettings>(VocalBusSettings(busSettings));
         }
         
-        // Use the above map to help map bus settings directly to the audio buffers using the same bus
-        BusSettingsToBuffersMap busSettingsToBuffersMap;
+        // Map bus to buffers
+        BusToBuffersMap busToBuffersMap;
         for (TrackFieldsComponent *fieldsComp : mTrackFields) {
             VocalTrack *track = fieldsComp->getVocalTrack();
-            const VocalBusSettings &settings = busToSettingsMap[track->getBus()];
-            std::unique_ptr<VocalBusSettings> settingsForBus = std::make_unique<VocalBusSettings>(VocalBusSettings(settings));
-            busSettingsToBuffersMap[std::move(settingsForBus)].push_back(AudioBuffer<float>( track->getBuffer()));
+            busToBuffersMap[track->getBus()].push_back(track->getBufferCopy());
         }
 
-        getRootComponent()->createTracks(busSettingsToBuffersMap);
+        getRootComponent()->createTracks(busToSettingsMap, busToBuffersMap);
         
     }
 }
