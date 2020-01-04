@@ -249,12 +249,6 @@ void TrackGenerator::normalizeBuffer(AudioBuffer<float>& buffer, float maxMagnit
     buffer.applyGain(0, numSamples, trueMaxMag / buffer.getMagnitude(0, numSamples));
 }
 
-bool TrackGenerator::writeAudioToFile(AudioBuffer<float>& buffer)
-{
-    std::string fileName = "~/audioTestFile_newRender.wav";
-    return writeAudioToFile(buffer, fileName);
-}
-
 bool TrackGenerator::writeAudioToFile(AudioBuffer<float>& buffer, String fileName)
 {
     DEBUG_LOG("Writing audio to file...\n");

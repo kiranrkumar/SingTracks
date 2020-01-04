@@ -36,7 +36,6 @@ private:
     void renderAllMidiTracks(AudioBuffer<float> &outputBuffer);
     void renderMidiTrack(const MidiMessageSequence &track, AudioBuffer<float> &outputBuffer);
     void normalizeBuffer(AudioBuffer<float>&, float);
-    bool writeAudioToFile(AudioBuffer<float>&);
     bool writeAudioToFile(AudioBuffer<float>&, String);
     
     double getTrueLastTimestamp(MidiFile&);
