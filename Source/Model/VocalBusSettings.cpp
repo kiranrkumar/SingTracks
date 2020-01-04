@@ -50,7 +50,7 @@ String VocalBusSettings::getDisplayName() const
 void VocalBusSettings::setGainValueFromDb(float dbValue)
 {
     std::cout << "Gain: " << mGainValue;
-    mGainValue = std::pow(10.f, dbValue/20.f);
+    mGainValue = Decibels::decibelsToGain(dbValue);
     std::cout << " to " << mGainValue << std::endl;
 }
 
