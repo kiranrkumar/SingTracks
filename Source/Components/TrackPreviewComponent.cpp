@@ -15,6 +15,7 @@
 #include "../Model/VocalTrack.h"
 
 const int cVerticalSpacePerTrackField = 40;
+const int cTrackFieldHeight = 25;
 const int cTrackFieldContainerTopInset = 20;
 
 TrackPreviewComponent::TrackPreviewComponent(MainComponent *mainComponent, OwnedArray<VocalTrack> &tracks) : SubComponent::SubComponent(mainComponent)
@@ -49,28 +50,38 @@ void TrackPreviewComponent::paint(Graphics &g)
 
 void TrackPreviewComponent::resized()
 {
-    int numComponents = mTrackFields.size();
-    mTrackFieldsContainer.setBounds(0, 0, getWidth(), cTrackFieldContainerTopInset + numComponents * cVerticalSpacePerTrackField);
-    
-    // Track field components are child components of mTrackFieldsContainer
-    for (int i = 0; i < numComponents; ++i) {
-        TrackFieldsComponent *tfc = mTrackFields[i];
-        tfc->setBounds(0, cTrackFieldContainerTopInset + i * cVerticalSpacePerTrackField, getWidth(), 25);
-    }
+    // Draw from bottom up since the top section will be the one that's height variable
     
     Rectangle<int> area = getLocalBounds();
-    // Limit track fields view to the top of the overall component
-    mTrackFieldsContainerViewport.setBounds(area.removeFromTop(200));
     
-    int trackSettingsWidth = getWidth() / mTrackSettings.size();
-    area = area.removeFromTop(area.getHeight() - 50);
-    for (int i = 0; i < mTrackSettings.size(); ++i) {
+    // "Create Tracks" button
+    const int buttonHeight = 50;
+    Rectangle<int> areaForButton = area.removeFromBottom(buttonHeight);
+    mCreateTracksButton.setBounds(mCreateTracksButton.boundsToDraw(areaForButton));
+    
+    // Track settings (volume, pan)
+    const int trackSettingsHeight = 150;
+    Rectangle<int> areaForSettings = area.removeFromBottom(trackSettingsHeight);
+    int numTrackSettings = mTrackSettings.size();
+    int trackSettingsWidth = areaForSettings.getWidth() / numTrackSettings;
+    for (int i = 0; i < numTrackSettings; ++i) {
         TrackSettingsComponent *tsc = mTrackSettings[i];
-        tsc->setBounds(i * trackSettingsWidth, area.getY(), trackSettingsWidth, area.getHeight());
+        tsc->setBounds(i * trackSettingsWidth, areaForSettings.getY(), trackSettingsWidth, areaForSettings.getHeight());
     }
     
-    mCreateTracksButton.setBounds(mCreateTracksButton.boundsToDraw(getLocalBounds()));
+    // List of track fields (name, isSolo, etc)
+    int numFields = mTrackFields.size();
+    
+    // The track fields container is sized to fit all fields, but the viewport remains fixed at the remaining area within the TrackPreviewComponent (viewport provides scrollbar as needed)
+    mTrackFieldsContainer.setBounds(0, 0, getWidth(), cTrackFieldContainerTopInset + numFields * cVerticalSpacePerTrackField);
+    mTrackFieldsContainerViewport.setBounds(area);
+    
+    for (int i = 0; i < numFields; ++i) {
+        TrackFieldsComponent *tfc = mTrackFields[i];
+        tfc->setBounds(0, cTrackFieldContainerTopInset + i * cVerticalSpacePerTrackField, getWidth(), cTrackFieldHeight);
+    }
 }
+
 #pragma mark - Private -
 #pragma mark Button Listener
 void TrackPreviewComponent::buttonClicked(Button *button)

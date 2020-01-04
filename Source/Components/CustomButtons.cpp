@@ -23,7 +23,7 @@ BottomButton::boundsToDraw(Rectangle<int> localBounds) {
     int height = std::min(mHeight, localBoundsHeight);
     
     int xPos = (localBoundsWidth - width) / 2;
-    int yPos = localBoundsHeight - height - bottomPad;
+    int yPos = localBounds.getY() + localBoundsHeight - height - bottomPad;
     
     return Rectangle<int>(xPos, yPos, width, height);
 }
