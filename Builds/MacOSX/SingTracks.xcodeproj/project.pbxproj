@@ -113,6 +113,10 @@
 			isa = PBXBuildFile;
 			fileRef = 27E9CE04380E0AD8977F86EC;
 		};
+		7565A3BC26447F72339ABDD3 = {
+			isa = PBXBuildFile;
+			fileRef = 7050224207ED2B4ECD44B2B8;
+		};
 		DA620432F5395383C9242181 = {
 			isa = PBXBuildFile;
 			fileRef = B181C3C5E8D12E71533CA16F;
@@ -441,6 +445,13 @@
 			path = ../../Source/Model/VocalTrack.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		7050224207ED2B4ECD44B2B8 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = AudioBufferUtilities.cpp;
+			path = ../../Source/Controllers/AudioBufferUtilities.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		70F5995C27BAD97EB41B139C = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -749,6 +760,13 @@
 			path = ../../Source/Controllers/MIDITrackSynthesizer.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		ED8A2582363062A28B9985F4 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = AudioBufferUtilities.h;
+			path = ../../Source/Controllers/AudioBufferUtilities.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		EDD5446CFB88DE49C0540476 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -875,6 +893,8 @@
 			children = (
 				27E9CE04380E0AD8977F86EC,
 				9C030FD392D36134BB2DDC62,
+				7050224207ED2B4ECD44B2B8,
+				ED8A2582363062A28B9985F4,
 				B181C3C5E8D12E71533CA16F,
 				ED16317EF0485D81416ABCC7,
 				1A01EC960FB6893F6C654F6A,
@@ -1238,6 +1258,7 @@
 				845D491246B9A62AA043F0E8,
 				BA348986571FDBD4D679BDB2,
 				0D412349A841348C4B402BDA,
+				7565A3BC26447F72339ABDD3,
 				DA620432F5395383C9242181,
 				A2EA6401338C1E0D642DC449,
 				3C78D7640E169A0A570EB49D,

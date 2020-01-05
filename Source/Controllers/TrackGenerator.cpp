@@ -6,6 +6,8 @@
 //
 
 #include "TrackGenerator.hpp"
+
+#include "AudioBufferUtilities.h"
 #include "MIDITrackSynthesizer.h"
 #include "../Model/VocalTrack.h"
 #include "../Model/VocalBusSettings.h"
@@ -55,106 +57,60 @@ void TrackGenerator::printSummary() {
     DEBUG_LOG("Time format: %d\n", mMidiFile.getTimeFormat());
 }
 
+    static void renderContentsOfBusToBuffer(AudioBuffer<float> &ioBuffer, VocalBusSettings *busSettings, std::vector<AudioBuffer<float>> &busBuffers) {
+        
+        ChannelGainsArray channelGains = VocalBusSettings::getChannelGains(busSettings);
+        for (auto buffer : busBuffers) {
+            AudioBuffer<float> bufferCopyWithGains = splitMonoBufferWithChannelGains(buffer, channelGains);
+            addToBuffer(ioBuffer, bufferCopyWithGains);
+        }
+    }
+
+void TrackGenerator::renderAudioBuffer(AudioBuffer<float> &ioBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap, VocalBus bus) {
+    jassert(ioBuffer.getNumChannels() == 2);
+    
+    VocalBusSettings *busSettings = busToSettingsMap[bus].get();
+    std::vector<AudioBuffer<float>> busBuffers = busToBuffersMap[bus];
+    
+    if (bus == Solo || bus == Background) {
+        renderContentsOfBusToBuffer(ioBuffer, busSettings, busBuffers);
+    }
+    else if (bus == Primary) {
+        VocalBusSettings *bgSettings = busToSettingsMap[Background].get();
+        ChannelGainsArray bgChannelGains = VocalBusSettings::getChannelGains(bgSettings);
+        ChannelGainsArray primChannelGains = VocalBusSettings::getChannelGains(busSettings);
+        
+        // For each background buffer, reverse the bg gain, apply primary gain, and write to file
+        int fileIndex = 0;
+        std::vector<AudioBuffer<float>> bgBuffers = busToBuffersMap[Background];
+        for (auto buffer : bgBuffers) {
+            AudioBuffer<float> outputCopy(ioBuffer);
+            
+            AudioBuffer<float> bgBuffersPhaseFlipped = splitMonoBufferWithChannelGains(buffer, bgChannelGains, true);
+            addToBuffer(outputCopy, bgBuffersPhaseFlipped);
+            
+            AudioBuffer<float> primaryBuffers = splitMonoBufferWithChannelGains(buffer, primChannelGains);
+            addToBuffer(outputCopy, primaryBuffers);
+            
+            String fileName = "~/audioRender_" + std::to_string(fileIndex++) + ".wav";
+            DEBUG_LOG("Writing file\n");
+            writeAudioToFile(outputCopy, fileName);
+        }
+    }
+}
+
 void TrackGenerator::renderAudio(BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap)
 {
     // Initialize an empty output buffer
     int numSamples = static_cast<int>(ceilf(DEFAULT_SAMPLE_RATE * getTrueLastTimestamp(mMidiFile)));
     AudioBuffer<float> outputBuffer(NUM_OUTPUT_CHANNELS, numSamples);
     outputBuffer.clear();
-    
-    // Render Solo stuff since that'll be constant
-    VocalBusSettings *soloSettings = busToSettingsMap[Solo].get();
-    std::vector<AudioBuffer<float>> soloBuffers = busToBuffersMap[Solo];
-    
-    float gain = soloSettings->getGainValue();
-    float pan = soloSettings->getPanValue();
-    float soloLeftGain = std::cos(pan * M_PI_2) * gain;
-    float soloRightGain = std::sin(pan * M_PI_2) * gain;
 
-    DEBUG_LOG("Solo buffers...\n");
-    for (auto buffer : soloBuffers) {
-        AudioBuffer<float> left(buffer);
-        AudioBuffer<float> right(buffer);
-        left.applyGain(soloLeftGain);
-        right.applyGain(soloRightGain);
-        outputBuffer.addFrom(0, 0, left, 0, 0, left.getNumSamples());
-        outputBuffer.addFrom(1, 0, right, 0, 0, right.getNumSamples());
-    }
+    renderAudioBuffer(outputBuffer, busToSettingsMap, busToBuffersMap, Solo);
+    renderAudioBuffer(outputBuffer, busToSettingsMap, busToBuffersMap, Background);
     
-    // Prepare Background
-    VocalBusSettings *bgSettings = busToSettingsMap[Background].get();
-    std::vector<AudioBuffer<float>> bgBuffers = busToBuffersMap[Background];
-    
-    gain = bgSettings->getGainValue();
-    pan = bgSettings->getPanValue();
-    float bgLeftGain = std::cos(pan * M_PI_2) * gain;
-    float bgRightGain = std::sin(pan * M_PI_2) * gain;
-    
-    DEBUG_LOG("Background buffers...\n");
-    AudioBuffer<float> bgStereoSum(NUM_OUTPUT_CHANNELS, numSamples);
-    bgStereoSum.clear();
-    for (auto buffer : bgBuffers) {
-        int numSamples = std::min(buffer.getNumSamples(), bgStereoSum.getNumSamples());
-        AudioBuffer<float> left(buffer);
-        AudioBuffer<float> right(buffer);
-        left.applyGain(bgLeftGain);
-        right.applyGain(bgRightGain);
-        bgStereoSum.addFrom(0, 0, left, 0, 0, numSamples);
-        bgStereoSum.addFrom(1, 0, right, 0, 0, numSamples);
-    }
-    
-    DEBUG_LOG("Primary buffers...\n");
-    // Give each bg buffer a chance to be the "primary" one
-    VocalBusSettings *primarySettings = busToSettingsMap[Primary].get();
-    gain = primarySettings->getGainValue();
-    pan = primarySettings->getPanValue();
-    float primLeftGain = std::cos(pan * M_PI_2) * gain;
-    float primRightGain = std::sin(pan * M_PI_2) * gain;
-    
-    int fileIndex = 0;
-    for (auto buffer : bgBuffers) {
-        // Remove the bg gain version
-        int numSamples = std::min(buffer.getNumSamples(), bgStereoSum.getNumSamples());
-        AudioBuffer<float> left(buffer);
-        AudioBuffer<float> right(buffer);
-        left.applyGain(-bgLeftGain);
-        right.applyGain(-bgRightGain);
-        bgStereoSum.addFrom(0, 0, left, 0, 0, numSamples);
-        bgStereoSum.addFrom(1, 0, right, 0, 0, numSamples);
-        
-        // Apply primary gain
-        left.copyFrom(0, 0, buffer.getReadPointer(0), numSamples);
-        right.copyFrom(0, 0, buffer.getReadPointer(0), numSamples);
-        left.applyGain(primLeftGain);
-        right.applyGain(primRightGain);
-        bgStereoSum.addFrom(0, 0, left, 0, 0, numSamples);
-        bgStereoSum.addFrom(1, 0, right, 0, 0, numSamples);
-        
-        // Add to a copy of the output buffer
-        AudioBuffer<float> outputCopy(outputBuffer);
-        outputCopy.addFrom(0, 0, bgStereoSum, 0, 0, numSamples);
-        outputCopy.addFrom(1, 0, bgStereoSum, 1, 0, numSamples);
-        
-        // Write it
-        String fileName = "~/audioRender_" + std::to_string(fileIndex++) + ".wav";
-        DEBUG_LOG("Writing file\n");
-        writeAudioToFile(outputCopy, fileName);
-        
-        // Reverse primary gain
-        DEBUG_LOG("Reversing primary gain\n");
-        left.applyGain(-1);
-        right.applyGain(-1);
-        bgStereoSum.addFrom(0, 0, left, 0, 0, numSamples);
-        bgStereoSum.addFrom(1, 0, right, 0, 0, numSamples);
-        
-        // Restore bg gain
-        left.copyFrom(0, 0, buffer.getReadPointer(0), numSamples);
-        right.copyFrom(0, 0, buffer.getReadPointer(0), numSamples);
-        left.applyGain(bgLeftGain);
-        right.applyGain(bgRightGain);
-        bgStereoSum.addFrom(0, 0, left, 0, 0, numSamples);
-        bgStereoSum.addFrom(1, 0, right, 0, 0, numSamples);
-    }
+    // WARNING - this writes to file as well. FIX THIS!
+    renderAudioBuffer(outputBuffer, busToSettingsMap, busToBuffersMap, Primary);
 }
 
 bool TrackGenerator::isMusicalTrack(int trackNum)

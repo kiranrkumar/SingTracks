@@ -59,6 +59,15 @@ float VocalBusSettings::getGainValue() const
     return mGainValue;
 }
 
+ChannelGainsArray VocalBusSettings::getChannelGains(VocalBusSettings *busSettings) {
+    float gain = busSettings->getGainValue();
+    float pan = busSettings->getPanValue();
+    float leftGain = std::cos(pan * M_PI_2) * gain;
+    float rightGain = std::sin(pan * M_PI_2) * gain;
+
+    return {leftGain, rightGain};
+}
+
 void VocalBusSettings::setPanValue(float pan, float minPan, float maxPan)
 {
     mPanValue = (pan - minPan) / (maxPan - minPan);

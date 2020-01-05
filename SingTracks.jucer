@@ -63,6 +63,10 @@
         <FILE id="tUjLCK" name="AppController.cpp" compile="1" resource="0"
               file="Source/Controllers/AppController.cpp"/>
         <FILE id="Y084cy" name="AppController.h" compile="0" resource="0" file="Source/Controllers/AppController.h"/>
+        <FILE id="BHY3GW" name="AudioBufferUtilities.cpp" compile="1" resource="0"
+              file="Source/Controllers/AudioBufferUtilities.cpp"/>
+        <FILE id="YVcuHp" name="AudioBufferUtilities.h" compile="0" resource="0"
+              file="Source/Controllers/AudioBufferUtilities.h"/>
         <FILE id="zxG4A4" name="MIDITrackSynthesizer.cpp" compile="1" resource="0"
               file="Source/Controllers/MIDITrackSynthesizer.cpp"/>
         <FILE id="gT3152" name="MIDITrackSynthesizer.h" compile="0" resource="0"
