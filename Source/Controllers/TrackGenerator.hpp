@@ -19,6 +19,7 @@ class TrackGenerator {
 private:
     constexpr static const double DEFAULT_SAMPLE_RATE = 48000;
     
+#pragma mark - Public
 public:
     TrackGenerator(double sampleRate = DEFAULT_SAMPLE_RATE);
     ~TrackGenerator();
@@ -27,23 +28,27 @@ public:
     const MidiFile& getMidiFile() const;
     double getSampleRate() const;
     int getNumTracks() const;
+    bool isMusicalTrack(int trackNum);
     
     void printSummary();
-    bool isMusicalTrack(int trackNum);
+    
     void renderAudio(BusToSettingsMap&, BusToBuffersMap&);
+
+#pragma mark - Private
 private:
-    void prepareOutputBuffer(AudioBuffer<float> &outputBuffer);
-    void renderAllMidiTracks(AudioBuffer<float> &outputBuffer);
+    // MIDI
+    double getTrueLastTimestamp(MidiFile&);
     void renderMidiTrack(const MidiMessageSequence &track, AudioBuffer<float> &outputBuffer);
+    void renderAllMidiTracks(AudioBuffer<float> &outputBuffer);
+    
+    // Audio
+    void prepareOutputBuffer(AudioBuffer<float> &outputBuffer);
     void renderAudioBuffer(AudioBuffer<float> &ioBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap, VocalBus bus);
-    void normalizeBuffer(AudioBuffer<float>&, float);
     bool writeAudioToFile(AudioBuffer<float>&, String);
     void writeAudioBuffersToFile(std::vector<AudioBuffer<float>> &buffers);
     
     static void renderContentsOfBusToBuffer(AudioBuffer<float> &ioBuffer, VocalBusSettings *busSettings, std::vector<AudioBuffer<float>> &busBuffers);
     static std::vector<AudioBuffer<float>> renderPrimaryBusToBuffers(const AudioBuffer<float> &originalOutputBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap);
-    
-    double getTrueLastTimestamp(MidiFile&);
     
     MidiFile mMidiFile;
     double mSampleRate;

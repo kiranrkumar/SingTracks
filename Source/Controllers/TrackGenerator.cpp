@@ -34,6 +34,7 @@ TrackGenerator::~TrackGenerator() {
     mMidiFile.clear();
 }
 
+#pragma mark - Public
 bool TrackGenerator::readMidiDataFromFile(File& file) {
     FileInputStream inStream(file);
     return mMidiFile.readFrom(inStream);
@@ -49,103 +50,6 @@ double TrackGenerator::getSampleRate() const {
 
 int TrackGenerator::getNumTracks() const {
     return mMidiFile.getNumTracks();
-}
-
-void TrackGenerator::printSummary() {
-    mMidiFile.convertTimestampTicksToSeconds();
-    DEBUG_LOG("Num tracks: %d\n", mMidiFile.getNumTracks());
-    DEBUG_LOG("Time format: %d\n", mMidiFile.getTimeFormat());
-}
-
-void TrackGenerator::renderContentsOfBusToBuffer(AudioBuffer<float> &ioBuffer, VocalBusSettings *busSettings, std::vector<AudioBuffer<float>> &busBuffers) {
-    
-    ChannelGainsArray channelGains = VocalBusSettings::getChannelGains(busSettings);
-    for (auto buffer : busBuffers) {
-        AudioBuffer<float> bufferCopyWithGains = splitMonoBufferWithChannelGains(buffer, channelGains);
-        addToBuffer(ioBuffer, bufferCopyWithGains);
-    }
-}
-
-std::vector<AudioBuffer<float>> TrackGenerator::renderPrimaryBusToBuffers(const AudioBuffer<float> &originalOutputBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap) {
-    
-    std::vector<AudioBuffer<float>> backgroundBuffers = busToBuffersMap[Background];
-    std::vector<AudioBuffer<float>> outputBuffers;
-    
-    ChannelGainsArray bgGains = VocalBusSettings::getChannelGains(busToSettingsMap[Background].get());
-    ChannelGainsArray primGains = VocalBusSettings::getChannelGains(busToSettingsMap[Primary].get());
-    
-    for (auto buffer : backgroundBuffers) {
-        AudioBuffer<float> outputBuffer(originalOutputBuffer);
-        
-        AudioBuffer<float> bgBuffersPhaseFlipped = splitMonoBufferWithChannelGains(buffer, bgGains, true);
-        addToBuffer(outputBuffer, bgBuffersPhaseFlipped);
-        
-        AudioBuffer<float> primaryBuffers = splitMonoBufferWithChannelGains(buffer, primGains);
-        addToBuffer(outputBuffer, primaryBuffers);
-        
-        outputBuffers.push_back(outputBuffer);
-    }
-    
-    return outputBuffers;
-}
-
-void TrackGenerator::renderAudioBuffer(AudioBuffer<float> &ioBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap, VocalBus bus) {
-    jassert(ioBuffer.getNumChannels() == 2);
-    
-    VocalBusSettings *busSettings = busToSettingsMap[bus].get();
-    std::vector<AudioBuffer<float>> busBuffers = busToBuffersMap[bus];
-    
-    if (bus == Solo || bus == Background) {
-        renderContentsOfBusToBuffer(ioBuffer, busSettings, busBuffers);
-    }
-    else if (bus == Primary) {
-        jassertfalse;
-        std::cout << "Primary bus audio should be rendered with renderPrimaryBusToBuffers() and should be called after renderAudioBuffer() has been run on all other busses!" << std::endl;
-    }
-}
-
- void TrackGenerator::writeAudioBuffersToFile(std::vector<AudioBuffer<float>> &buffers) {
-    for (int i = 0 ; i < buffers.size(); ++i) {
-        // HACK! REMOVE SOON!
-        String fileSuffix = std::to_string(i);
-        if (buffers.size() == 4) {
-            switch (i) {
-                case 0:
-                    fileSuffix = "Soprano";
-                    break;
-                case 1:
-                    fileSuffix = "Alto";
-                    break;
-                case 2:
-                    fileSuffix = "Tenor";
-                    break;
-                case 3:
-                    fileSuffix = "Bass";
-                    break;
-                default:
-                    break;
-            }
-        }
-    
-        String fileName = "~/audioRender_" + fileSuffix + ".wav";
-        DEBUG_LOG("Writing file\n");
-        writeAudioToFile(buffers[i], fileName);
-    }
-}
-
-void TrackGenerator::renderAudio(BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap)
-{
-    // Initialize an empty output buffer
-    int numSamples = static_cast<int>(ceilf(DEFAULT_SAMPLE_RATE * getTrueLastTimestamp(mMidiFile)));
-    
-    AudioBuffer<float> outputBuffer(NUM_OUTPUT_CHANNELS, numSamples);
-    outputBuffer.clear();
-
-    renderAudioBuffer(outputBuffer, busToSettingsMap, busToBuffersMap, Solo);
-    renderAudioBuffer(outputBuffer, busToSettingsMap, busToBuffersMap, Background);
-    
-    std::vector<AudioBuffer<float>> outputBuffers = renderPrimaryBusToBuffers(outputBuffer, busToSettingsMap, busToBuffersMap);
-    writeAudioBuffersToFile(outputBuffers);
 }
 
 bool TrackGenerator::isMusicalTrack(int trackNum)
@@ -165,26 +69,56 @@ bool TrackGenerator::isMusicalTrack(int trackNum)
     return false;
 }
 
-void TrackGenerator::prepareOutputBuffer(AudioBuffer<float> &outputBuffer) {
-    int numTracks = mMidiFile.getNumTracks();
-    DEBUG_LOG("%d tracks\n", numTracks);
-    double lastTimeStamp = getTrueLastTimestamp(mMidiFile);
-    int numSamples = int(ceil(lastTimeStamp * mSampleRate));
+void TrackGenerator::printSummary() {
+    mMidiFile.convertTimestampTicksToSeconds();
+    DEBUG_LOG("Num tracks: %d\n", mMidiFile.getNumTracks());
+    DEBUG_LOG("Time format: %d\n", mMidiFile.getTimeFormat());
+}
+
+void TrackGenerator::renderAudio(BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap)
+{
+    // Initialize an empty output buffer
+    AudioBuffer<float> outputBuffer;
     
-    outputBuffer.setSize(NUM_OUTPUT_CHANNELS, numSamples);
-    outputBuffer.clear();
+    prepareOutputBuffer(outputBuffer);
+
+    renderAudioBuffer(outputBuffer, busToSettingsMap, busToBuffersMap, Solo);
+    renderAudioBuffer(outputBuffer, busToSettingsMap, busToBuffersMap, Background);
+    
+    std::vector<AudioBuffer<float>> outputBuffers = renderPrimaryBusToBuffers(outputBuffer, busToSettingsMap, busToBuffersMap);
+    writeAudioBuffersToFile(outputBuffers);
 }
 
-void TrackGenerator::renderAllMidiTracks(AudioBuffer<float> &outputBuffer) {
-    for (int i = 0; i < mMidiFile.getNumTracks(); ++i) {
-       const MidiMessageSequence *track = mMidiFile.getTrack(i);
-       int numMidiEventsInTrack = track->getNumEvents();
-       DEBUG_LOG("\t%d: %d events\n", i, numMidiEventsInTrack);
-       
-       renderMidiTrack(*track, outputBuffer);
-   }
-}
+#pragma mark - Private -
+#pragma mark MIDI
 
+    // KRK_FIXME there has to be a better way to do this, but for some MIDIs created in Logic
+    //  (particularly ones that are more than one track), there's an extra first track that
+    //  contains all of the initial "global" metadata (time signature, key signature, etc) plus a
+    //  track-end event with a LARGE timestamp that's causing the program to render
+    //  way too many samples.
+    //
+    // This (hopefully) temporary "fix" searches all tracks for the last "note off" event
+    //  and grabs the timestamp from that.
+double TrackGenerator::getTrueLastTimestamp(MidiFile& midiFile)
+{
+    double lastTimeStamp = 0;
+    int numTracks = midiFile.getNumTracks();
+    
+    for (int trackIndex = 0; trackIndex < numTracks; ++trackIndex) {
+        const MidiMessageSequence *track = mMidiFile.getTrack(trackIndex);
+        int numEvents = track->getNumEvents();
+        for (int midiEventIndex = numEvents - 1; midiEventIndex >= 0; midiEventIndex--) {
+            MidiMessage message = track->getEventPointer(midiEventIndex)->message;
+            if (message.isNoteOff()) {
+                lastTimeStamp = std::max(lastTimeStamp, message.getTimeStamp());
+                continue;
+            }
+        }
+    }
+    
+    return lastTimeStamp;
+}
 void TrackGenerator::renderMidiTrack(const MidiMessageSequence &track, AudioBuffer<float> &outputBuffer) {
     const int BLOCKSIZE = 256;
     MidiBuffer midiBuffer;
@@ -233,11 +167,40 @@ void TrackGenerator::renderMidiTrack(const MidiMessageSequence &track, AudioBuff
     }
 }
 
-void TrackGenerator::normalizeBuffer(AudioBuffer<float>& buffer, float maxMagnitude)
-{
-    int numSamples = buffer.getNumSamples();
-    float trueMaxMag = std::min(maxMagnitude, 1.f);
-    buffer.applyGain(0, numSamples, trueMaxMag / buffer.getMagnitude(0, numSamples));
+void TrackGenerator::renderAllMidiTracks(AudioBuffer<float> &outputBuffer) {
+    for (int i = 0; i < mMidiFile.getNumTracks(); ++i) {
+       const MidiMessageSequence *track = mMidiFile.getTrack(i);
+       int numMidiEventsInTrack = track->getNumEvents();
+       DEBUG_LOG("\t%d: %d events\n", i, numMidiEventsInTrack);
+       
+       renderMidiTrack(*track, outputBuffer);
+   }
+}
+
+#pragma mark Audio
+void TrackGenerator::prepareOutputBuffer(AudioBuffer<float> &outputBuffer) {
+    int numTracks = mMidiFile.getNumTracks();
+    DEBUG_LOG("%d tracks\n", numTracks);
+    double lastTimeStamp = getTrueLastTimestamp(mMidiFile);
+    int numSamples = static_cast<int>(ceilf(lastTimeStamp * mSampleRate));
+    
+    outputBuffer.setSize(NUM_OUTPUT_CHANNELS, numSamples);
+    outputBuffer.clear();
+}
+
+void TrackGenerator::renderAudioBuffer(AudioBuffer<float> &ioBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap, VocalBus bus) {
+    jassert(ioBuffer.getNumChannels() == 2);
+    
+    VocalBusSettings *busSettings = busToSettingsMap[bus].get();
+    std::vector<AudioBuffer<float>> busBuffers = busToBuffersMap[bus];
+    
+    if (bus == Solo || bus == Background) {
+        renderContentsOfBusToBuffer(ioBuffer, busSettings, busBuffers);
+    }
+    else if (bus == Primary) {
+        jassertfalse;
+        std::cout << "Primary bus audio should be rendered with renderPrimaryBusToBuffers() and should be called after renderAudioBuffer() has been run on all other busses!" << std::endl;
+    }
 }
 
 bool TrackGenerator::writeAudioToFile(AudioBuffer<float>& buffer, String fileName)
@@ -263,30 +226,65 @@ bool TrackGenerator::writeAudioToFile(AudioBuffer<float>& buffer, String fileNam
     return true;
 }
 
-    // KRK_FIXME there has to be a better way to do this, but for some MIDIs created in Logic
-    //  (particularly ones that are more than one track), there's an extra first track that
-    //  contains all of the initial "global" metadata (time signature, key signature, etc) plus a
-    //  track-end event with a LARGE timestamp that's causing the program to render
-    //  way too many samples.
-    //
-    // This (hopefully) temporary "fix" searches all tracks for the last "note off" event
-    //  and grabs the timestamp from that.
-double TrackGenerator::getTrueLastTimestamp(MidiFile& midiFile)
-{
-    double lastTimeStamp = 0;
-    int numTracks = midiFile.getNumTracks();
-    
-    for (int trackIndex = 0; trackIndex < numTracks; ++trackIndex) {
-        const MidiMessageSequence *track = mMidiFile.getTrack(trackIndex);
-        int numEvents = track->getNumEvents();
-        for (int midiEventIndex = numEvents - 1; midiEventIndex >= 0; midiEventIndex--) {
-            MidiMessage message = track->getEventPointer(midiEventIndex)->message;
-            if (message.isNoteOff()) {
-                lastTimeStamp = std::max(lastTimeStamp, message.getTimeStamp());
-                continue;
+ void TrackGenerator::writeAudioBuffersToFile(std::vector<AudioBuffer<float>> &buffers) {
+    for (int i = 0 ; i < buffers.size(); ++i) {
+        // HACK! REMOVE SOON!
+        String fileSuffix = std::to_string(i);
+        if (buffers.size() == 4) {
+            switch (i) {
+                case 0:
+                    fileSuffix = "Soprano";
+                    break;
+                case 1:
+                    fileSuffix = "Alto";
+                    break;
+                case 2:
+                    fileSuffix = "Tenor";
+                    break;
+                case 3:
+                    fileSuffix = "Bass";
+                    break;
+                default:
+                    break;
             }
         }
+    
+        String fileName = "~/audioRender_" + fileSuffix + ".wav";
+        DEBUG_LOG("Writing file\n");
+        writeAudioToFile(buffers[i], fileName);
+    }
+}
+
+#pragma mark Audio (static)
+void TrackGenerator::renderContentsOfBusToBuffer(AudioBuffer<float> &ioBuffer, VocalBusSettings *busSettings, std::vector<AudioBuffer<float>> &busBuffers) {
+    
+    ChannelGainsArray channelGains = VocalBusSettings::getChannelGains(busSettings);
+    for (auto buffer : busBuffers) {
+        AudioBuffer<float> bufferCopyWithGains = splitMonoBufferWithChannelGains(buffer, channelGains);
+        addToBuffer(ioBuffer, bufferCopyWithGains);
+    }
+}
+
+std::vector<AudioBuffer<float>> TrackGenerator::renderPrimaryBusToBuffers(const AudioBuffer<float> &originalOutputBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap) {
+    
+    std::vector<AudioBuffer<float>> backgroundBuffers = busToBuffersMap[Background];
+    std::vector<AudioBuffer<float>> outputBuffers;
+    
+    ChannelGainsArray bgGains = VocalBusSettings::getChannelGains(busToSettingsMap[Background].get());
+    ChannelGainsArray primGains = VocalBusSettings::getChannelGains(busToSettingsMap[Primary].get());
+    
+    for (auto buffer : backgroundBuffers) {
+        AudioBuffer<float> outputBuffer(originalOutputBuffer);
+        
+        AudioBuffer<float> bgBuffersPhaseFlipped = splitMonoBufferWithChannelGains(buffer, bgGains, true);
+        addToBuffer(outputBuffer, bgBuffersPhaseFlipped);
+        
+        AudioBuffer<float> primaryBuffers = splitMonoBufferWithChannelGains(buffer, primGains);
+        addToBuffer(outputBuffer, primaryBuffers);
+        
+        outputBuffers.push_back(outputBuffer);
     }
     
-    return lastTimeStamp;
+    return outputBuffers;
 }
+
