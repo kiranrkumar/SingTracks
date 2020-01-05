@@ -14,6 +14,7 @@
 
 class VocalTrack;
 class VocalBusSettings;
+class FileWritingThread;
 
 class TrackGenerator {
 private:
@@ -33,6 +34,8 @@ public:
     void printSummary();
     
     void renderAudio(BusToSettingsMap&, BusToBuffersMap&);
+    
+    friend class FileWritingThread;
 
 #pragma mark - Private
 private:
@@ -44,7 +47,7 @@ private:
     // Audio
     void prepareOutputBuffer(AudioBuffer<float> &outputBuffer);
     void renderAudioBuffer(AudioBuffer<float> &ioBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap, VocalBus bus);
-    bool writeAudioToFile(AudioBuffer<float>&, String);
+    static bool writeAudioToFile(AudioBuffer<float>&, String);
     void writeAudioBuffersToFile(std::vector<AudioBuffer<float>> &buffers);
     
     static void renderContentsOfBusToBuffer(AudioBuffer<float> &ioBuffer, VocalBusSettings *busSettings, std::vector<AudioBuffer<float>> &busBuffers);
@@ -53,6 +56,16 @@ private:
     MidiFile mMidiFile;
     double mSampleRate;
     Synthesiser mSynth;
+};
+
+class FileWritingThread : public Thread {
+public:
+    FileWritingThread(AudioBuffer<float> &buffer, String voicePart);
+    ~FileWritingThread();
+    void run() override;
+private:
+    AudioBuffer<float> &mInBuffer;
+    String mVoicePart;
 };
 
 #endif /* TrackGenerator_hpp */

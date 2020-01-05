@@ -86,7 +86,33 @@ void TrackGenerator::renderAudio(BusToSettingsMap &busToSettingsMap, BusToBuffer
     renderAudioBuffer(outputBuffer, busToSettingsMap, busToBuffersMap, Background);
     
     std::vector<AudioBuffer<float>> outputBuffers = renderPrimaryBusToBuffers(outputBuffer, busToSettingsMap, busToBuffersMap);
-    writeAudioBuffersToFile(outputBuffers);
+    
+    for (int i = 0; i < outputBuffers.size(); ++i) {
+        AudioBuffer<float> buffer = outputBuffers[i];
+        String fileSuffix(i);
+        if (outputBuffers.size() == 4) {
+            switch (i) {
+                case 0:
+                    fileSuffix = "Soprano";
+                    break;
+                case 1:
+                    fileSuffix = "Alto";
+                    break;
+                case 2:
+                    fileSuffix = "Tenor";
+                    break;
+                case 3:
+                    fileSuffix = "Bass";
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        FileWritingThread writeThread(buffer, fileSuffix);
+        writeThread.startThread();
+        writeThread.stopThread(1000);
+    }
 }
 
 #pragma mark - Private -
@@ -218,7 +244,7 @@ bool TrackGenerator::writeAudioToFile(AudioBuffer<float>& buffer, String fileNam
     manager.registerBasicFormats();
     
     WavAudioFormat wavFormat;
-    std::unique_ptr<AudioFormatWriter> writer(wavFormat.createWriterFor(outStream, mSampleRate, NUM_OUTPUT_CHANNELS, 16, {}, 0));
+    std::unique_ptr<AudioFormatWriter> writer(wavFormat.createWriterFor(outStream, DEFAULT_SAMPLE_RATE, NUM_OUTPUT_CHANNELS, 16, {}, 0));
     
     DEBUG_LOG("Writing %d samples\n", buffer.getNumSamples());
     writer.get()->writeFromAudioSampleBuffer(buffer, 0, buffer.getNumSamples());
@@ -286,5 +312,15 @@ std::vector<AudioBuffer<float>> TrackGenerator::renderPrimaryBusToBuffers(const 
     }
     
     return outputBuffers;
+}
+
+FileWritingThread::FileWritingThread(AudioBuffer<float> &buffer, String voicePart) : Thread("File Writing Thread"), mInBuffer(buffer), mVoicePart(voicePart) {}
+
+FileWritingThread::~FileWritingThread() {}
+
+void FileWritingThread::run() {
+    TrackGenerator::writeAudioToFile(mInBuffer, "~/audioRenderFile_" + mVoicePart + ".wav");
+    while (!threadShouldExit()) {std::cout << "Thread still running" << std::endl; }
+    return;
 }
 
