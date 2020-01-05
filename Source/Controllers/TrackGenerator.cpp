@@ -57,14 +57,37 @@ void TrackGenerator::printSummary() {
     DEBUG_LOG("Time format: %d\n", mMidiFile.getTimeFormat());
 }
 
-    static void renderContentsOfBusToBuffer(AudioBuffer<float> &ioBuffer, VocalBusSettings *busSettings, std::vector<AudioBuffer<float>> &busBuffers) {
-        
-        ChannelGainsArray channelGains = VocalBusSettings::getChannelGains(busSettings);
-        for (auto buffer : busBuffers) {
-            AudioBuffer<float> bufferCopyWithGains = splitMonoBufferWithChannelGains(buffer, channelGains);
-            addToBuffer(ioBuffer, bufferCopyWithGains);
-        }
+void TrackGenerator::renderContentsOfBusToBuffer(AudioBuffer<float> &ioBuffer, VocalBusSettings *busSettings, std::vector<AudioBuffer<float>> &busBuffers) {
+    
+    ChannelGainsArray channelGains = VocalBusSettings::getChannelGains(busSettings);
+    for (auto buffer : busBuffers) {
+        AudioBuffer<float> bufferCopyWithGains = splitMonoBufferWithChannelGains(buffer, channelGains);
+        addToBuffer(ioBuffer, bufferCopyWithGains);
     }
+}
+
+std::vector<AudioBuffer<float>> TrackGenerator::renderPrimaryBusToBuffers(const AudioBuffer<float> &originalOutputBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap) {
+    
+    std::vector<AudioBuffer<float>> backgroundBuffers = busToBuffersMap[Background];
+    std::vector<AudioBuffer<float>> outputBuffers;
+    
+    ChannelGainsArray bgGains = VocalBusSettings::getChannelGains(busToSettingsMap[Background].get());
+    ChannelGainsArray primGains = VocalBusSettings::getChannelGains(busToSettingsMap[Primary].get());
+    
+    for (auto buffer : backgroundBuffers) {
+        AudioBuffer<float> outputBuffer(originalOutputBuffer);
+        
+        AudioBuffer<float> bgBuffersPhaseFlipped = splitMonoBufferWithChannelGains(buffer, bgGains, true);
+        addToBuffer(outputBuffer, bgBuffersPhaseFlipped);
+        
+        AudioBuffer<float> primaryBuffers = splitMonoBufferWithChannelGains(buffer, primGains);
+        addToBuffer(outputBuffer, primaryBuffers);
+        
+        outputBuffers.push_back(outputBuffer);
+    }
+    
+    return outputBuffers;
+}
 
 void TrackGenerator::renderAudioBuffer(AudioBuffer<float> &ioBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap, VocalBus bus) {
     jassert(ioBuffer.getNumChannels() == 2);
@@ -76,26 +99,37 @@ void TrackGenerator::renderAudioBuffer(AudioBuffer<float> &ioBuffer, BusToSettin
         renderContentsOfBusToBuffer(ioBuffer, busSettings, busBuffers);
     }
     else if (bus == Primary) {
-        VocalBusSettings *bgSettings = busToSettingsMap[Background].get();
-        ChannelGainsArray bgChannelGains = VocalBusSettings::getChannelGains(bgSettings);
-        ChannelGainsArray primChannelGains = VocalBusSettings::getChannelGains(busSettings);
-        
-        // For each background buffer, reverse the bg gain, apply primary gain, and write to file
-        int fileIndex = 0;
-        std::vector<AudioBuffer<float>> bgBuffers = busToBuffersMap[Background];
-        for (auto buffer : bgBuffers) {
-            AudioBuffer<float> outputCopy(ioBuffer);
-            
-            AudioBuffer<float> bgBuffersPhaseFlipped = splitMonoBufferWithChannelGains(buffer, bgChannelGains, true);
-            addToBuffer(outputCopy, bgBuffersPhaseFlipped);
-            
-            AudioBuffer<float> primaryBuffers = splitMonoBufferWithChannelGains(buffer, primChannelGains);
-            addToBuffer(outputCopy, primaryBuffers);
-            
-            String fileName = "~/audioRender_" + std::to_string(fileIndex++) + ".wav";
-            DEBUG_LOG("Writing file\n");
-            writeAudioToFile(outputCopy, fileName);
+        jassertfalse;
+        std::cout << "Primary bus audio should be rendered with renderPrimaryBusToBuffers() and should be called after renderAudioBuffer() has been run on all other busses!" << std::endl;
+    }
+}
+
+ void TrackGenerator::writeAudioBuffersToFile(std::vector<AudioBuffer<float>> &buffers) {
+    for (int i = 0 ; i < buffers.size(); ++i) {
+        // HACK! REMOVE SOON!
+        String fileSuffix = std::to_string(i);
+        if (buffers.size() == 4) {
+            switch (i) {
+                case 0:
+                    fileSuffix = "Soprano";
+                    break;
+                case 1:
+                    fileSuffix = "Alto";
+                    break;
+                case 2:
+                    fileSuffix = "Tenor";
+                    break;
+                case 3:
+                    fileSuffix = "Bass";
+                    break;
+                default:
+                    break;
+            }
         }
+    
+        String fileName = "~/audioRender_" + fileSuffix + ".wav";
+        DEBUG_LOG("Writing file\n");
+        writeAudioToFile(buffers[i], fileName);
     }
 }
 
@@ -103,14 +137,15 @@ void TrackGenerator::renderAudio(BusToSettingsMap &busToSettingsMap, BusToBuffer
 {
     // Initialize an empty output buffer
     int numSamples = static_cast<int>(ceilf(DEFAULT_SAMPLE_RATE * getTrueLastTimestamp(mMidiFile)));
+    
     AudioBuffer<float> outputBuffer(NUM_OUTPUT_CHANNELS, numSamples);
     outputBuffer.clear();
 
     renderAudioBuffer(outputBuffer, busToSettingsMap, busToBuffersMap, Solo);
     renderAudioBuffer(outputBuffer, busToSettingsMap, busToBuffersMap, Background);
     
-    // WARNING - this writes to file as well. FIX THIS!
-    renderAudioBuffer(outputBuffer, busToSettingsMap, busToBuffersMap, Primary);
+    std::vector<AudioBuffer<float>> outputBuffers = renderPrimaryBusToBuffers(outputBuffer, busToSettingsMap, busToBuffersMap);
+    writeAudioBuffersToFile(outputBuffers);
 }
 
 bool TrackGenerator::isMusicalTrack(int trackNum)

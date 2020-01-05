@@ -38,6 +38,10 @@ private:
     void renderAudioBuffer(AudioBuffer<float> &ioBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap, VocalBus bus);
     void normalizeBuffer(AudioBuffer<float>&, float);
     bool writeAudioToFile(AudioBuffer<float>&, String);
+    void writeAudioBuffersToFile(std::vector<AudioBuffer<float>> &buffers);
+    
+    static void renderContentsOfBusToBuffer(AudioBuffer<float> &ioBuffer, VocalBusSettings *busSettings, std::vector<AudioBuffer<float>> &busBuffers);
+    static std::vector<AudioBuffer<float>> renderPrimaryBusToBuffers(const AudioBuffer<float> &originalOutputBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap);
     
     double getTrueLastTimestamp(MidiFile&);
     
