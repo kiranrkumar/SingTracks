@@ -29,6 +29,8 @@ TrackFieldsComponent::TrackFieldsComponent(VocalTrack *track)
     mNameField.applyFontToAllText(Font(16));
     mNameField.setText(track->getDisplayName());
     
+    mNameField.onTextChange = [this] (void) { mVocalTrack->setDisplayName( mNameField.getText()); };
+    
     addAndMakeVisible(mIsSoloButton);
     addAndMakeVisible(mNameField);
 }

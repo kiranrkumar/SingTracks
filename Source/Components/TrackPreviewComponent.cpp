@@ -95,14 +95,14 @@ void TrackPreviewComponent::buttonClicked(Button *button)
             busToSettingsMap[busSettings.getBus()] = std::make_unique<VocalBusSettings>(VocalBusSettings(busSettings));
         }
         
-        // Map bus to buffers
-        BusToBuffersMap busToBuffersMap;
+        // Map bus to Vocal Tracks
+        BusToTracksMap busToTracksMap;
         for (TrackFieldsComponent *fieldsComp : mTrackFields) {
             VocalTrack *track = fieldsComp->getVocalTrack();
-            busToBuffersMap[track->getBus()].push_back(track->getBufferCopy());
+            busToTracksMap[track->getBus()].push_back(track);
         }
 
-        getRootComponent()->createTracks(busToSettingsMap, busToBuffersMap);
+        getRootComponent()->createTracks(busToSettingsMap, busToTracksMap);
         
     }
 }

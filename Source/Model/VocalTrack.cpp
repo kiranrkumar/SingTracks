@@ -45,6 +45,11 @@ String VocalTrack::getDisplayName()
     return mDisplayName;
 }
 
+void VocalTrack::setDisplayName(String name)
+{
+    mDisplayName = name;
+}
+
 VocalBus VocalTrack::getBus()
 {
     return mBus;

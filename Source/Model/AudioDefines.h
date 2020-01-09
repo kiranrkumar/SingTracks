@@ -13,6 +13,7 @@
 #include "../../JuceLibraryCode/JuceHeader.h"
 
 class VocalBusSettings;
+class VocalTrack;
 
 typedef enum {
     Solo = 0,
@@ -40,5 +41,5 @@ const std::map<VocalBus, const String> BusToDisplayName = {
     {Primary, VocalBusStrings::PRIMARY},
 };
 
+typedef std::map<VocalBus, std::vector<VocalTrack *>> BusToTracksMap;
 typedef std::map<VocalBus, std::unique_ptr<VocalBusSettings>> BusToSettingsMap;
-typedef std::map<VocalBus, std::vector<AudioBuffer<float>>> BusToBuffersMap;

@@ -24,9 +24,9 @@ AppController::~AppController()
     mTrackGenerator.reset();
 }
 
-void AppController::createTracks(BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap)
+void AppController::createTracks(BusToSettingsMap &busToSettingsMap, BusToTracksMap &busToTracksMap)
 {
-    mTrackGenerator->renderAudio(busToSettingsMap, busToBuffersMap);
+    mTrackGenerator->renderAudio(busToSettingsMap, busToTracksMap);
 }
 
 void

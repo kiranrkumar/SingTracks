@@ -78,9 +78,9 @@ File* MainComponent::getCurrentFile()
     return mAppController->getCurrentFile();
 }
 
-void MainComponent::createTracks(BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap)
+void MainComponent::createTracks(BusToSettingsMap &busToSettingsMap, BusToTracksMap &busToTracksMap)
 {
-    mAppController->createTracks(busToSettingsMap, busToBuffersMap);
+    mAppController->createTracks(busToSettingsMap, busToTracksMap);
 }
 
 void MainComponent::importMidi()

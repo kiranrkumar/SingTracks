@@ -33,7 +33,7 @@ public:
     
     void printSummary();
     
-    void renderAudio(BusToSettingsMap&, BusToBuffersMap&);
+    void renderAudio(BusToSettingsMap&, BusToTracksMap&);
     
     friend class FileWritingThread;
 
@@ -46,12 +46,12 @@ private:
     
     // Audio
     void prepareOutputBuffer(AudioBuffer<float> &outputBuffer);
-    void renderAudioBuffer(AudioBuffer<float> &ioBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap, VocalBus bus);
+    void renderAudioBuffer(AudioBuffer<float> &ioBuffer, BusToSettingsMap &busToSettingsMap, BusToTracksMap &busToTracksMap, VocalBus bus);
     static bool writeAudioToFile(AudioBuffer<float>&, String);
-    void writeAudioBuffersToFile(std::vector<AudioBuffer<float>> &buffers);
     
-    static void renderContentsOfBusToBuffer(AudioBuffer<float> &ioBuffer, VocalBusSettings *busSettings, std::vector<AudioBuffer<float>> &busBuffers);
-    static std::vector<AudioBuffer<float>> renderPrimaryBusToBuffers(const AudioBuffer<float> &originalOutputBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap);
+    static void renderContentsOfBusToBuffer(AudioBuffer<float> &ioBuffer, VocalBusSettings *busSettings, std::vector<VocalTrack *> &busTracks);
+    static std::vector<AudioBuffer<float>> renderPrimaryBusToBuffers(const AudioBuffer<float> &originalOutputBuffer, BusToSettingsMap &busToSettingsMap, BusToTracksMap &busToTracksMap);
+
     
     MidiFile mMidiFile;
     double mSampleRate;

@@ -75,41 +75,24 @@ void TrackGenerator::printSummary() {
     DEBUG_LOG("Time format: %d\n", mMidiFile.getTimeFormat());
 }
 
-void TrackGenerator::renderAudio(BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap)
+void TrackGenerator::renderAudio(BusToSettingsMap &busToSettingsMap, BusToTracksMap &busToTracksMap)
 {
     // Initialize an empty output buffer
     AudioBuffer<float> outputBuffer;
     
     prepareOutputBuffer(outputBuffer);
-
-    renderAudioBuffer(outputBuffer, busToSettingsMap, busToBuffersMap, Solo);
-    renderAudioBuffer(outputBuffer, busToSettingsMap, busToBuffersMap, Background);
     
-    std::vector<AudioBuffer<float>> outputBuffers = renderPrimaryBusToBuffers(outputBuffer, busToSettingsMap, busToBuffersMap);
+    renderAudioBuffer(outputBuffer, busToSettingsMap, busToTracksMap, Solo);
+    renderAudioBuffer(outputBuffer, busToSettingsMap, busToTracksMap, Background);
     
+    std::vector<AudioBuffer<float>> outputBuffers = renderPrimaryBusToBuffers(outputBuffer, busToSettingsMap, busToTracksMap);
+    
+    std::vector<VocalTrack *> tracks = busToTracksMap[Background];
     for (int i = 0; i < outputBuffers.size(); ++i) {
         AudioBuffer<float> buffer = outputBuffers[i];
-        String fileSuffix(i);
-        if (outputBuffers.size() == 4) {
-            switch (i) {
-                case 0:
-                    fileSuffix = "Soprano";
-                    break;
-                case 1:
-                    fileSuffix = "Alto";
-                    break;
-                case 2:
-                    fileSuffix = "Tenor";
-                    break;
-                case 3:
-                    fileSuffix = "Bass";
-                    break;
-                default:
-                    break;
-            }
-        }
+        String partName = tracks[i]->getDisplayName();
         
-        FileWritingThread writeThread(buffer, fileSuffix);
+        FileWritingThread writeThread(buffer, partName);
         writeThread.startThread();
         writeThread.stopThread(1000);
     }
@@ -214,14 +197,14 @@ void TrackGenerator::prepareOutputBuffer(AudioBuffer<float> &outputBuffer) {
     outputBuffer.clear();
 }
 
-void TrackGenerator::renderAudioBuffer(AudioBuffer<float> &ioBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap, VocalBus bus) {
+void TrackGenerator::renderAudioBuffer(AudioBuffer<float> &ioBuffer, BusToSettingsMap &busToSettingsMap, BusToTracksMap &busToTracksMap, VocalBus bus) {
     jassert(ioBuffer.getNumChannels() == 2);
     
     VocalBusSettings *busSettings = busToSettingsMap[bus].get();
-    std::vector<AudioBuffer<float>> busBuffers = busToBuffersMap[bus];
+    std::vector<VocalTrack *> busTracks = busToTracksMap[bus];
     
     if (bus == Solo || bus == Background) {
-        renderContentsOfBusToBuffer(ioBuffer, busSettings, busBuffers);
+        renderContentsOfBusToBuffer(ioBuffer, busSettings, busTracks);
     }
     else if (bus == Primary) {
         jassertfalse;
@@ -252,60 +235,32 @@ bool TrackGenerator::writeAudioToFile(AudioBuffer<float>& buffer, String fileNam
     return true;
 }
 
- void TrackGenerator::writeAudioBuffersToFile(std::vector<AudioBuffer<float>> &buffers) {
-    for (int i = 0 ; i < buffers.size(); ++i) {
-        // HACK! REMOVE SOON!
-        String fileSuffix = std::to_string(i);
-        if (buffers.size() == 4) {
-            switch (i) {
-                case 0:
-                    fileSuffix = "Soprano";
-                    break;
-                case 1:
-                    fileSuffix = "Alto";
-                    break;
-                case 2:
-                    fileSuffix = "Tenor";
-                    break;
-                case 3:
-                    fileSuffix = "Bass";
-                    break;
-                default:
-                    break;
-            }
-        }
-    
-        String fileName = "~/audioRender_" + fileSuffix + ".wav";
-        DEBUG_LOG("Writing file\n");
-        writeAudioToFile(buffers[i], fileName);
-    }
-}
-
 #pragma mark Audio (static)
-void TrackGenerator::renderContentsOfBusToBuffer(AudioBuffer<float> &ioBuffer, VocalBusSettings *busSettings, std::vector<AudioBuffer<float>> &busBuffers) {
+void TrackGenerator::renderContentsOfBusToBuffer(AudioBuffer<float> &ioBuffer, VocalBusSettings *busSettings, std::vector<VocalTrack *> &busTracks) {
     
     ChannelGainsArray channelGains = VocalBusSettings::getChannelGains(busSettings);
-    for (auto buffer : busBuffers) {
-        AudioBuffer<float> bufferCopyWithGains = splitMonoBufferWithChannelGains(buffer, channelGains);
+    for (auto trackPtr : busTracks) {
+        AudioBuffer<float> bufferCopyWithGains = splitMonoBufferWithChannelGains(trackPtr->getBuffer(), channelGains);
         addToBuffer(ioBuffer, bufferCopyWithGains);
     }
 }
 
-std::vector<AudioBuffer<float>> TrackGenerator::renderPrimaryBusToBuffers(const AudioBuffer<float> &originalOutputBuffer, BusToSettingsMap &busToSettingsMap, BusToBuffersMap &busToBuffersMap) {
+std::vector<AudioBuffer<float>> TrackGenerator::renderPrimaryBusToBuffers(const AudioBuffer<float> &originalOutputBuffer, BusToSettingsMap &busToSettingsMap, BusToTracksMap &busToTracksMap) {
     
-    std::vector<AudioBuffer<float>> backgroundBuffers = busToBuffersMap[Background];
+    std::vector<VocalTrack *> backgroundTracks = busToTracksMap[Background];
     std::vector<AudioBuffer<float>> outputBuffers;
     
     ChannelGainsArray bgGains = VocalBusSettings::getChannelGains(busToSettingsMap[Background].get());
     ChannelGainsArray primGains = VocalBusSettings::getChannelGains(busToSettingsMap[Primary].get());
     
-    for (auto buffer : backgroundBuffers) {
+    for (auto trackPtr : backgroundTracks) {
+        AudioBuffer<float> trackBuffer(trackPtr->getBuffer());
         AudioBuffer<float> outputBuffer(originalOutputBuffer);
         
-        AudioBuffer<float> bgBuffersPhaseFlipped = splitMonoBufferWithChannelGains(buffer, bgGains, true);
+        AudioBuffer<float> bgBuffersPhaseFlipped = splitMonoBufferWithChannelGains(trackBuffer, bgGains, true);
         addToBuffer(outputBuffer, bgBuffersPhaseFlipped);
         
-        AudioBuffer<float> primaryBuffers = splitMonoBufferWithChannelGains(buffer, primGains);
+        AudioBuffer<float> primaryBuffers = splitMonoBufferWithChannelGains(trackBuffer, primGains);
         addToBuffer(outputBuffer, primaryBuffers);
         
         outputBuffers.push_back(outputBuffer);

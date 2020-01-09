@@ -18,6 +18,7 @@ public:
     VocalTrack(const MidiFile &midiFile, int trackNum);
     
     String getDisplayName();
+    void setDisplayName(String);
     VocalBus getBus();
     void setBus(VocalBus bus);
     const AudioBuffer<float>& getBuffer() const;
