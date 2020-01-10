@@ -28,8 +28,7 @@ As of now, the app is in a minimal working state. Users can import a MIDI file, 
 
 Creating tracks from settings for the above groups will create as many audio files as there are background tracks (i.e. tracks that aren't marked as solo). Each track will have a different background track adhering to the primary group settings, while the remaining non-solo tracks following the background group settings.
 
-This still needs many fixes and refinements, not the least of which include:
+This still needs many fixes and refinements, not the least of which include:<br>
 • Allowing the user to choose an output directory <br>
-• Having output file names adhere to the user-entered track names <br>
 • Adding a back button to easily go back and switching MIDI files without having to restart the app <br>
 • Adding better synth sounds (who wants to practice by listening to sine waves?)
