@@ -19,7 +19,7 @@ From this, four audio tracks will be created, each with different volume and pan
 
 Thus, with one group of settings, each background singer has an audio track that isolates their part without losing the context of the rest of the song.
 
-Jan 3, 2020
+Jan 9, 2020
 
 As of now, the app is in a minimal working state. Users can import a MIDI file, indicate which tracks are solos, and set volume and panning values for the following groups of tracks:<br>
 • Solo/Harmony<br>
