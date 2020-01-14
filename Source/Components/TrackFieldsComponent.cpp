@@ -28,6 +28,8 @@ TrackFieldsComponent::TrackFieldsComponent(VocalTrack *track)
     mNameField.setMultiLine(false);
     mNameField.applyFontToAllText(Font(16));
     mNameField.setText(track->getDisplayName());
+    mNameField.setSelectAllWhenFocused(true);
+    
     
     mNameField.onTextChange = [this] (void) { mVocalTrack->setDisplayName( mNameField.getText()); };
     
