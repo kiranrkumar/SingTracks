@@ -56,3 +56,10 @@ MIDIFilenameComponent::boundsToDraw(Rectangle<int> localBounds)
     
     return Rectangle<int>(xPos, yPos, width, mHeight);
 }
+
+File
+MIDIFilenameComponent::getLocationToBrowse()
+{
+    static String startingLocation("~/SingTracks/Resources/MIDI/");
+    return startingLocation;
+}

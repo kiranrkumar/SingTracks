@@ -274,7 +274,8 @@ FileWritingThread::FileWritingThread(AudioBuffer<float> &buffer, String voicePar
 FileWritingThread::~FileWritingThread() {}
 
 void FileWritingThread::run() {
-    TrackGenerator::writeAudioToFile(mInBuffer, "~/audioRenderFile_" + mVoicePart + ".wav");
+    const String tmpFilePrefix("~/audioRenderFile_");
+    TrackGenerator::writeAudioToFile(mInBuffer, tmpFilePrefix + mVoicePart + ".wav");
     while (!threadShouldExit()) {std::cout << "Thread still running" << std::endl; }
     return;
 }

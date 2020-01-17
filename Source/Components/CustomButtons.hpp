@@ -40,6 +40,7 @@ class MIDIFilenameComponent : public FilenameComponent, public SelfDrawingCompon
 public:
     MIDIFilenameComponent();
     Rectangle<int> boundsToDraw(Rectangle<int>) override;
+    File getLocationToBrowse() override;
 private:
     const int mMaxWidth = 800;
     int mHeight;
