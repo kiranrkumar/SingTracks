@@ -1,5 +1,7 @@
-MacOSX/.DS_Store
-.DS_Store
+#Everything in the app binary
 MacOSX/build/Debug/SingTracks.app/
-MacOSX/SingTracks.xcodeproj/project.xcworkspace/xcuserdata/kirankumar.xcuserdatad/UserInterfaceState.xcuserstate
+
+#Other user-specific stuff
+*.DS_Store
+*.xcuserstate
 *.xcbkptlist
