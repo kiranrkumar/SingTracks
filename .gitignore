@@ -1,6 +1,5 @@
-
 MacOSX/.DS_Store
 .DS_Store
 MacOSX/build/Debug/SingTracks.app/
 MacOSX/SingTracks.xcodeproj/project.xcworkspace/xcuserdata/kirankumar.xcuserdatad/UserInterfaceState.xcuserstate
-MacOSX/SingTracks.xcodeproj/xcuserdata/kirankumar.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+*.xcbkptlist
