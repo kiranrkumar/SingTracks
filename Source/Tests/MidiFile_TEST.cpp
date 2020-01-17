@@ -9,8 +9,7 @@
 */
 
 #include "MidiFile_TEST.h"
-
-const char* const MIDI_FILEPATH = "/Users/kirankumar/SingTracks/Builds/MacOSX/OnlyLove.mid";
+#include "UnitTestDefines.h"
 
 MIDIReadTest::MIDIReadTest() : UnitTest ("Read a valid MIDI file") {}
 

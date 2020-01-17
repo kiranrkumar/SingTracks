@@ -11,23 +11,17 @@ namespace BinaryData
     extern const char*   Hallelujah_Sample_Midi_mid;
     const int            Hallelujah_Sample_Midi_midSize = 1098;
 
-    extern const char*   moremidi_mid;
-    const int            moremidi_midSize = 252;
+    extern const char*   SimpleMIDI_mid;
+    const int            SimpleMIDI_midSize = 123;
 
-    extern const char*   OnlyLove_mid;
-    const int            OnlyLove_midSize = 57031;
+    extern const char*   twoTrackScale_mid;
+    const int            twoTrackScale_midSize = 277;
 
-    extern const char*   TestMIDI_mid;
-    const int            TestMIDI_midSize = 163;
-
-    extern const char*   testmidi2_mid;
-    const int            testmidi2_midSize = 160;
-
-    extern const char*   stIcon_png;
-    const int            stIcon_pngSize = 11067;
+    extern const char*   tmpIcon_png;
+    const int            tmpIcon_pngSize = 11067;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 6;
+    const int namedResourceListSize = 4;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

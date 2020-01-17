@@ -9,6 +9,7 @@
 */
 
 #include "TrackGenerator_TEST.h"
+#include "UnitTestDefines.h"
 
 TrackGeneratorTest::TrackGeneratorTest() : UnitTest ("Test rendering midi tracks to audio data") {}
 
@@ -35,7 +36,7 @@ bool TrackGeneratorTest::test_defaultSampleRateIsPositive() {
 }
 
 bool TrackGeneratorTest::readMidiFromFile() {
-    const String midiFilePath("~/SingTracks/Builds/MacOSX/twoTrackScale.mid"); // KRK_FIXME unstable file path!
+    const String midiFilePath(MIDI_FILEPATH);
     File file(midiFilePath);
     return mTrackGenerator.get()->readMidiDataFromFile(file);
 }
